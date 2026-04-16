@@ -79,7 +79,7 @@ const Th = ({ children, className = "" }: { children: React.ReactNode; className
   </th>
 );
 
-const Td = ({ children, className = "", bold = false }: { children: React.ReactNode; className?: string; bold?: boolean }) => (
+const Td = ({ children = null, className = "", bold = false }: { children?: React.ReactNode; className?: string; bold?: boolean }) => (
   <td className={`px-3 py-2 text-xs border-b border-border/50 ${bold ? "font-semibold text-foreground" : "text-muted-foreground"} ${className}`}>
     {children}
   </td>

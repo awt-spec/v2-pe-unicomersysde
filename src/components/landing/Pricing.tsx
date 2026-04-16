@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { Check, X as XIcon, Server, CreditCard, Cloud, HardDrive, Users, Globe, DollarSign, Layers } from "lucide-react";
 import SysdeHint from "./SysdeHint";
+import AnnexViewer from "./annex/AnnexViewer";
 
 const licenses = [
   { name: "Credit Core System", price: "USD 350,000", desc: "Préstamos, crédito, microcrédito", sub: "Licencia Anual", icon: Server },
@@ -499,6 +500,8 @@ const Pricing = () => {
               />
             </div>
           </motion.div>
+
+          <AnnexViewer />
         </div>
       </div>
     </section>
