@@ -132,18 +132,25 @@ const Pricing = () => {
             viewport={{ once: true }}
             className="bg-card rounded-2xl border border-border p-8 md:p-10 mb-8 text-center"
           >
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Despliegue Multi-País Sin Límites</p>
-            <div className="flex flex-col items-center gap-2">
-              <motion.span
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-6 font-medium">Despliegue Multi-País Sin Límites</p>
+            <div className="flex flex-col items-center gap-4">
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="font-display text-7xl md:text-8xl font-black text-accent tabular-nums"
+                transition={{ type: "spring", stiffness: 200, damping: 22 }}
+                className="flex items-center justify-center gap-3 md:gap-5 font-serif italic tabular-nums"
+                style={{ fontFamily: "'Cambria Math', 'Latin Modern Math', 'STIX Two Math', Cambria, Georgia, serif" }}
               >
-                9
-              </motion.span>
-              <p className="font-display text-lg md:text-xl font-bold text-foreground tracking-wide">BIG 9 CUBIERTOS + TODOS LOS PAÍSES</p>
+                <span className="text-6xl md:text-8xl font-bold text-accent leading-none">9</span>
+                <span className="text-5xl md:text-7xl font-light text-foreground/70 leading-none">+</span>
+                <span className="text-6xl md:text-8xl font-bold text-foreground leading-none">x</span>
+                <span className="text-5xl md:text-7xl font-light text-foreground/70 leading-none">=</span>
+                <span className="text-5xl md:text-7xl font-bold text-accent leading-none not-italic tracking-tight" style={{ fontFamily: "inherit" }}>
+                  TODOS
+                </span>
+              </motion.div>
+              <p className="font-display text-base md:text-lg font-bold text-foreground tracking-wide mt-2">BIG 9 CUBIERTOS + TODOS LOS PAÍSES FUTUROS</p>
               <p className="text-sm text-muted-foreground max-w-md">
                 Incluyendo todos los países actuales y futuros donde Unicomer opere — sin costos adicionales de licencia
               </p>
