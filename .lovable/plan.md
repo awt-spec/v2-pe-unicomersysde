@@ -1,83 +1,72 @@
 
 
-## Plan: Mejoras visuales al Pricing y Puzzle (sin cambiar datos)
+## Plan: Anexo Económico interactivo con descarga a Excel
 
 ### Objetivo
-Hacer la sección de Pricing y el rompecabezas mas visualmente impactantes e intuitivos, sin agregar ni modificar datos existentes.
+Montar un visor del Annex 2 (5 tabs del Excel) con todos los textos originales, rediseñado al estilo actual del landing, e incluir un botón "Descargar Excel" que genere el .xlsx idéntico al original.
 
 ---
 
-### 1. Pricing: Cronograma de Pagos Visual (timeline)
+### 1. Nuevo componente `AnnexViewer` con 5 tabs
 
-**Archivo:** `src/components/landing/Pricing.tsx`
+**Archivo nuevo:** `src/components/landing/annex/AnnexViewer.tsx`
 
-Reemplazar la tabla del calendario de pagos por una **timeline visual horizontal** con los mismos 5 anos:
-- 5 nodos circulares conectados por una linea animada que se llena con scroll/inView
-- Cada nodo muestra: Ano, total, y un desglose en tooltip/popover al hover
-- Ano 1 destacado con borde accent (por incluir implementacion)
-- Anos 2-5 con estilo recurrente uniforme
-- El total de 5 anos ($4,321,416) aparece al final con efecto counter animado
-- Mobile: timeline vertical
+Usar `Tabs` de shadcn con 5 tabs (mismos nombres del Excel):
+1. **Instructions** — tabla de 9 reglas (Currency, Taxes, WHT, Validity, Billing Trigger, Travel, Implementation, Volumetrics, Consistency).
+2. **Baseline Scenarios** — tabla de 9 países con 7 columnas de volúmenes + totales (2,150,500 créditos · 1,053,100 clientes · 4,172 usuarios).
+3. **OPEX – On-Premise (Subscription)** — tabla de 9 países con phase, métrica "Per Active Loan", volumen, $0.03–$0.10 unit price, total anual = $774,180 + bloques de licencias anuales (Credit Core $350K, Tarjetas $250K, Factoring $100K).
+4. **OPEX – SaaS (Cloud)** — misma estructura, total $1,278,455, incluye tabla "Costing Model per Loan" (tiers 1–100K, 100K–200K, etc.).
+5. **Implementation Services** — tabla con Honduras $1,220,000 + Nicaragua $101,416 + países "Train-the-Trainer" en $0 = **TOTAL $1,321,416**, más las instrucciones de fade-out (Phase 1/2/3) y nota T&E.
 
-### 2. Pricing: Cards de impacto ejecutivo
+**Diseño:**
+- Cada tab dentro de una `Card` con header `Inversión Fija — Anexo 2`
+- Bloques "INSTRUCTIONS" en banners con icono (estilo accent suave)
+- Tablas con la misma estética que `Pricing.tsx` (border-border, tabular-nums, totales en accent rojo `#b41d2f`)
+- Mobile: tabs en `Select` colapsable + tablas en `overflow-x-auto`
+- Animación fade-in al cambiar de tab
 
-**Archivo:** `src/components/landing/Pricing.tsx`
+### 2. Datos centralizados
 
-Agregar **4 cards** despues de la timeline, calculadas con los datos existentes (sin datos nuevos):
-- **"$0 por usuario adicional"** — derivado del modelo ilimitado ya existente
-- **"~$67K por pais/ano"** — $600K / 9 paises, dato ya implicito
-- **"$0.36 por credito/ano"** — $774,180 / 2,150,500 creditos, dato ya implicito
-- **"1 plataforma = 9 paises"** — consolidacion, dato ya presente
+**Archivo nuevo:** `src/components/landing/annex/annexData.ts`
 
-Cada card: numero grande con counter animado (useInView), subtitulo, icono, borde gradient sutil accent.
+Exportar todas las constantes (instructions, baseline, onPremise, saas, costingTiers, implementation, licenseBlocks). Una sola fuente de verdad para UI + generación de Excel.
 
-### 3. Pricing: Frase de cierre
+### 3. Botón "Descargar Excel"
 
-Bloque con frase ejecutiva grande al final:
-> "La pregunta no es cuanto cuesta SAF+. Es cuanto le cuesta a Unicomer NO tenerlo."
+**Librería:** instalar `xlsx` (SheetJS, ya muy común, ~600KB).
 
-Estilo: texto grande, centrado, con fade-in.
+Header del componente con dos botones:
+- **Descargar Excel** (primario rojo SYSDE, icono `Download`) → genera y descarga `Annex_2_SYSDE_Response.xlsx` con 5 hojas idénticas al original (mismos headers, mismos números, mismos formatos $#,##0).
+- **(opcional)** Toggle entre "Vista" y "Modo presentación".
 
-### 4. Puzzle: Lineas de conexion entre piezas
+Función `generateExcel()` en `src/components/landing/annex/excelExport.ts`:
+- 5 worksheets con `XLSX.utils.aoa_to_sheet` desde los mismos datos
+- Anchos de columna razonables, formato de números, celdas TOTAL en negrita
+- `XLSX.writeFile(wb, "Annex_2_SYSDE_Response.xlsx")`
 
-**Archivo:** `src/components/landing/PuzzleModules.tsx`
+### 4. Integración en la página
 
-Agregar **lineas SVG animadas** que conectan piezas relacionadas cuando estan ensambladas:
-- Lineas curvas (bezier) entre piezas de la misma capa con stroke animado (dash-offset)
-- Al ensamblar una capa, las lineas aparecen con efecto de "flujo de datos" (animacion de dash moviéndose)
-- Color de la linea = color de la capa con opacidad baja
-- Las lineas desaparecen cuando se abre un detail slide
+**Archivo:** `src/components/landing/Pricing.tsx` (ligero cambio)
 
-### 5. Puzzle: Particulas/glow al ensamblar
+Insertar el `<AnnexViewer />` justo **después** del cierre ejecutivo (línea ~501), dentro de la misma sección `#pricing`. Mantener todo el diseño actual de Pricing intacto.
 
-**Archivo:** `src/components/landing/puzzle/PieceAnimated.tsx`
+Agregar un sub-título separador:
+> "Anexo 2 — Respuesta detallada al modelo económico oficial de Unicomer"
 
-Mejorar la animacion de ensamblaje:
-- Al momento que una pieza se ensambla (transicion a verde), emitir un destello radial breve (radial gradient que aparece y desaparece)
-- Efecto "snap" con micro-scale bounce (1 -> 1.05 -> 1) al llegar a posicion final
-- Sutil particula trail durante el scatter-to-assembled
+### 5. Archivos a crear/modificar
 
-### 6. Puzzle: Contador de progreso
-
-**Archivo:** `src/components/landing/PuzzleModules.tsx`
-
-Agregar un indicador de progreso visual en la esquina:
-- Circulo de progreso SVG que muestra "X/20 modulos revelados"
-- Se actualiza con cada capa revelada (5/20 -> 12/20 -> 20/20)
-- Al completar: animacion de celebracion sutil (pulse verde)
-
----
-
-### Archivos a modificar
-| Archivo | Cambio |
+| Archivo | Acción |
 |---|---|
-| `src/components/landing/Pricing.tsx` | Timeline visual, cards ejecutivas, frase cierre |
-| `src/components/landing/PuzzleModules.tsx` | Lineas de conexion SVG, contador de progreso |
-| `src/components/landing/puzzle/PieceAnimated.tsx` | Efecto glow/snap al ensamblar |
+| `src/components/landing/annex/AnnexViewer.tsx` | **Nuevo** — UI con 5 tabs |
+| `src/components/landing/annex/annexData.ts` | **Nuevo** — datos del Excel |
+| `src/components/landing/annex/excelExport.ts` | **Nuevo** — generador XLSX |
+| `src/components/landing/Pricing.tsx` | Insertar `<AnnexViewer />` al final |
+| `package.json` | Agregar dependencia `xlsx` |
 
-### Detalles tecnicos
-- Counters animados con `useInView` + requestAnimationFrame
-- Timeline con `motion.div` y barras de progreso
-- Lineas SVG con `strokeDasharray` + `strokeDashoffset` animado
-- Todos los datos son los mismos que ya existen en el componente
+### Detalles técnicos
+- Usar `Tabs`, `Card`, `Button` de shadcn (ya disponibles)
+- Iconos: `FileSpreadsheet`, `Download`, `Info`, `Layers`, `HardDrive`, `Cloud`, `Briefcase` (lucide)
+- Colores: rojo SYSDE `#b41d2f` para totales y CTA, gris `#4d4d4f` para headers
+- Excel generado conserva: nombres de hojas, headers exactos, números formateados, totales con fórmula `=SUM(...)` cuando aplique
+- Sin backend — descarga 100% client-side
 
