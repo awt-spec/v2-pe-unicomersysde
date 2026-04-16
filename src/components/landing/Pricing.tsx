@@ -125,13 +125,41 @@ const Pricing = () => {
 
         <div className="max-w-6xl mx-auto">
 
-          {/* ═══════ VISUAL PAYMENT TIMELINE ═══════ */}
+          {/* ═══════ BIG 9 BANNER ═══════ */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-card rounded-2xl border border-border p-8 md:p-10 mb-8 text-center"
+          >
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Despliegue Multi-País Sin Límites</p>
+            <div className="flex flex-col items-center gap-2">
+              <motion.span
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="font-display text-7xl md:text-8xl font-black text-accent tabular-nums"
+              >
+                9
+              </motion.span>
+              <p className="font-display text-lg md:text-xl font-bold text-foreground tracking-wide">BIG 9 CUBIERTOS + TODOS LOS PAÍSES</p>
+              <p className="text-sm text-muted-foreground max-w-md">
+                Incluyendo todos los países actuales y futuros donde Unicomer opere — sin costos adicionales de licencia
+              </p>
+            </div>
+          </motion.div>
+
+          {/* ═══════ ANEXO 2 — VISOR COMPLETO ═══════ */}
+          <AnnexViewer />
+
+          {/* ═══════ VISUAL PAYMENT TIMELINE (después del Anexo 2) ═══════ */}
           <motion.div
             ref={timelineRef}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-card rounded-2xl border border-border p-6 md:p-8 mb-8"
+            className="bg-card rounded-2xl border border-border p-6 md:p-8 mb-8 mt-20"
           >
             <h3 className="font-display text-lg font-bold text-foreground mb-1">Cronograma de Pagos</h3>
             <p className="text-xs text-muted-foreground mb-8">Proyección de inversión total a 5 años</p>
@@ -139,9 +167,7 @@ const Pricing = () => {
             {/* Desktop timeline */}
             <div className="hidden md:block relative">
               <div className="flex items-start justify-between relative">
-                {/* Background line */}
                 <div className="absolute top-6 left-[10%] right-[10%] h-[3px] bg-border rounded-full" />
-                {/* Animated progress line */}
                 <motion.div
                   className="absolute top-6 left-[10%] h-[3px] rounded-full bg-accent"
                   initial={{ width: 0 }}
@@ -157,7 +183,6 @@ const Pricing = () => {
                     onMouseEnter={() => setActiveNode(i)}
                     onMouseLeave={() => setActiveNode(null)}
                   >
-                    {/* Node */}
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={timelineInView ? { scale: 1 } : { scale: 0 }}
@@ -172,7 +197,6 @@ const Pricing = () => {
                       {i + 1}
                     </motion.div>
 
-                    {/* Year label */}
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={timelineInView ? { opacity: 1 } : { opacity: 0 }}
@@ -182,7 +206,6 @@ const Pricing = () => {
                       {item.year}
                     </motion.p>
 
-                    {/* Total */}
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={timelineInView ? { opacity: 1 } : { opacity: 0 }}
@@ -195,7 +218,6 @@ const Pricing = () => {
                       {item.total}
                     </motion.p>
 
-                    {/* Breakdown label */}
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={timelineInView ? { opacity: 1 } : { opacity: 0 }}
@@ -205,7 +227,6 @@ const Pricing = () => {
                       {item.hasImpl ? "Licencias + Implementación" : "Solo licencias"}
                     </motion.p>
 
-                    {/* Hover tooltip */}
                     {activeNode === i && (
                       <motion.div
                         initial={{ opacity: 0, y: 5 }}
@@ -225,8 +246,6 @@ const Pricing = () => {
                   </div>
                 ))}
               </div>
-
-            
             </div>
 
             {/* Mobile timeline (vertical) */}
@@ -256,33 +275,6 @@ const Pricing = () => {
             </div>
           </motion.div>
 
-          {/* ═══════ BIG 9 BANNER ═══════ */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-card rounded-2xl border border-border p-8 md:p-10 mb-8 text-center"
-          >
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Despliegue Multi-País Sin Límites</p>
-            <div className="flex flex-col items-center gap-2">
-              <motion.span
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="font-display text-7xl md:text-8xl font-black text-accent tabular-nums"
-              >
-                9
-              </motion.span>
-              <p className="font-display text-lg md:text-xl font-bold text-foreground tracking-wide">BIG 9 CUBIERTOS + TODOS LOS PAÍSES</p>
-              <p className="text-sm text-muted-foreground max-w-md">
-                Incluyendo todos los países actuales y futuros donde Unicomer opere — sin costos adicionales de licencia
-              </p>
-            </div>
-          </motion.div>
-
-          {/* ═══════ ANEXO 2 — VISOR COMPLETO ═══════ */}
-          <AnnexViewer />
 
           {/* Included + comparison */}
           <div className="grid md:grid-cols-2 gap-8 mb-12 mt-20 md:mt-28">
