@@ -120,61 +120,10 @@ const Pricing = () => {
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
             Inversión <span className="text-accent">Fija</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-8">Dos modelos de despliegue — misma plataforma</p>
-
-          <div className="inline-flex rounded-xl border border-border bg-muted/50 p-1 gap-1">
-            <button
-              onClick={() => setModel("onpremise")}
-              className={cn(
-                "flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all",
-                model === "onpremise"
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              <HardDrive size={16} />
-              On-Premise
-            </button>
-            <button
-              onClick={() => setModel("saas")}
-              className={cn(
-                "flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all",
-                model === "saas"
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              <Cloud size={16} />
-              SaaS (Cloud)
-            </button>
-          </div>
+          <p className="text-muted-foreground text-lg">Una sola plataforma — todos los países</p>
         </motion.div>
 
         <div className="max-w-6xl mx-auto">
-          {/* License cards */}
-          <div className="grid md:grid-cols-2 gap-4 mb-12 max-w-3xl mx-auto">
-            {licenses.map((lic, i) => (
-              <motion.div
-                key={lic.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className={cn(
-                  "rounded-2xl border p-6 text-center",
-                  i === 0 ? "border-accent bg-accent/5 shadow-lg" : "border-border bg-card"
-                )}
-              >
-                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-3">
-                  <lic.icon size={22} className="text-accent" />
-                </div>
-                <h3 className="font-display text-base font-bold text-foreground mb-1">{lic.name}</h3>
-                <p className="text-xs text-muted-foreground mb-3">{lic.desc}</p>
-                <p className="font-display text-2xl font-bold text-accent">{lic.price}</p>
-                <p className="text-xs text-muted-foreground mt-1">{lic.sub}</p>
-              </motion.div>
-            ))}
-          </div>
 
           {/* ═══════ VISUAL PAYMENT TIMELINE ═══════ */}
           <motion.div
