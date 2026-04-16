@@ -98,6 +98,7 @@ const AnimatedCounter = ({ target, prefix = "", suffix = "", duration = 1500 }: 
 };
 
 const Pricing = () => {
+  const { t } = useT();
   const [model, setModel] = useState<Model>("onpremise");
   const countries = model === "onpremise" ? onPremiseCountries : saasCountries;
   const totalAnnual = model === "onpremise" ? "$774,180" : "$1,278,455";
@@ -342,14 +343,14 @@ const Pricing = () => {
               viewport={{ once: true }}
               className="bg-card rounded-2xl border border-border p-8"
             >
-              <h3 className="font-display text-lg font-bold text-foreground mb-4">Todo incluido en cada licencia</h3>
+              <h3 className="font-display text-lg font-bold text-foreground mb-4">{t("pricing.included.title")}</h3>
               <ul className="space-y-3">
-                {included.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-sm text-foreground">
+                {[1,2,3,4,5,6,7].map((n) => (
+                  <li key={n} className="flex items-center gap-3 text-sm text-foreground">
                     <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
                       <Check size={14} className="text-accent" />
                     </div>
-                    {item}
+                    {t(`pricing.included.${n}`)}
                   </li>
                 ))}
               </ul>
@@ -362,29 +363,29 @@ const Pricing = () => {
               transition={{ delay: 0.1 }}
               className="bg-card rounded-2xl border border-border p-8"
             >
-              <h3 className="font-display text-lg font-bold text-foreground mb-6">¿Cómo se compara?</h3>
+              <h3 className="font-display text-lg font-bold text-foreground mb-6">{t("pricing.compare.title")}</h3>
               <div className="space-y-4">
-                {comparison.map((row) => (
-                  <div key={row.them} className="grid grid-cols-2 gap-4">
+                {[1,2,3,4,5].map((n) => (
+                  <div key={n} className="grid grid-cols-2 gap-4">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <XIcon size={14} className="text-destructive shrink-0" />
-                      <span>{row.them}</span>
+                      <span>{t(`pricing.compare.them.${n}`)}</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-foreground font-medium">
                       <Check size={14} className="text-accent shrink-0" />
-                      <span>{row.us}</span>
+                      <span>{t(`pricing.compare.us.${n}`)}</span>
                     </div>
                   </div>
                 ))}
               </div>
               <div className="mt-6 pt-4 border-t border-border">
                 <div className="grid grid-cols-2 gap-4 text-xs text-muted-foreground font-medium uppercase tracking-wide">
-                  <span>Ellos cobran por:</span>
-                  <span className="text-accent">SYSDE incluye:</span>
+                  <span>{t("pricing.compare.them")}</span>
+                  <span className="text-accent">{t("pricing.compare.us")}</span>
                 </div>
               </div>
               <div className="mt-5 flex justify-center">
-                <SysdeHint text="¿Dudas sobre precios? Pregunta a SYSDE IA" />
+                <SysdeHint text={t("pricing.hint.cta")} />
               </div>
             </motion.div>
           </div>
