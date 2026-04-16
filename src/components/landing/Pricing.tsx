@@ -330,92 +330,8 @@ const Pricing = () => {
             </div>
           </motion.div>
 
-          {/* Country breakdown */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-card rounded-2xl border border-border p-6 md:p-8 mb-8 overflow-x-auto"
-          >
-            <div className="flex items-center gap-3 mb-1">
-              <h3 className="font-display text-lg font-bold text-foreground">Desglose por País</h3>
-              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-accent/10 text-accent">
-                {model === "onpremise" ? "On-Premise" : "SaaS"}
-              </span>
-            </div>
-            <p className="text-xs text-muted-foreground mb-5">
-              {model === "onpremise"
-                ? "Modelo On-Premise · Métrica: Per Active Loan · Soporte incluido"
-                : "Modelo SaaS (Cloud) · Métrica: Per Active Loan · Hosting + Soporte incluido"}
-            </p>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border text-left">
-                  <th className="pb-3 font-medium text-muted-foreground">Fase</th>
-                  <th className="pb-3 font-medium text-muted-foreground">País</th>
-                  <th className="pb-3 font-medium text-muted-foreground text-right">Créditos Vigentes</th>
-                  <th className="pb-3 font-medium text-muted-foreground text-right">Costo Anual</th>
-                </tr>
-              </thead>
-              <tbody>
-                {countries.map((c) => (
-                  <tr key={c.country} className="border-b border-border/50">
-                    <td className="py-2.5 text-muted-foreground text-xs">{c.phase}</td>
-                    <td className="py-2.5 font-medium text-foreground">{c.country}</td>
-                    <td className="py-2.5 text-right text-foreground tabular-nums">{c.loans}</td>
-                    <td className="py-2.5 text-right font-semibold text-foreground tabular-nums">{c.annual}</td>
-                  </tr>
-                ))}
-                <tr className="font-bold">
-                  <td className="pt-3" colSpan={2}>TOTAL</td>
-                  <td className="pt-3 text-right tabular-nums">{totalLoans}</td>
-                  <td className="pt-3 text-right text-accent tabular-nums">{totalAnnual}</td>
-                </tr>
-              </tbody>
-            </table>
-          </motion.div>
-
-          {/* Implementation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-card rounded-2xl border border-border p-6 md:p-8 mb-8 overflow-x-auto"
-          >
-            <h3 className="font-display text-lg font-bold text-foreground mb-1">Implementación (One-Time)</h3>
-            <p className="text-xs text-muted-foreground mb-5">Estrategia Knowledge Transfer: 100% Vendor → 50/50 → Support Only</p>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border text-left">
-                  <th className="pb-3 font-medium text-muted-foreground">Fase</th>
-                  <th className="pb-3 font-medium text-muted-foreground">País</th>
-                  <th className="pb-3 font-medium text-muted-foreground text-right">Servicios</th>
-                  <th className="pb-3 font-medium text-muted-foreground text-right">Viáticos</th>
-                  <th className="pb-3 font-medium text-muted-foreground text-right">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {implementation.map((row) => (
-                  <tr key={row.country} className="border-b border-border/50">
-                    <td className="py-2.5 text-muted-foreground text-xs">{row.phase}</td>
-                    <td className="py-2.5 font-medium text-foreground">{row.country}</td>
-                    <td className="py-2.5 text-right text-foreground tabular-nums">{row.services}</td>
-                    <td className="py-2.5 text-right text-foreground tabular-nums">{row.travel}</td>
-                    <td className="py-2.5 text-right font-semibold text-foreground tabular-nums">{row.total}</td>
-                  </tr>
-                ))}
-                <tr className="font-bold">
-                  <td className="pt-3" colSpan={2}>TOTAL IMPLEMENTACIÓN</td>
-                  <td className="pt-3 text-right tabular-nums">$1,306,416</td>
-                  <td className="pt-3 text-right tabular-nums">$15,000</td>
-                  <td className="pt-3 text-right text-accent tabular-nums">$1,321,416</td>
-                </tr>
-              </tbody>
-            </table>
-            <p className="text-xs text-muted-foreground mt-4 italic">
-              {"\n"}
-            </p>
-          </motion.div>
+          {/* ═══════ ANEXO 2 — VISOR COMPLETO ═══════ */}
+          <AnnexViewer />
 
           {/* Included + comparison */}
           <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -501,7 +417,6 @@ const Pricing = () => {
             </div>
           </motion.div>
 
-          <AnnexViewer />
         </div>
       </div>
     </section>
