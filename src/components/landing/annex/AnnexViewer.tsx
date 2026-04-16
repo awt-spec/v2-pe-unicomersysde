@@ -5,36 +5,28 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useT } from "@/i18n/LanguageContext";
 import {
-  instructionsData,
-  baselineData,
-  opexInstructions,
-  onPremiseHeaders,
-  onPremiseRows,
+  instructionsDataI18n,
+  baselineDataI18n,
+  opexInstructionsI18n,
+  onPremiseHeadersI18n,
+  onPremiseRowsI18n,
   onPremiseTotals,
-  saasHeaders,
-  saasRows,
+  saasHeadersI18n,
+  saasRowsI18n,
   saasTotals,
-  costingTiers,
-  licenseBlocks,
-  implementationInstructions,
-  implementationHeaders,
-  implementationRows,
+  costingTiersI18n,
+  licenseBlocksI18n,
+  implementationInstructionsI18n,
+  implementationHeadersI18n,
+  implementationRowsI18n,
   implementationTotals,
-  implementationFooter,
-  otherCosts,
-} from "./annexData";
+  implementationFooterI18n,
+  otherCostsI18n,
+} from "./annexDataI18n";
 import { generateAnnexExcel } from "./excelExport";
 import { useIsMobile } from "@/hooks/use-mobile";
-
-const TABS = [
-  { value: "instructions", label: "Instructions", icon: Info },
-  { value: "volumes", label: "Baseline", icon: Layers },
-  { value: "onpremise", label: "On-Premise", icon: HardDrive },
-  { value: "saas", label: "SaaS Cloud", icon: Cloud },
-  { value: "implementation", label: "Implementation", icon: Briefcase },
-  { value: "other", label: "Other Costs", icon: Package },
-];
 
 const fmt = (v: string | number, isCurrency = false, decimals = 0) => {
   if (typeof v === "string") return v;
@@ -45,7 +37,7 @@ const fmt = (v: string | number, isCurrency = false, decimals = 0) => {
 const InstructionBanner = ({ title, lines }: { title: string; lines: string[] }) => (
   <div className="rounded-lg border border-border bg-muted/30 p-4 mb-3">
     <div className="flex items-start gap-2 mb-2">
-      <Info className="h-4 w-4 text-[#b41d2f] mt-0.5 shrink-0" />
+      <Info className="h-4 w-4 text-accent mt-0.5 shrink-0" />
       <h4 className="font-semibold text-sm text-foreground">{title}</h4>
     </div>
     <ul className="space-y-1.5 pl-6">
@@ -57,8 +49,8 @@ const InstructionBanner = ({ title, lines }: { title: string; lines: string[] })
 );
 
 const LicenseBlock = ({ title, lines }: { title: string; lines: string[] }) => (
-  <div className="rounded-lg border-2 border-[#b41d2f]/20 bg-gradient-to-br from-[#b41d2f]/5 to-transparent p-4">
-    <h4 className="font-bold text-sm text-[#b41d2f] mb-2">{title}</h4>
+  <div className="rounded-lg border-2 border-accent/20 bg-gradient-to-br from-accent/5 to-transparent p-4">
+    <h4 className="font-bold text-sm text-accent mb-2">{title}</h4>
     <ul className="space-y-1">
       {lines.map((l, i) => (
         <li key={i} className="text-xs text-muted-foreground">{l}</li>
@@ -74,7 +66,7 @@ const TableShell = ({ children }: { children: React.ReactNode }) => (
 );
 
 const Th = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <th className={`px-3 py-2.5 text-left text-xs font-semibold text-[#4d4d4f] bg-muted/50 border-b border-border ${className}`}>
+  <th className={`px-3 py-2.5 text-left text-xs font-semibold text-muted-foreground bg-muted/50 border-b border-border ${className}`}>
     {children}
   </th>
 );
@@ -86,46 +78,71 @@ const Td = ({ children = null, className = "", bold = false }: { children?: Reac
 );
 
 const TotalRow = ({ children }: { children: React.ReactNode }) => (
-  <tr className="bg-[#b41d2f]/5 border-t-2 border-[#b41d2f]">{children}</tr>
+  <tr className="bg-accent/5 border-t-2 border-accent">{children}</tr>
 );
 
 export default function AnnexViewer() {
+  const { lang, t } = useT();
   const [tab, setTab] = useState("instructions");
   const isMobile = useIsMobile();
+
+  const TABS = [
+    { value: "instructions", label: t("annex.tab.instructions"), icon: Info },
+    { value: "volumes", label: t("annex.tab.baseline"), icon: Layers },
+    { value: "onpremise", label: t("annex.tab.onpremise"), icon: HardDrive },
+    { value: "saas", label: t("annex.tab.saas"), icon: Cloud },
+    { value: "implementation", label: t("annex.tab.implementation"), icon: Briefcase },
+    { value: "other", label: t("annex.tab.other"), icon: Package },
+  ];
+
+  const instructionsData = instructionsDataI18n[lang];
+  const baselineData = baselineDataI18n(lang);
+  const opexInstructions = opexInstructionsI18n[lang];
+  const onPremiseHeaders = onPremiseHeadersI18n(lang);
+  const onPremiseRows = onPremiseRowsI18n(lang);
+  const saasHeaders = saasHeadersI18n(lang);
+  const saasRows = saasRowsI18n(lang);
+  const costingTiers = costingTiersI18n(lang);
+  const licenseBlocks = licenseBlocksI18n[lang];
+  const implementationInstructions = implementationInstructionsI18n[lang];
+  const implementationHeaders = implementationHeadersI18n(lang);
+  const implementationRows = implementationRowsI18n(lang);
+  const implementationFooter = implementationFooterI18n(lang);
+  const otherCosts = otherCostsI18n[lang];
 
   return (
     <div className="mt-20">
       {/* Section divider */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#b41d2f]/10 border border-[#b41d2f]/20 mb-4">
-          <FileSpreadsheet className="h-4 w-4 text-[#b41d2f]" />
-          <span className="text-xs font-semibold text-[#b41d2f] uppercase tracking-wider">Anexo 2 Oficial</span>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 mb-4">
+          <FileSpreadsheet className="h-4 w-4 text-accent" />
+          <span className="text-xs font-semibold text-accent uppercase tracking-wider">{t("annex.eyebrow")}</span>
         </div>
         <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-          Anexo 2 — Respuesta detallada al modelo económico
+          {t("annex.title")}
         </h3>
         <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-          Respuesta completa al formato económico oficial de Unicomer, descargable como Excel idéntico al original.
+          {t("annex.subtitle")}
         </p>
       </div>
 
       <Card className="border-border shadow-lg overflow-hidden">
-        <CardHeader className="bg-gradient-to-r from-[#4d4d4f] to-[#2d2d2f] text-white">
+        <CardHeader className="bg-gradient-to-r from-foreground to-foreground/80 text-background">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <CardTitle className="text-white text-xl flex items-center gap-2">
+              <CardTitle className="text-background text-xl flex items-center gap-2">
                 <FileSpreadsheet className="h-5 w-5" />
-                Annex 2 — SYSDE Response
+                {t("annex.cardTitle")}
               </CardTitle>
-              <p className="text-xs text-white/70 mt-1">v2026-01-23 · 6 hojas · USD · EXCL. VAT</p>
+              <p className="text-xs text-background/70 mt-1">{t("annex.meta")}</p>
             </div>
             <Button
-              onClick={generateAnnexExcel}
-              className="bg-[#b41d2f] hover:bg-[#9a1828] text-white gap-2 shrink-0"
+              onClick={() => generateAnnexExcel(lang)}
+              className="bg-accent hover:bg-accent/90 text-accent-foreground gap-2 shrink-0"
               size="lg"
             >
               <Download className="h-4 w-4" />
-              Descargar Excel
+              {t("annex.download")}
             </Button>
           </div>
         </CardHeader>
@@ -138,19 +155,19 @@ export default function AnnexViewer() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {TABS.map((t) => (
-                    <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
+                  {TABS.map((tab) => (
+                    <SelectItem key={tab.value} value={tab.value}>{tab.label}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             ) : (
               <TabsList className="grid w-full grid-cols-6 h-auto p-1">
-                {TABS.map((t) => {
-                  const Icon = t.icon;
+                {TABS.map((tab) => {
+                  const Icon = tab.icon;
                   return (
-                    <TabsTrigger key={t.value} value={t.value} className="flex flex-col items-center gap-1 py-2 data-[state=active]:bg-[#b41d2f] data-[state=active]:text-white">
+                    <TabsTrigger key={tab.value} value={tab.value} className="flex flex-col items-center gap-1 py-2 data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">
                       <Icon className="h-4 w-4" />
-                      <span className="text-xs">{t.label}</span>
+                      <span className="text-xs">{tab.label}</span>
                     </TabsTrigger>
                   );
                 })}
@@ -159,7 +176,7 @@ export default function AnnexViewer() {
 
             <AnimatePresence mode="wait">
               <motion.div
-                key={tab}
+                key={tab + lang}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
@@ -171,8 +188,8 @@ export default function AnnexViewer() {
                   <TableShell>
                     <thead>
                       <tr>
-                        <Th className="w-[200px]">Category</Th>
-                        <Th>Rule / Requirement</Th>
+                        <Th className="w-[200px]">{t("annex.col.category")}</Th>
+                        <Th>{t("annex.col.rule")}</Th>
                       </tr>
                     </thead>
                     <tbody>
@@ -188,7 +205,7 @@ export default function AnnexViewer() {
 
                 <TabsContent value="volumes" forceMount={tab === "volumes" ? true : undefined} hidden={tab !== "volumes"}>
                   <h3 className="text-xl font-bold text-foreground mb-1">{baselineData.title}</h3>
-                  <p className="text-sm font-medium text-[#b41d2f] mb-3">{baselineData.subtitle}</p>
+                  <p className="text-sm font-medium text-accent mb-3">{baselineData.subtitle}</p>
                   <p className="text-xs text-muted-foreground italic mb-4 leading-relaxed">{baselineData.note}</p>
                   <TableShell>
                     <thead>
@@ -208,10 +225,10 @@ export default function AnnexViewer() {
                       ))}
                       <TotalRow>
                         <Td bold></Td>
-                        <Td bold className="text-[#b41d2f]">Totales</Td>
-                        <Td bold className="text-[#b41d2f]">{fmt(baselineData.totals.creditos)}</Td>
-                        <Td bold className="text-[#b41d2f]">{fmt(baselineData.totals.clientes)}</Td>
-                        <Td bold className="text-[#b41d2f]">{fmt(baselineData.totals.usuarios)}</Td>
+                        <Td bold className="text-accent">{t("annex.totals")}</Td>
+                        <Td bold className="text-accent">{fmt(baselineData.totals.creditos)}</Td>
+                        <Td bold className="text-accent">{fmt(baselineData.totals.clientes)}</Td>
+                        <Td bold className="text-accent">{fmt(baselineData.totals.usuarios)}</Td>
                         <Td>—</Td><Td>—</Td><Td>—</Td><Td>—</Td>
                       </TotalRow>
                     </tbody>
@@ -219,7 +236,7 @@ export default function AnnexViewer() {
                 </TabsContent>
 
                 <TabsContent value="onpremise" forceMount={tab === "onpremise" ? true : undefined} hidden={tab !== "onpremise"}>
-                  <h3 className="text-xl font-bold text-foreground mb-4">On-Premise — Recurring Licensing & Support Fees</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-4">{t("annex.section.onpremise")}</h3>
                   <div className="grid md:grid-cols-2 gap-3 mb-6">
                     {opexInstructions.map((s, i) => <InstructionBanner key={i} {...s} />)}
                   </div>
@@ -239,11 +256,11 @@ export default function AnnexViewer() {
                       ))}
                       <TotalRow>
                         <Td bold></Td>
-                        <Td bold className="text-[#b41d2f]">TOTALS:</Td>
+                        <Td bold className="text-accent">{t("annex.totalsCaps")}</Td>
                         <Td></Td><Td></Td><Td></Td>
-                        <Td bold className="text-[#b41d2f]">{fmt(onPremiseTotals.volume)}</Td>
+                        <Td bold className="text-accent">{fmt(onPremiseTotals.volume)}</Td>
                         <Td></Td><Td></Td>
-                        <Td bold className="text-[#b41d2f]">{fmt(onPremiseTotals.totalAnnual, true)}</Td>
+                        <Td bold className="text-accent">{fmt(onPremiseTotals.totalAnnual, true)}</Td>
                       </TotalRow>
                     </tbody>
                   </TableShell>
@@ -253,7 +270,7 @@ export default function AnnexViewer() {
                 </TabsContent>
 
                 <TabsContent value="saas" forceMount={tab === "saas" ? true : undefined} hidden={tab !== "saas"}>
-                  <h3 className="text-xl font-bold text-foreground mb-4">SaaS (Cloud) — Recurring Licensing & Support Fees</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-4">{t("annex.section.saas")}</h3>
                   <div className="grid md:grid-cols-2 gap-3 mb-6">
                     {opexInstructions.map((s, i) => <InstructionBanner key={i} {...s} />)}
                   </div>
@@ -273,12 +290,12 @@ export default function AnnexViewer() {
                       ))}
                       <TotalRow>
                         <Td bold></Td>
-                        <Td bold className="text-[#b41d2f]">TOTALS:</Td>
+                        <Td bold className="text-accent">{t("annex.totalsCaps")}</Td>
                         <Td></Td><Td></Td>
-                        <Td bold className="text-[#b41d2f]">{fmt(saasTotals.volume)}</Td>
+                        <Td bold className="text-accent">{fmt(saasTotals.volume)}</Td>
                         <Td></Td><Td></Td>
-                        <Td bold className="text-[#b41d2f]">{fmt(saasTotals.monthly, true, 2)}</Td>
-                        <Td bold className="text-[#b41d2f]">{fmt(saasTotals.annual, true, 2)}</Td>
+                        <Td bold className="text-accent">{fmt(saasTotals.monthly, true, 2)}</Td>
+                        <Td bold className="text-accent">{fmt(saasTotals.annual, true, 2)}</Td>
                       </TotalRow>
                     </tbody>
                   </TableShell>
@@ -309,7 +326,7 @@ export default function AnnexViewer() {
                 </TabsContent>
 
                 <TabsContent value="implementation" forceMount={tab === "implementation" ? true : undefined} hidden={tab !== "implementation"}>
-                  <h3 className="text-xl font-bold text-foreground mb-4">Implementation Services</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-4">{t("annex.section.implementation")}</h3>
                   <div className="space-y-3 mb-6">
                     {implementationInstructions.map((s, i) => <InstructionBanner key={i} {...s} />)}
                   </div>
@@ -328,11 +345,11 @@ export default function AnnexViewer() {
                         </tr>
                       ))}
                       <TotalRow>
-                        <Td bold className="text-[#b41d2f]">TOTALS:</Td>
+                        <Td bold className="text-accent">{t("annex.totalsCaps")}</Td>
                         <Td></Td><Td></Td>
-                        <Td bold className="text-[#b41d2f]">{fmt(implementationTotals.professional, true, 2)}</Td>
-                        <Td bold className="text-[#b41d2f]">{fmt(implementationTotals.travel, true, 2)}</Td>
-                        <Td bold className="text-[#b41d2f] text-sm">{fmt(implementationTotals.total, true, 2)}</Td>
+                        <Td bold className="text-accent">{fmt(implementationTotals.professional, true, 2)}</Td>
+                        <Td bold className="text-accent">{fmt(implementationTotals.travel, true, 2)}</Td>
+                        <Td bold className="text-accent text-sm">{fmt(implementationTotals.total, true, 2)}</Td>
                       </TotalRow>
                     </tbody>
                   </TableShell>
@@ -340,12 +357,12 @@ export default function AnnexViewer() {
                 </TabsContent>
 
                 <TabsContent value="other" forceMount={tab === "other" ? true : undefined} hidden={tab !== "other"}>
-                  <h3 className="text-xl font-bold text-foreground mb-4">Other Costs</h3>
-                  <div className="rounded-lg border-2 border-[#b41d2f]/20 bg-gradient-to-br from-[#b41d2f]/5 to-transparent p-6">
+                  <h3 className="text-xl font-bold text-foreground mb-4">{t("annex.section.other")}</h3>
+                  <div className="rounded-lg border-2 border-accent/20 bg-gradient-to-br from-accent/5 to-transparent p-6">
                     <ul className="space-y-3">
                       {otherCosts.map((l, i) => (
                         <li key={i} className="flex items-start gap-3 text-sm text-foreground">
-                          <Package className="h-4 w-4 text-[#b41d2f] mt-0.5 shrink-0" />
+                          <Package className="h-4 w-4 text-accent mt-0.5 shrink-0" />
                           <span>{l}</span>
                         </li>
                       ))}

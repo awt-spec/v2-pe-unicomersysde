@@ -1,22 +1,24 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import sysdeLogoUrl from "@/assets/sysde-logo.jpeg";
-
-const navItems = [
-  { label: "Resumen", href: "#hero" },
-  { label: "Módulos", href: "#modulos" },
-  { label: "Ilimitado", href: "#ilimitado" },
-  { label: "Dos Mundos", href: "#dosmundos" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "¿Por qué SYSDE?", href: "#porque" },
-  { label: "Servicio", href: "#servicio" },
-  { label: "RFP", href: "#rfp" },
-];
+import { useT } from "@/i18n/LanguageContext";
 
 const Navbar = () => {
+  const { t, lang, toggle } = useT();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const navItems = [
+    { label: t("nav.summary"), href: "#hero" },
+    { label: t("nav.modules"), href: "#modulos" },
+    { label: t("nav.unlimited"), href: "#ilimitado" },
+    { label: t("nav.twoworlds"), href: "#dosmundos" },
+    { label: t("nav.pricing"), href: "#pricing" },
+    { label: t("nav.whysysde"), href: "#porque" },
+    { label: t("nav.service"), href: "#servicio" },
+    { label: t("nav.rfp"), href: "#rfp" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -47,17 +49,36 @@ const Navbar = () => {
               {item.label}
             </a>
           ))}
+          <button
+            onClick={toggle}
+            title={t("lang.tooltip")}
+            className="ml-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-border bg-secondary/40 hover:bg-secondary text-xs font-bold text-foreground transition-colors"
+            aria-label={t("lang.tooltip")}
+          >
+            <Languages className="h-3.5 w-3.5" />
+            {lang === "es" ? "EN" : "ES"}
+          </button>
         </div>
 
-        {/* Mobile toggle */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="lg:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <X /> : <Menu />}
-        </Button>
+        {/* Mobile right side */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <button
+            onClick={toggle}
+            title={t("lang.tooltip")}
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-border bg-secondary/40 text-xs font-bold text-foreground"
+            aria-label={t("lang.tooltip")}
+          >
+            <Languages className="h-3.5 w-3.5" />
+            {lang === "es" ? "EN" : "ES"}
+          </button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X /> : <Menu />}
+          </Button>
+        </div>
       </div>
 
       {/* Mobile menu */}
