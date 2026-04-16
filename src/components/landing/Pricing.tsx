@@ -120,69 +120,46 @@ const Pricing = () => {
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
             Inversión <span className="text-accent">Fija</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-8">Dos modelos de despliegue — misma plataforma</p>
-
-          <div className="inline-flex rounded-xl border border-border bg-muted/50 p-1 gap-1">
-            <button
-              onClick={() => setModel("onpremise")}
-              className={cn(
-                "flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all",
-                model === "onpremise"
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              <HardDrive size={16} />
-              On-Premise
-            </button>
-            <button
-              onClick={() => setModel("saas")}
-              className={cn(
-                "flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all",
-                model === "saas"
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              <Cloud size={16} />
-              SaaS (Cloud)
-            </button>
-          </div>
+          <p className="text-muted-foreground text-lg">Una sola plataforma — todos los países</p>
         </motion.div>
 
         <div className="max-w-6xl mx-auto">
-          {/* License cards */}
-          <div className="grid md:grid-cols-2 gap-4 mb-12 max-w-3xl mx-auto">
-            {licenses.map((lic, i) => (
-              <motion.div
-                key={lic.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className={cn(
-                  "rounded-2xl border p-6 text-center",
-                  i === 0 ? "border-accent bg-accent/5 shadow-lg" : "border-border bg-card"
-                )}
-              >
-                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-3">
-                  <lic.icon size={22} className="text-accent" />
-                </div>
-                <h3 className="font-display text-base font-bold text-foreground mb-1">{lic.name}</h3>
-                <p className="text-xs text-muted-foreground mb-3">{lic.desc}</p>
-                <p className="font-display text-2xl font-bold text-accent">{lic.price}</p>
-                <p className="text-xs text-muted-foreground mt-1">{lic.sub}</p>
-              </motion.div>
-            ))}
-          </div>
 
-          {/* ═══════ VISUAL PAYMENT TIMELINE ═══════ */}
+          {/* ═══════ BIG 9 BANNER ═══════ */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-card rounded-2xl border border-border p-8 md:p-10 mb-8 text-center"
+          >
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Despliegue Multi-País Sin Límites</p>
+            <div className="flex flex-col items-center gap-2">
+              <motion.span
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="font-display text-7xl md:text-8xl font-black text-accent tabular-nums"
+              >
+                9
+              </motion.span>
+              <p className="font-display text-lg md:text-xl font-bold text-foreground tracking-wide">BIG 9 CUBIERTOS + TODOS LOS PAÍSES</p>
+              <p className="text-sm text-muted-foreground max-w-md">
+                Incluyendo todos los países actuales y futuros donde Unicomer opere — sin costos adicionales de licencia
+              </p>
+            </div>
+          </motion.div>
+
+          {/* ═══════ ANEXO 2 — VISOR COMPLETO ═══════ */}
+          <AnnexViewer />
+
+          {/* ═══════ VISUAL PAYMENT TIMELINE (después del Anexo 2) ═══════ */}
           <motion.div
             ref={timelineRef}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-card rounded-2xl border border-border p-6 md:p-8 mb-8"
+            className="bg-card rounded-2xl border border-border p-6 md:p-8 mb-8 mt-20"
           >
             <h3 className="font-display text-lg font-bold text-foreground mb-1">Cronograma de Pagos</h3>
             <p className="text-xs text-muted-foreground mb-8">Proyección de inversión total a 5 años</p>
@@ -190,9 +167,7 @@ const Pricing = () => {
             {/* Desktop timeline */}
             <div className="hidden md:block relative">
               <div className="flex items-start justify-between relative">
-                {/* Background line */}
                 <div className="absolute top-6 left-[10%] right-[10%] h-[3px] bg-border rounded-full" />
-                {/* Animated progress line */}
                 <motion.div
                   className="absolute top-6 left-[10%] h-[3px] rounded-full bg-accent"
                   initial={{ width: 0 }}
@@ -208,7 +183,6 @@ const Pricing = () => {
                     onMouseEnter={() => setActiveNode(i)}
                     onMouseLeave={() => setActiveNode(null)}
                   >
-                    {/* Node */}
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={timelineInView ? { scale: 1 } : { scale: 0 }}
@@ -223,7 +197,6 @@ const Pricing = () => {
                       {i + 1}
                     </motion.div>
 
-                    {/* Year label */}
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={timelineInView ? { opacity: 1 } : { opacity: 0 }}
@@ -233,7 +206,6 @@ const Pricing = () => {
                       {item.year}
                     </motion.p>
 
-                    {/* Total */}
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={timelineInView ? { opacity: 1 } : { opacity: 0 }}
@@ -246,7 +218,6 @@ const Pricing = () => {
                       {item.total}
                     </motion.p>
 
-                    {/* Breakdown label */}
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={timelineInView ? { opacity: 1 } : { opacity: 0 }}
@@ -256,7 +227,6 @@ const Pricing = () => {
                       {item.hasImpl ? "Licencias + Implementación" : "Solo licencias"}
                     </motion.p>
 
-                    {/* Hover tooltip */}
                     {activeNode === i && (
                       <motion.div
                         initial={{ opacity: 0, y: 5 }}
@@ -276,8 +246,6 @@ const Pricing = () => {
                   </div>
                 ))}
               </div>
-
-            
             </div>
 
             {/* Mobile timeline (vertical) */}
@@ -307,33 +275,6 @@ const Pricing = () => {
             </div>
           </motion.div>
 
-          {/* ═══════ BIG 9 BANNER ═══════ */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-card rounded-2xl border border-border p-8 md:p-10 mb-8 text-center"
-          >
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Despliegue Multi-País Sin Límites</p>
-            <div className="flex flex-col items-center gap-2">
-              <motion.span
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="font-display text-7xl md:text-8xl font-black text-accent tabular-nums"
-              >
-                9
-              </motion.span>
-              <p className="font-display text-lg md:text-xl font-bold text-foreground tracking-wide">BIG 9 CUBIERTOS + TODOS LOS PAÍSES</p>
-              <p className="text-sm text-muted-foreground max-w-md">
-                Incluyendo todos los países actuales y futuros donde Unicomer opere — sin costos adicionales de licencia
-              </p>
-            </div>
-          </motion.div>
-
-          {/* ═══════ ANEXO 2 — VISOR COMPLETO ═══════ */}
-          <AnnexViewer />
 
           {/* Included + comparison */}
           <div className="grid md:grid-cols-2 gap-8 mb-12 mt-20 md:mt-28">
