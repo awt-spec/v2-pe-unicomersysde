@@ -189,7 +189,7 @@ const Pricing = () => {
                   x
                 </motion.span>
                 <span className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground font-sans whitespace-nowrap">
-                  futuros ∞
+                  países futuros
                 </span>
               </motion.div>
 
@@ -218,7 +218,7 @@ const Pricing = () => {
                   TODOS
                 </span>
                 <span className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground font-sans whitespace-nowrap">
-                  sin límite
+                  países ilimitado
                 </span>
               </motion.div>
             </div>
