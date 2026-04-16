@@ -125,36 +125,118 @@ const Pricing = () => {
 
         <div className="max-w-6xl mx-auto">
 
-          {/* ═══════ BIG 9 BANNER ═══════ */}
+          {/* ═══════ ECUACIÓN HERO ═══════ */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-card rounded-2xl border border-border p-8 md:p-10 mb-8 text-center"
+            className="relative bg-gradient-to-br from-card via-card to-muted/30 rounded-3xl border border-border p-10 md:p-16 mb-8 text-center overflow-hidden"
           >
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-6 font-medium">Despliegue Multi-País Sin Límites</p>
-            <div className="flex flex-col items-center gap-4">
+            <div
+              className="absolute inset-0 opacity-[0.04] pointer-events-none"
+              style={{
+                backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
+                backgroundSize: "32px 32px",
+              }}
+            />
+
+            <p className="relative text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-12 font-medium">
+              Despliegue Multi-País Sin Límites
+            </p>
+
+            <div
+              className="relative flex items-end justify-center gap-4 md:gap-8 mb-4"
+              style={{ fontFamily: "'Cambria Math', 'Latin Modern Math', 'STIX Two Math', Cambria, Georgia, serif" }}
+            >
               <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
+                initial={{ scale: 0, rotate: -10 }}
+                whileInView={{ scale: 1, rotate: 0 }}
                 viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 200, damping: 22 }}
-                className="flex items-center justify-center gap-3 md:gap-5 font-serif italic tabular-nums"
-                style={{ fontFamily: "'Cambria Math', 'Latin Modern Math', 'STIX Two Math', Cambria, Georgia, serif" }}
+                transition={{ type: "spring", stiffness: 180, damping: 18, delay: 0.1 }}
+                className="relative flex flex-col items-center"
               >
-                <span className="text-6xl md:text-8xl font-bold text-accent leading-none">9</span>
-                <span className="text-5xl md:text-7xl font-light text-foreground/70 leading-none">+</span>
-                <span className="text-6xl md:text-8xl font-bold text-foreground leading-none">x</span>
-                <span className="text-5xl md:text-7xl font-light text-foreground/70 leading-none">=</span>
-                <span className="text-5xl md:text-7xl font-bold text-accent leading-none not-italic tracking-tight" style={{ fontFamily: "inherit" }}>
-                  TODOS
+                <div className="absolute inset-0 bg-accent/20 blur-3xl rounded-full" />
+                <span className="relative text-7xl md:text-9xl font-bold text-accent leading-none tabular-nums tracking-tight">
+                  9
+                </span>
+                <span className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground font-sans whitespace-nowrap">
+                  países hoy
                 </span>
               </motion.div>
-              <p className="font-display text-base md:text-lg font-bold text-foreground tracking-wide mt-2">BIG 9 CUBIERTOS + TODOS LOS PAÍSES FUTUROS</p>
-              <p className="text-sm text-muted-foreground max-w-md">
-                Incluyendo todos los países actuales y futuros donde Unicomer opere — sin costos adicionales de licencia
-              </p>
+
+              <motion.span
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.35, duration: 0.4 }}
+                className="text-5xl md:text-7xl font-light text-muted-foreground/60 leading-none pb-8"
+              >
+                +
+              </motion.span>
+
+              <motion.div
+                initial={{ scale: 0, rotate: 10 }}
+                whileInView={{ scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 180, damping: 18, delay: 0.5 }}
+                className="relative flex flex-col items-center"
+              >
+                <motion.span
+                  animate={{ scale: [1, 1.08, 1] }}
+                  transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                  className="block text-7xl md:text-9xl italic font-bold text-foreground leading-none tracking-tight"
+                >
+                  x
+                </motion.span>
+                <span className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground font-sans whitespace-nowrap">
+                  futuros ∞
+                </span>
+              </motion.div>
+
+              <motion.span
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.75, duration: 0.4 }}
+                className="text-5xl md:text-7xl font-light text-muted-foreground/60 leading-none pb-8"
+              >
+                =
+              </motion.span>
+
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.9, type: "spring", stiffness: 150, damping: 18 }}
+                className="relative flex flex-col items-center"
+              >
+                <div className="absolute inset-0 bg-accent/15 blur-2xl rounded-full" />
+                <span
+                  className="relative text-4xl md:text-6xl font-black text-accent leading-none tracking-tight pb-2"
+                  style={{ fontFamily: "inherit" }}
+                >
+                  TODOS
+                </span>
+                <span className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground font-sans whitespace-nowrap">
+                  sin límite
+                </span>
+              </motion.div>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1.2, duration: 0.5 }}
+              className="relative pt-6 mt-10 border-t border-border/50 max-w-xl mx-auto"
+            >
+              <p className="font-display text-base md:text-lg font-bold text-foreground tracking-wide mb-2">
+                Big 9 cubiertos · Países futuros incluidos
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Una sola licencia para todos los países donde Unicomer opere — hoy y mañana, sin costos adicionales.
+              </p>
+            </motion.div>
           </motion.div>
 
           {/* ═══════ ANEXO 2 — VISOR COMPLETO ═══════ */}
