@@ -47,21 +47,21 @@ const PricingHeroAnnouncement = () => {
     offset: ["start end", "end start"],
   });
 
-  const washOpacity = useTransform(scrollYProgress, [0, 0.25, 0.6, 1], [0, 1, 1, 0.2]);
+  const washOpacity = useTransform(scrollYProgress, [0, 0.25, 0.92, 1], [0, 1, 1, 0.2]);
   const washScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.7, 1.05, 1.2]);
 
-  const w1Opacity = useTransform(scrollYProgress, [0.08, 0.28, 0.7, 0.85], [0, 1, 1, 0]);
+  const w1Opacity = useTransform(scrollYProgress, [0.08, 0.28, 0.92, 0.98], [0, 1, 1, 0]);
   const w1Blur = useTransform(scrollYProgress, [0.08, 0.3], [20, 0]);
-  const w1Y = useTransform(scrollYProgress, [0.08, 0.3, 0.7, 0.9], [40, 0, 0, -30]);
+  const w1Y = useTransform(scrollYProgress, [0.08, 0.3, 0.92, 0.99], [40, 0, 0, -30]);
 
-  const w2Opacity = useTransform(scrollYProgress, [0.16, 0.36, 0.7, 0.85], [0, 1, 1, 0]);
+  const w2Opacity = useTransform(scrollYProgress, [0.16, 0.36, 0.92, 0.98], [0, 1, 1, 0]);
   const w2Blur = useTransform(scrollYProgress, [0.16, 0.38], [20, 0]);
-  const w2Y = useTransform(scrollYProgress, [0.16, 0.38, 0.7, 0.9], [40, 0, 0, -30]);
+  const w2Y = useTransform(scrollYProgress, [0.16, 0.38, 0.92, 0.99], [40, 0, 0, -30]);
 
-  const subOpacity = useTransform(scrollYProgress, [0.3, 0.46, 0.7, 0.82], [0, 1, 1, 0]);
+  const subOpacity = useTransform(scrollYProgress, [0.3, 0.46, 0.92, 0.97], [0, 1, 1, 0]);
   const subY = useTransform(scrollYProgress, [0.3, 0.48], [20, 0]);
 
-  const pillsOpacity = useTransform(scrollYProgress, [0.42, 0.58, 0.7, 0.82], [0, 1, 1, 0]);
+  const pillsOpacity = useTransform(scrollYProgress, [0.42, 0.58, 0.94, 0.99], [0, 1, 1, 0]);
   const pillsY = useTransform(scrollYProgress, [0.42, 0.6], [30, 0]);
 
   const stageScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1, 1.02]);
@@ -105,29 +105,31 @@ const PricingHeroAnnouncement = () => {
     my.set(0);
   };
 
-  /* Formula tokens — staggered word reveal driven by scroll */
+  /* Formula tokens — staggered word reveal driven by scroll
+     Tokens 9, +, x, = aparecen entre 0.42 y 0.66 y permanecen visibles hasta 0.92.
+     TODOS aparece en 0.66, hace zoom/glow y se mantiene en pantalla hasta 0.96 (fase final extendida). */
   const f1 = {
-    o: useTransform(scrollYProgress, [0.42, 0.55, 0.7, 0.82], [0, 1, 1, 0]),
+    o: useTransform(scrollYProgress, [0.42, 0.55, 0.92, 0.97], [0, 1, 1, 0]),
     y: useTransform(scrollYProgress, [0.42, 0.58], [30, 0]),
     blur: useTransform(scrollYProgress, [0.42, 0.58], [12, 0]),
   };
   const f2 = {
-    o: useTransform(scrollYProgress, [0.46, 0.59, 0.7, 0.82], [0, 1, 1, 0]),
+    o: useTransform(scrollYProgress, [0.46, 0.59, 0.92, 0.97], [0, 1, 1, 0]),
     y: useTransform(scrollYProgress, [0.46, 0.62], [30, 0]),
     blur: useTransform(scrollYProgress, [0.46, 0.62], [12, 0]),
   };
   const f3 = {
-    o: useTransform(scrollYProgress, [0.5, 0.63, 0.7, 0.82], [0, 1, 1, 0]),
+    o: useTransform(scrollYProgress, [0.5, 0.63, 0.92, 0.97], [0, 1, 1, 0]),
     y: useTransform(scrollYProgress, [0.5, 0.66], [30, 0]),
     blur: useTransform(scrollYProgress, [0.5, 0.66], [12, 0]),
   };
   const f4 = {
-    o: useTransform(scrollYProgress, [0.54, 0.67, 0.7, 0.82], [0, 1, 1, 0]),
+    o: useTransform(scrollYProgress, [0.54, 0.67, 0.92, 0.97], [0, 1, 1, 0]),
     y: useTransform(scrollYProgress, [0.54, 0.7], [30, 0]),
     blur: useTransform(scrollYProgress, [0.54, 0.7], [12, 0]),
   };
   const f5 = {
-    o: useTransform(scrollYProgress, [0.58, 0.71, 0.74, 0.84], [0, 1, 1, 0]),
+    o: useTransform(scrollYProgress, [0.58, 0.71, 0.95, 0.99], [0, 1, 1, 0]),
     y: useTransform(scrollYProgress, [0.58, 0.74], [30, 0]),
     blur: useTransform(scrollYProgress, [0.58, 0.74], [12, 0]),
   };
