@@ -221,7 +221,7 @@ function PaymentTermsSection({ grandTotal }: { grandTotal: number }) {
   }[lang];
 
   return (
-    <section>
+    <section className="pt-10 border-t-2 border-dashed border-border">
       <div className="text-center mb-6">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mb-3">
           <Wallet className="h-6 w-6 text-accent" />
