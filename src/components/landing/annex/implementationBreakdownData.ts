@@ -344,10 +344,16 @@ export const saasDeploymentOptionsI18n: Record<Lang, {
 };
 
 // ===== Cláusulas comerciales =====
+export type ClauseExample = {
+  scenario: string;
+  steps: { label: string; value: string }[];
+  conclusion: string;
+};
+
 export const commercialClausesI18n: Record<Lang, {
   title: string;
   intro: string;
-  clauses: { num: string; title: string; body: string; highlight?: string }[];
+  clauses: { num: string; title: string; body: string; highlight?: string; example: ClauseExample }[];
 }> = {
   es: {
     title: "Cláusulas comerciales adicionales",
@@ -358,18 +364,48 @@ export const commercialClausesI18n: Record<Lang, {
         title: "Recálculo total al superar tramos de volumen",
         body: "Cuando el volumen acumulado supere el umbral de un tramo superior en la tabla de costeo por crédito, todo el volumen se recalcula a la nueva tarifa aplicable, no por bloques o estratos. Aplica siempre el mínimo por país establecido en el modelo SaaS.",
         highlight: "Modelo escalonado total, no por bloques · Mínimo por país siempre respetado",
+        example: {
+          scenario: "Un país pasa de 480.000 a 510.000 créditos activos durante el año (cruza el umbral de 500.000).",
+          steps: [
+            { label: "Tarifa tramo anterior (≤500k)", value: "USD $0,42 / crédito / mes" },
+            { label: "Tarifa nuevo tramo (>500k)", value: "USD $0,38 / crédito / mes" },
+            { label: "Cálculo por bloques (NO aplica)", value: "500.000 × $0,42 + 10.000 × $0,38 = $213.800/mes" },
+            { label: "Cálculo SYSDE (recálculo total)", value: "510.000 × $0,38 = $193.800/mes" },
+          ],
+          conclusion: "Ahorro mensual de USD $20.000 (~9,4%) al cruzar el tramo. Si el resultado fuera menor al mínimo por país del modelo SaaS, se factura el mínimo.",
+        },
       },
       {
         num: "2",
         title: "Revisión de tarifa consolidada por escala de grupo",
-        body: "El modelo país por país no aprovecha la escala consolidada del grupo Unicomer. Una vez que el grupo alcance un volumen acumulado consolidado de 2,500,000 créditos activos, SYSDE se compromete a revisar la tarifa unitaria a nivel grupo, aplicando un descuento por escala que se incorporará automáticamente al cierre fiscal del año en que se alcance el umbral.",
-        highlight: "Umbral grupo: 2,500,000 créditos consolidados · Revisión automática anual",
+        body: "El modelo país por país no aprovecha la escala consolidada del grupo Unicomer. Una vez que el grupo alcance un volumen acumulado consolidado de 2.500.000 créditos activos, SYSDE se compromete a revisar la tarifa unitaria a nivel grupo, aplicando un descuento por escala que se incorporará automáticamente al cierre fiscal del año en que se alcance el umbral.",
+        highlight: "Umbral grupo: 2.500.000 créditos consolidados · Revisión automática anual",
+        example: {
+          scenario: "Año 3: la suma de los 9 países alcanza 2.650.000 créditos activos consolidados (supera el umbral de 2,5M).",
+          steps: [
+            { label: "Tarifa promedio país por país", value: "≈ USD $0,40 / crédito / mes" },
+            { label: "Facturación anual sin revisión", value: "2.650.000 × $0,40 × 12 = USD $12,72M" },
+            { label: "Tarifa consolidada de grupo revisada", value: "≈ USD $0,34 / crédito / mes (−15%)" },
+            { label: "Facturación anual con revisión grupo", value: "2.650.000 × $0,34 × 12 = USD $10,81M" },
+          ],
+          conclusion: "Ahorro estimado de USD $1,9M anuales aplicado automáticamente al cierre fiscal del año en que se cruza el umbral.",
+        },
       },
       {
         num: "3",
         title: "Flexibilidad de facturación multi-entidad",
         body: "El costo de licenciamiento (hoy un pago único) podrá repartirse en facturación hacia distintas entidades del grupo Unicomer, por país o por unidad de negocio, conforme a las necesidades fiscales y contables del grupo. SYSDE emitirá facturas por entidad legal, manteniendo el monto total acordado y sin cargo administrativo por la división.",
         highlight: "Facturación por entidad legal · País o unidad de negocio · Sin recargo administrativo",
+        example: {
+          scenario: "Unicomer decide repartir el pago único de implementación de USD $1.205.000 entre 3 entidades fiscales del grupo.",
+          steps: [
+            { label: "Entidad Guatemala (primer país)", value: "USD $395.000 (factura local GT)" },
+            { label: "Entidad Holding Regional", value: "USD $610.000 (software base + PMO)" },
+            { label: "Entidad Servicios Compartidos", value: "USD $200.000 (integraciones + capacitación)" },
+            { label: "Total facturado", value: "USD $1.205.000 — idéntico al monto único" },
+          ],
+          conclusion: "Tres facturas por entidad legal, deducibles localmente, sin cargo administrativo adicional por la división.",
+        },
       },
     ],
   },
@@ -382,18 +418,48 @@ export const commercialClausesI18n: Record<Lang, {
         title: "Full recalculation when volume tiers are crossed",
         body: "When the accumulated volume crosses a higher tier in the per-loan costing table, the entire volume is recalculated at the new applicable rate, not in blocks or strata. The per-country minimum defined in the SaaS model always applies.",
         highlight: "Full step-down model, not block-based · Per-country minimum always preserved",
+        example: {
+          scenario: "A country grows from 480,000 to 510,000 active loans during the year (crosses the 500,000 threshold).",
+          steps: [
+            { label: "Previous tier rate (≤500k)", value: "USD $0.42 / loan / month" },
+            { label: "New tier rate (>500k)", value: "USD $0.38 / loan / month" },
+            { label: "Block-based calc (NOT applied)", value: "500,000 × $0.42 + 10,000 × $0.38 = $213,800/mo" },
+            { label: "SYSDE calc (full recalculation)", value: "510,000 × $0.38 = $193,800/mo" },
+          ],
+          conclusion: "Monthly saving of USD $20,000 (~9.4%) once the tier is crossed. If the result falls below the SaaS per-country minimum, the minimum is billed.",
+        },
       },
       {
         num: "2",
         title: "Consolidated group-scale rate review",
         body: "The country-by-country model does not leverage the consolidated scale of the Unicomer group. Once the group reaches a consolidated volume of 2,500,000 active loans, SYSDE commits to review the unit rate at group level, applying a scale discount that will be automatically incorporated at the fiscal year-end in which the threshold is reached.",
         highlight: "Group threshold: 2,500,000 consolidated loans · Automatic annual review",
+        example: {
+          scenario: "Year 3: the 9-country sum reaches 2,650,000 consolidated active loans (above the 2.5M threshold).",
+          steps: [
+            { label: "Average country-by-country rate", value: "≈ USD $0.40 / loan / month" },
+            { label: "Annual billing without review", value: "2,650,000 × $0.40 × 12 = USD $12.72M" },
+            { label: "Reviewed consolidated group rate", value: "≈ USD $0.34 / loan / month (−15%)" },
+            { label: "Annual billing with group review", value: "2,650,000 × $0.34 × 12 = USD $10.81M" },
+          ],
+          conclusion: "Estimated saving of USD $1.9M annually, applied automatically at the fiscal year-end when the threshold is crossed.",
+        },
       },
       {
         num: "3",
         title: "Multi-entity billing flexibility",
         body: "The licensing cost (currently a one-time payment) may be split into invoices to different Unicomer group entities, by country or by business unit, according to the group's tax and accounting needs. SYSDE will issue invoices per legal entity, keeping the total agreed amount and with no administrative charge for the split.",
         highlight: "Per-legal-entity invoicing · Country or business unit · No administrative surcharge",
+        example: {
+          scenario: "Unicomer decides to split the one-time implementation payment of USD $1,205,000 across 3 group tax entities.",
+          steps: [
+            { label: "Guatemala entity (first country)", value: "USD $395,000 (local GT invoice)" },
+            { label: "Regional Holding entity", value: "USD $610,000 (base software + PMO)" },
+            { label: "Shared Services entity", value: "USD $200,000 (integrations + training)" },
+            { label: "Total invoiced", value: "USD $1,205,000 — identical to the single amount" },
+          ],
+          conclusion: "Three invoices per legal entity, locally deductible, with no extra administrative charge for the split.",
+        },
       },
     ],
   },
