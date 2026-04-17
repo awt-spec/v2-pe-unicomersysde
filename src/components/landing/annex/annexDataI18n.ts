@@ -223,7 +223,7 @@ export const licenseBlocksI18n: Record<Lang, { title: string; lines: string[] }[
       lines: [
         "Compañías: Ilimitadas | Usuarios: Ilimitados | Tarjetas: Ilimitadas | Clientes: Ilimitados",
         "Territorio: BIG 9 + todas las geografías donde Unicomer opere.",
-        "Pagadero por adelantado el 1 de enero, independientemente del volumen.",
+        "Pagadero anualmente (firma del contrato / 1 de enero).",
       ],
     },
     {
