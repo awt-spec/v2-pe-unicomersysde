@@ -28,6 +28,7 @@ import {
 import { generateAnnexExcel } from "./excelExport";
 import ImplementationBreakdown from "./ImplementationBreakdown";
 import CreditDefinitionCard from "./CreditDefinitionCard";
+import SaasOptionsCard from "./SaasOptionsCard";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const fmt = (v: string | number, isCurrency = false, decimals = 0) => {
@@ -324,6 +325,9 @@ export default function AnnexViewer() {
 
                   {/* Definición formal de Crédito Activo (tarjeta expansible) */}
                   <CreditDefinitionCard />
+
+                  {/* Modelo SaaS — 3 opciones de despliegue */}
+                  <SaasOptionsCard />
 
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
                     {licenseBlocks.map((b, i) => <LicenseBlock key={i} {...b} />)}
