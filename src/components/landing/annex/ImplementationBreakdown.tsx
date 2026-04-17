@@ -101,28 +101,7 @@ export default function ImplementationBreakdown() {
           </p>
         </div>
 
-        <Collapsible defaultOpen className="rounded-xl border border-border bg-muted/20 overflow-hidden">
-          <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 hover:bg-muted/40 transition-colors group">
-            <div className="text-left">
-              <div className="font-semibold text-sm text-foreground">
-                {lang === "es"
-                  ? "Cláusula 3 — Facturación multi-entidad del costo único de implementación"
-                  : "Clause 3 — Multi-entity billing of the one-time implementation cost"}
-              </div>
-              <div className="text-[11px] text-muted-foreground mt-0.5">
-                {lang === "es"
-                  ? "Reparte el monto único de USD $1,205,000 entre las entidades fiscales que Unicomer defina"
-                  : "Split the one-time USD $1,205,000 amount across the tax entities Unicomer defines"}
-              </div>
-            </div>
-            <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0 transition-transform group-data-[state=open]:rotate-180" />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
-            <div className="p-4 pt-2">
-              <ClauseMultiEntity />
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
+        <ClauseMultiEntityToggle />
       </section>
     </div>
   );
