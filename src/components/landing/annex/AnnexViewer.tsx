@@ -295,6 +295,20 @@ export default function AnnexViewer() {
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
                     {licenseBlocks.map((b, i) => <LicenseBlock key={i} {...b} />)}
                   </div>
+
+                  {/* Cláusula comercial — Facturación multi-entidad de la licencia anual on-premise */}
+                  <div className="mt-8 pt-6 border-t-2 border-dashed border-border">
+                    <ClauseToggle
+                      title={lang === "es"
+                        ? "Cláusula comercial — Facturación multi-entidad (licencia anual)"
+                        : "Commercial clause — Multi-entity billing (annual license)"}
+                      subtitle={lang === "es"
+                        ? "Reparte la licencia anual on-premise entre las entidades fiscales del grupo Unicomer"
+                        : "Split the annual on-premise license across Unicomer group's tax entities"}
+                    >
+                      <ClauseMultiEntityLicense mode="onpremise" />
+                    </ClauseToggle>
+                  </div>
                 </TabsContent>
 
                 <TabsContent value="saas" forceMount={tab === "saas" ? true : undefined} hidden={tab !== "saas"}>
