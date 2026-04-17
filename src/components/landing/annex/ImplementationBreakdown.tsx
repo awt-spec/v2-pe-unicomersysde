@@ -200,7 +200,7 @@ function PaymentTermsSection({ grandTotal }: { grandTotal: number }) {
       perMonth: "Cuota mensual",
       schedule: "Calendario",
       day1: "Día 1 de cada mes",
-      tip: "Plan estándar SYSDE: 50% firma + 12 cuotas mensuales sin intereses sobre el saldo diferido.",
+      tip: "Plan estándar SYSDE: 50% a la firma + 12 cuotas mensuales.",
     },
     en: {
       title: "Payment terms",
@@ -216,12 +216,12 @@ function PaymentTermsSection({ grandTotal }: { grandTotal: number }) {
       perMonth: "Monthly installment",
       schedule: "Schedule",
       day1: "Day 1 of every month",
-      tip: "SYSDE standard plan: 50% at signing + 12 monthly installments with no interest on the deferred balance.",
+      tip: "SYSDE standard plan: 50% at signing + 12 monthly installments.",
     },
   }[lang];
 
   return (
-    <section>
+    <section className="pt-10 border-t-2 border-dashed border-border">
       <div className="text-center mb-6">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mb-3">
           <Wallet className="h-6 w-6 text-accent" />
