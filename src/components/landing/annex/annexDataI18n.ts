@@ -241,7 +241,7 @@ export const licenseBlocksI18n: Record<Lang, { title: string; lines: string[] }[
       lines: [
         "Companies: Unlimited | Users: Unlimited | Loans: Unlimited | Customers: Unlimited",
         "Territory: BIG 9 + all geographies where Unicomer operates.",
-        "Payable in advance on January 1, regardless of loan volume.",
+        "Payable annually (contract signature / January 1).",
       ],
     },
     {
