@@ -111,17 +111,84 @@ const Pricing = () => {
   return (
     <section id="pricing" className="py-24 bg-background">
       <div className="container mx-auto px-4">
+        {/* ═══════ ANUNCIO: PROPUESTA ECONÓMICA ═══════ */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="relative max-w-5xl mx-auto mb-16 overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-accent/10 via-card to-card"
         >
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-            Inversión <span className="text-accent">Fija</span>
-          </h2>
-          <p className="text-muted-foreground text-lg">Una sola plataforma — todos los países</p>
+          {/* Sweep light effect */}
+          <motion.div
+            initial={{ x: "-100%" }}
+            whileInView={{ x: "200%" }}
+            viewport={{ once: true }}
+            transition={{ duration: 2, ease: "easeInOut", delay: 0.3 }}
+            className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-accent/20 to-transparent skew-x-12 pointer-events-none"
+          />
+
+          {/* Grid pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.04] pointer-events-none"
+            style={{
+              backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
+              backgroundSize: "24px 24px",
+            }}
+          />
+
+          <div className="relative px-6 py-12 md:px-12 md:py-16 text-center">
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              whileInView={{ scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 200, damping: 18, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-white text-[11px] font-bold uppercase tracking-[0.25em] mb-6 shadow-lg shadow-accent/30"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              Capítulo Final
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mb-4"
+            >
+              Has llegado a la
+            </motion.p>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7, duration: 0.7 }}
+              className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.05] tracking-tight mb-6"
+            >
+              Propuesta <span className="text-accent">Económica</span>
+            </motion.h2>
+
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1, duration: 0.8 }}
+              className="h-px w-24 mx-auto bg-gradient-to-r from-transparent via-accent to-transparent mb-6"
+            />
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1.2, duration: 0.6 }}
+              className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              Una <span className="text-foreground font-semibold">inversión fija</span> — una sola plataforma para todos los países donde Unicomer opere.
+            </motion.p>
+          </div>
         </motion.div>
+
 
         <div className="max-w-6xl mx-auto">
 
