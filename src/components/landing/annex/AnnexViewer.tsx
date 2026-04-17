@@ -438,8 +438,8 @@ export default function AnnexViewer() {
                   <div className="mt-6">
                     <ClauseToggle
                       title={lang === "es"
-                        ? "Cláusula 3 — Facturación multi-entidad de la licencia anual"
-                        : "Clause 3 — Multi-entity billing of the annual license"}
+                        ? "Cláusula 2 — Facturación multi-entidad de la licencia anual"
+                        : "Clause 2 — Multi-entity billing of the annual license"}
                       subtitle={lang === "es"
                         ? "Selecciona Credit Core y/o Tarjetas y reparte la licencia entre las entidades fiscales del grupo"
                         : "Select Credit Core and/or Cards and split the license across the group's tax entities"}
