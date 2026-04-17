@@ -72,10 +72,10 @@ export const implementationBreakdownI18n: Record<Lang, {
         subtotal: { label: "SUBTOTAL SOFTWARE BASE (INDEPENDIENTE PAÍSES)", amount: 810000 },
       },
       {
-        header: "B. PRIMER PAÍS (COSTA RICA · MAYOR COMPLEJIDAD)",
+        header: "B. PRIMER PAÍS (GUATEMALA · MAYOR COMPLEJIDAD)",
         items: [
           {
-            title: "Implementación Costa Rica",
+            title: "Implementación Guatemala",
             bullets: [
               "Análisis y levantamiento local",
               "Configuración regulatoria específica",
@@ -86,17 +86,17 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 230000,
           },
           {
-            title: "Integraciones Locales Costa Rica",
+            title: "Integraciones Locales Guatemala",
             bullets: [
               "3 integraciones específicas × $28,000",
-              "SINPE (transferencias)",
-              "Sistema tributario local (DGI)",
-              "Burós crédito CR (Equifax + Infonet)",
+              "BANTRAB / SIB (transferencias y reportería bancaria)",
+              "SAT (Superintendencia de Administración Tributaria)",
+              "Burós crédito GT (TransUnion + Crediref)",
             ],
             amount: 84000,
           },
           {
-            title: "Capacitación Local Costa Rica",
+            title: "Capacitación Local Guatemala",
             bullets: [
               "Train-the-trainer local",
               "8 sesiones",
@@ -106,12 +106,12 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 30000,
           },
           {
-            title: "Consultoría Regulatoria Costa Rica",
+            title: "Consultoría Regulatoria Guatemala",
             bullets: [
-              "Cumplimiento SUGEF",
-              "Ley Usura",
-              "LGPD Costa Rica",
-              "Reportería regulatoria",
+              "Cumplimiento SIB (Superintendencia de Bancos)",
+              "Ley contra el Lavado de Dinero (Ley 67-2001)",
+              "Ley de Protección de Datos Personales",
+              "Reportería regulatoria SIB",
             ],
             amount: 25000,
           },
@@ -175,10 +175,10 @@ export const implementationBreakdownI18n: Record<Lang, {
         subtotal: { label: "SUBTOTAL BASE SOFTWARE (COUNTRY-INDEPENDENT)", amount: 810000 },
       },
       {
-        header: "B. FIRST COUNTRY (COSTA RICA · HIGHEST COMPLEXITY)",
+        header: "B. FIRST COUNTRY (GUATEMALA · HIGHEST COMPLEXITY)",
         items: [
           {
-            title: "Costa Rica Implementation",
+            title: "Guatemala Implementation",
             bullets: [
               "Local analysis & requirements",
               "Country-specific regulatory configuration",
@@ -189,17 +189,17 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 230000,
           },
           {
-            title: "Costa Rica Local Integrations",
+            title: "Guatemala Local Integrations",
             bullets: [
               "3 specific integrations × $28,000",
-              "SINPE (transfers)",
-              "Local tax system (DGI)",
-              "CR Credit Bureaus (Equifax + Infonet)",
+              "BANTRAB / SIB (banking transfers & reporting)",
+              "SAT (Tax Administration Superintendence)",
+              "GT Credit Bureaus (TransUnion + Crediref)",
             ],
             amount: 84000,
           },
           {
-            title: "Costa Rica Local Training",
+            title: "Guatemala Local Training",
             bullets: [
               "Local train-the-trainer",
               "8 sessions",
@@ -209,12 +209,12 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 30000,
           },
           {
-            title: "Costa Rica Regulatory Consulting",
+            title: "Guatemala Regulatory Consulting",
             bullets: [
-              "SUGEF compliance",
-              "Usury Law",
-              "Costa Rica LGPD",
-              "Regulatory reporting",
+              "SIB compliance (Banking Superintendence)",
+              "Anti-Money Laundering Law (Law 67-2001)",
+              "Personal Data Protection Law",
+              "SIB regulatory reporting",
             ],
             amount: 25000,
           },
@@ -322,8 +322,8 @@ export const saasDeploymentOptionsI18n: Record<Lang, {
   footer: string;
 }> = {
   es: {
-    title: "Modelo SaaS — 3 opciones de despliegue sin costo diferencial",
-    intro: "El precio del modelo SaaS es idéntico en las tres topologías. Unicomer elige libremente la que mejor se ajuste a su gobierno de TI, sin penalización económica.",
+    title: "Modelo SaaS — 3 opciones de despliegue",
+    intro: "El precio del modelo SaaS es idéntico en las tres topologías. Unicomer elige libremente la que mejor se ajuste a su gobierno de TI.",
     options: [
       { tag: "Opción 1", title: "Una instancia por país", desc: "Aislamiento máximo, soberanía de datos por jurisdicción, ventanas de mantenimiento independientes.", instances: "9 instancias" },
       { tag: "Opción 2", title: "Por regiones", desc: "Tres regiones consolidadas: HULA (Honduras–Salvador), Sudamérica/Centroamérica y Caribe. Equilibrio entre aislamiento y eficiencia operativa.", instances: "3 instancias" },
@@ -332,8 +332,8 @@ export const saasDeploymentOptionsI18n: Record<Lang, {
     footer: "El cambio entre topologías durante la vigencia del contrato no genera cargo adicional de licenciamiento.",
   },
   en: {
-    title: "SaaS Model — 3 deployment options at no differential cost",
-    intro: "The SaaS price is identical across all three topologies. Unicomer freely chooses the option that best fits its IT governance, with no economic penalty.",
+    title: "SaaS Model — 3 deployment options",
+    intro: "The SaaS price is identical across all three topologies. Unicomer freely chooses the option that best fits its IT governance.",
     options: [
       { tag: "Option 1", title: "One instance per country", desc: "Maximum isolation, data sovereignty per jurisdiction, independent maintenance windows.", instances: "9 instances" },
       { tag: "Option 2", title: "By region", desc: "Three consolidated regions: HULA (Honduras–Salvador), South/Central America and Caribbean. Balance between isolation and operational efficiency.", instances: "3 instances" },

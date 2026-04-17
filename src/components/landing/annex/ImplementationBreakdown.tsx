@@ -1,5 +1,9 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Building2, MapPin, CheckCircle2, XCircle, GitBranch, Server, Layers, Globe, FileText, Scale, Receipt } from "lucide-react";
+import { Building2, MapPin, CheckCircle2, XCircle, GitBranch, Server, Layers, Globe, FileText, Scale, Receipt, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useT } from "@/i18n/LanguageContext";
 import {
   implementationBreakdownI18n,
@@ -17,6 +21,7 @@ export default function ImplementationBreakdown() {
   const credit = creditDefinitionI18n[lang];
   const saas = saasDeploymentOptionsI18n[lang];
   const clauses = commercialClausesI18n[lang];
+  const [openClauses, setOpenClauses] = useState(false);
 
   return (
     <div className="space-y-12 mt-10 pt-10 border-t-2 border-dashed border-border">
@@ -89,7 +94,7 @@ export default function ImplementationBreakdown() {
         </div>
       </section>
 
-      {/* ========= 2. Definición de Crédito Activo ========= */}
+      {/* ========= 2. Definición Crédito Activo ========= */}
       <section>
         <div className="flex items-center gap-2 mb-3">
           <FileText className="h-5 w-5 text-accent" />
@@ -203,43 +208,64 @@ export default function ImplementationBreakdown() {
         <p className="text-xs text-muted-foreground italic mt-4 text-center">{saas.footer}</p>
       </section>
 
-      {/* ========= 4. Cláusulas comerciales ========= */}
+      {/* ========= 4. Cláusulas comerciales (popup) ========= */}
       <section>
-        <div className="flex items-center gap-2 mb-3">
-          <Scale className="h-5 w-5 text-accent" />
-          <h3 className="text-xl font-bold text-foreground">{clauses.title}</h3>
-        </div>
-        <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{clauses.intro}</p>
+        <div className="rounded-xl border-2 border-accent/30 bg-gradient-to-br from-accent/5 via-background to-accent/5 p-6 md:p-8 text-center">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mb-4">
+            <Scale className="h-6 w-6 text-accent" />
+          </div>
+          <h3 className="text-xl font-bold text-foreground mb-2">{clauses.title}</h3>
+          <p className="text-sm text-muted-foreground mb-5 max-w-xl mx-auto leading-relaxed">{clauses.intro}</p>
 
-        <div className="space-y-4">
-          {clauses.clauses.map((c, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -12 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="rounded-lg border border-border bg-card p-5 hover:shadow-md transition-shadow"
-            >
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-bold text-base">
-                  {c.num}
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-bold text-foreground text-base mb-2 flex items-center gap-2">
-                    {i === 2 ? <Receipt className="h-4 w-4 text-accent" /> : null}
-                    {c.title}
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">{c.body}</p>
-                  {c.highlight && (
-                    <div className="inline-block px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20">
-                      <span className="text-xs font-semibold text-accent">{c.highlight}</span>
+          <Dialog open={openClauses} onOpenChange={setOpenClauses}>
+            <DialogTrigger asChild>
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground gap-2">
+                <FileText className="h-4 w-4" />
+                {lang === "es" ? "Ver cláusulas detalladas" : "View detailed clauses"}
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-3xl max-h-[85vh] p-0 overflow-hidden">
+              <DialogHeader className="px-6 pt-6 pb-4 border-b border-border bg-gradient-to-r from-accent/10 to-transparent">
+                <DialogTitle className="text-xl flex items-center gap-2">
+                  <Scale className="h-5 w-5 text-accent" />
+                  {clauses.title}
+                </DialogTitle>
+                <DialogDescription className="text-sm leading-relaxed pt-1">
+                  {clauses.intro}
+                </DialogDescription>
+              </DialogHeader>
+
+              <ScrollArea className="max-h-[60vh] px-6 py-5">
+                <div className="space-y-4">
+                  {clauses.clauses.map((c, i) => (
+                    <div
+                      key={i}
+                      className="rounded-lg border border-border bg-card p-5 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="shrink-0 w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-bold text-base">
+                          {c.num}
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-foreground text-base mb-2 flex items-center gap-2">
+                            {i === 2 ? <Receipt className="h-4 w-4 text-accent" /> : null}
+                            {c.title}
+                          </h4>
+                          <p className="text-sm text-muted-foreground leading-relaxed mb-3">{c.body}</p>
+                          {c.highlight && (
+                            <div className="inline-block px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20">
+                              <span className="text-xs font-semibold text-accent">{c.highlight}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  )}
+                  ))}
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </ScrollArea>
+            </DialogContent>
+          </Dialog>
         </div>
       </section>
     </div>
