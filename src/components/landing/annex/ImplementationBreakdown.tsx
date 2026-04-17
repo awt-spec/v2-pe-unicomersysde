@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Building2, MapPin, Server, Scale, ChevronDown } from "lucide-react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useT } from "@/i18n/LanguageContext";
 import { implementationBreakdownI18n } from "./implementationBreakdownData";
 import ClauseMultiEntity from "./clauses/ClauseMultiEntity";
