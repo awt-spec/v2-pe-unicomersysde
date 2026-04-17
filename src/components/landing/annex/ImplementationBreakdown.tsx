@@ -98,15 +98,15 @@ export default function ImplementationBreakdown() {
         <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{credit.intro}</p>
 
         <div className="grid md:grid-cols-2 gap-4 mb-6">
-          <div className="rounded-lg border-2 border-emerald-500/30 bg-emerald-500/5 p-5">
+          <div className="rounded-lg border-2 border-success/30 bg-success/5 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+              <CheckCircle2 className="h-5 w-5 text-success" />
               <h4 className="font-bold text-sm text-foreground">{credit.isActive.title}</h4>
             </div>
             <ul className="space-y-2">
               {credit.isActive.items.map((it, i) => (
                 <li key={i} className="text-xs text-muted-foreground leading-relaxed flex gap-2">
-                  <span className="text-emerald-600 mt-0.5 shrink-0">▸</span>
+                  <span className="text-success mt-0.5 shrink-0">▸</span>
                   <span>{it}</span>
                 </li>
               ))}
@@ -153,7 +153,7 @@ export default function ImplementationBreakdown() {
                     <td className="px-3 py-2 text-xs text-muted-foreground">{s.desc}</td>
                     <td className="px-3 py-2 text-center">
                       {s.billable ? (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 text-xs font-medium">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success/10 text-success text-xs font-medium">
                           <CheckCircle2 className="h-3 w-3" /> {t("annex.impl.lifecycle.yes")}
                         </span>
                       ) : (
