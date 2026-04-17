@@ -309,7 +309,7 @@ const PricingHeroAnnouncement = () => {
                 }}
               >
                 <div className="absolute inset-0 -m-4 bg-accent/15 blur-3xl rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
-                <span className="relative font-semibold text-accent leading-none tabular-nums tracking-tight text-[5rem] md:text-[8rem]">
+                <span className="relative font-semibold text-accent leading-none tabular-nums tracking-tight text-[3.5rem] md:text-[6rem]">
                   9
                 </span>
                 <span className="mt-3 text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-sans whitespace-nowrap" style={{ fontFamily: "inherit" }}>
@@ -319,7 +319,7 @@ const PricingHeroAnnouncement = () => {
 
               {/* + */}
               <motion.span
-                className="text-4xl md:text-6xl font-light text-muted-foreground/50 leading-none pb-10 md:pb-14 select-none"
+                className="text-3xl md:text-5xl font-light text-muted-foreground/50 leading-none pb-8 md:pb-12 select-none"
                 style={{
                   opacity: reduce ? 1 : f2.o,
                   y: reduce ? 0 : f2.y,
@@ -341,7 +341,7 @@ const PricingHeroAnnouncement = () => {
                 }}
               >
                 <motion.span
-                  className="block italic font-semibold text-foreground leading-none tracking-tight text-[5rem] md:text-[8rem]"
+                  className="block italic font-semibold text-foreground leading-none tracking-tight text-[3.5rem] md:text-[6rem]"
                   animate={reduce ? undefined : { scale: [1, 1.04, 1] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 >
@@ -354,7 +354,7 @@ const PricingHeroAnnouncement = () => {
 
               {/* = */}
               <motion.span
-                className="text-4xl md:text-6xl font-light text-muted-foreground/50 leading-none pb-10 md:pb-14 select-none"
+                className="text-3xl md:text-5xl font-light text-muted-foreground/50 leading-none pb-8 md:pb-12 select-none"
                 style={{
                   opacity: reduce ? 1 : f4.o,
                   y: reduce ? 0 : f4.y,
@@ -377,7 +377,7 @@ const PricingHeroAnnouncement = () => {
               >
                 <div className="absolute inset-0 -m-4 bg-accent/20 blur-3xl rounded-full opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
                 <span
-                  className="relative font-bold leading-none tracking-tight pb-2 text-[2.5rem] md:text-[5rem] bg-gradient-to-br from-accent to-accent/70 bg-clip-text text-transparent"
+                  className="relative font-bold leading-none tracking-tight pb-2 text-[2rem] md:text-[3.75rem] bg-gradient-to-br from-accent to-accent/70 bg-clip-text text-transparent"
                   style={{ fontFamily: "inherit" }}
                 >
                   TODOS
