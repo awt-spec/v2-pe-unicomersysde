@@ -4,7 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useT } from "@/i18n/LanguageContext";
-import { onPremiseTotals, saasTotals } from "../annexDataI18n";
+import { onPremiseTotals } from "../annexDataI18n";
+
+// Licencia anual SaaS = suma de las 3 licencias anuales (Credit Core + Tarjetas + Factoring)
+const SAAS_ANNUAL_LICENSE = 350000 + 250000 + 100000; // USD 700,000
+const SAAS_MONTHLY_LICENSE = SAAS_ANNUAL_LICENSE / 12;
 
 const fmtUSD = (n: number, dec = 0) =>
   `USD $${n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
@@ -28,17 +32,17 @@ export default function ClauseMultiEntityLicense({ mode, fixedPeriod }: Props) {
 
   const [period, setPeriod] = useState<Period>(fixedPeriod ?? "annual");
 
-  // Base: licencia anual on-premise o SaaS (anual / mensual)
+  // Base: licencia anual on-premise o licencia anual SaaS (Credit Core + Tarjetas + Factoring)
   const baseAmount = useMemo(() => {
     if (mode === "onpremise") return onPremiseTotals.totalAnnual;
-    return period === "annual" ? saasTotals.annual : saasTotals.monthly;
+    return period === "annual" ? SAAS_ANNUAL_LICENSE : SAAS_MONTHLY_LICENSE;
   }, [mode, period]);
 
   const periodLabel = useMemo(() => {
     if (mode === "onpremise") return L(lng, "licencia anual on-premise", "annual on-premise license");
     return period === "annual"
-      ? L(lng, "licencia SaaS anual", "annual SaaS license")
-      : L(lng, "licencia SaaS mensual", "monthly SaaS license");
+      ? L(lng, "licencia anual SaaS (Credit Core + Tarjetas + Factoring)", "annual SaaS license (Credit Core + Cards + Factoring)")
+      : L(lng, "licencia anual SaaS prorrateada mensual", "annual SaaS license prorated monthly");
   }, [mode, period, lng]);
 
   const initial = (): Split[] => [
@@ -61,7 +65,7 @@ export default function ClauseMultiEntityLicense({ mode, fixedPeriod }: Props) {
   const removeEntity = (i: number) => setSplits((s) => s.filter((_, j) => j !== i));
   const reset = () => setSplits(initial());
 
-  const decimals = mode === "saas" ? 2 : 0;
+  const decimals = mode === "saas" && period === "monthly" ? 2 : 0;
 
   return (
     <div className="rounded-xl border-2 border-accent/30 bg-card overflow-hidden">
