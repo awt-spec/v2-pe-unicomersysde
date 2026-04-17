@@ -459,7 +459,7 @@ export default function AnnexViewer() {
                         ? "Selecciona Credit Core y/o Tarjetas y reparte la licencia entre las entidades fiscales del grupo"
                         : "Select Credit Core and/or Cards and split the license across the group's tax entities"}
                     >
-                      <ClauseMultiEntityLicense mode="saas" />
+                      <ClauseMultiEntityLicense mode="saas" fixedPeriod="annual" />
                     </ClauseToggle>
                   </div>
                 </TabsContent>
