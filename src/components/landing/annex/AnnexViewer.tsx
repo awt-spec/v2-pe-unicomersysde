@@ -322,6 +322,9 @@ export default function AnnexViewer() {
                     </TableShell>
                   </div>
 
+                  {/* Definición formal de Crédito Activo (tarjeta expansible) */}
+                  <CreditDefinitionCard />
+
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
                     {licenseBlocks.map((b, i) => <LicenseBlock key={i} {...b} />)}
                   </div>
