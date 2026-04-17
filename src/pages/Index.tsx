@@ -8,20 +8,23 @@ import WhySysde from "@/components/landing/WhySysde";
 import RfpSection from "@/components/landing/rfp/RfpSection";
 import FloatingChat from "@/components/landing/FloatingChat";
 import Footer from "@/components/landing/Footer";
+import PasswordGate from "@/components/PasswordGate";
 
 const Index = () => (
-  <div className="min-h-screen">
-    <Navbar />
-    <HeroSection />
-    <WhySysdeHero />
-    <PuzzleModules />
-    <Pricing />
-    <TwoWorlds />
-    <WhySysde />
-    <RfpSection />
-    <Footer />
-    <FloatingChat />
-  </div>
+  <PasswordGate>
+    <div className="min-h-screen">
+      <Navbar />
+      <HeroSection />
+      <WhySysdeHero />
+      <PuzzleModules />
+      <Pricing />
+      <TwoWorlds />
+      <WhySysde />
+      <RfpSection />
+      <Footer />
+      <FloatingChat />
+    </div>
+  </PasswordGate>
 );
 
 export default Index;
