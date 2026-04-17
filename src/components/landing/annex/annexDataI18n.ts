@@ -215,6 +215,7 @@ export const licenseBlocksI18n: Record<Lang, { title: string; lines: string[] }[
       lines: [
         "Compañías: Ilimitadas | Usuarios: Ilimitados | Créditos: Ilimitados | Clientes: Ilimitados",
         "Territorio: BIG 9 + todas las geografías donde Unicomer opere.",
+        "Independiente del volumen de créditos.",
         "Pagadero anualmente (firma del contrato / 1 de enero).",
       ],
     },
@@ -223,6 +224,7 @@ export const licenseBlocksI18n: Record<Lang, { title: string; lines: string[] }[
       lines: [
         "Compañías: Ilimitadas | Usuarios: Ilimitados | Tarjetas: Ilimitadas | Clientes: Ilimitados",
         "Territorio: BIG 9 + todas las geografías donde Unicomer opere.",
+        "Independiente del volumen de tarjetas.",
         "Pagadero anualmente (firma del contrato / 1 de enero).",
       ],
     },
@@ -231,6 +233,7 @@ export const licenseBlocksI18n: Record<Lang, { title: string; lines: string[] }[
       lines: [
         "Compañías: Ilimitadas | Usuarios: Ilimitados | Créditos: Ilimitados | Clientes: Ilimitados",
         "Territorio: BIG 9 + todas las geografías donde Unicomer opere.",
+        "Independiente del volumen de créditos.",
         "Pagadero anualmente (firma del contrato / 1 de enero).",
       ],
     },
@@ -241,6 +244,7 @@ export const licenseBlocksI18n: Record<Lang, { title: string; lines: string[] }[
       lines: [
         "Companies: Unlimited | Users: Unlimited | Loans: Unlimited | Customers: Unlimited",
         "Territory: BIG 9 + all geographies where Unicomer operates.",
+        "Independent of loan volume.",
         "Payable annually (contract signature / January 1).",
       ],
     },
@@ -249,6 +253,7 @@ export const licenseBlocksI18n: Record<Lang, { title: string; lines: string[] }[
       lines: [
         "Companies: Unlimited | Users: Unlimited | Credit Cards: Unlimited | Customers: Unlimited",
         "Territory: BIG 9 + all geographies where Unicomer operates.",
+        "Independent of card volume.",
         "Payable annually (contract signature / January 1).",
       ],
     },
@@ -257,6 +262,7 @@ export const licenseBlocksI18n: Record<Lang, { title: string; lines: string[] }[
       lines: [
         "Companies: Unlimited | Users: Unlimited | Loans: Unlimited | Customers: Unlimited",
         "Territory: BIG 9 + all geographies where Unicomer operates.",
+        "Independent of loan volume.",
         "Payable annually (contract signature / January 1).",
       ],
     },
