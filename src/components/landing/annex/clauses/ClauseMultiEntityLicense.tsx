@@ -109,6 +109,36 @@ export default function ClauseMultiEntityLicense({ mode, fixedPeriod }: Props) {
       </div>
 
       <div className="p-5 space-y-4">
+        {mode === "saas" && (
+          <div className="rounded-lg border-2 border-dashed border-accent/30 bg-accent/5 p-4">
+            <div className="text-[10px] uppercase tracking-wider font-bold text-accent mb-3">
+              {L(lng, "1 · Selecciona las licencias a facturar", "1 · Select the licenses to invoice")}
+            </div>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <label className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                includeCore ? "border-accent bg-accent/10" : "border-border bg-card hover:border-accent/40"
+              }`}>
+                <Checkbox checked={includeCore} onCheckedChange={(v) => setIncludeCore(!!v)} className="mt-0.5" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-bold text-foreground">{L(lng, "Credit Core System", "Credit Core System")}</div>
+                  <div className="text-xs text-muted-foreground">{L(lng, "Licencia anual", "Annual license")}</div>
+                  <div className="text-sm font-mono font-bold text-accent mt-1">{fmtUSD(LICENSE_CREDIT_CORE)}</div>
+                </div>
+              </label>
+              <label className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                includeCards ? "border-accent bg-accent/10" : "border-border bg-card hover:border-accent/40"
+              }`}>
+                <Checkbox checked={includeCards} onCheckedChange={(v) => setIncludeCards(!!v)} className="mt-0.5" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-bold text-foreground">{L(lng, "Tarjetas de Crédito", "Credit Cards")}</div>
+                  <div className="text-xs text-muted-foreground">{L(lng, "Licencia anual", "Annual license")}</div>
+                  <div className="text-sm font-mono font-bold text-accent mt-1">{fmtUSD(LICENSE_CARDS)}</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        )}
+
         <p className="text-sm text-muted-foreground leading-relaxed">
           {L(lng,
             `La ${periodLabel} de ${fmtUSD(baseAmount, decimals)} puede repartirse entre las entidades fiscales que Unicomer defina (por país, por unidad de negocio, holding regional, etc.), sin recargo administrativo. Configura abajo el split y SYSDE emitirá factura por cada entidad legal en cada ciclo de facturación.`,
