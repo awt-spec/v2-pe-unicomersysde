@@ -270,33 +270,113 @@ const PricingHeroAnnouncement = () => {
             <span className="text-foreground/80"> Todos los países.</span>
           </motion.p>
 
-          {/* Interactive metric pills */}
+          {/* Formula: 9 + x = TODOS — Apple-style, interactive (hovers + scroll-driven blur reveal) */}
           <motion.div
-            className="mt-12 md:mt-16 flex flex-wrap items-center justify-center gap-3 md:gap-4"
+            className="mt-14 md:mt-20"
             style={{
               opacity: reduce ? 1 : pillsOpacity,
               y: reduce ? 0 : pillsY,
               transform: reduce ? undefined : "translateZ(30px)",
             }}
           >
-            {metrics.map((m, i) => (
+            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-muted-foreground/60 font-medium mb-8">
+              Despliegue multi-país sin límites
+            </p>
+
+            <div
+              className="flex items-end justify-center gap-6 md:gap-12"
+              style={{ fontFamily: "'Cambria Math', 'Latin Modern Math', 'STIX Two Math', Cambria, Georgia, serif" }}
+            >
+              {/* 9 */}
               <motion.div
-                key={m.label}
-                whileHover={reduce ? undefined : { scale: 1.06, y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="group relative cursor-default"
+                whileHover={reduce ? undefined : { scale: 1.08, y: -6 }}
+                transition={{ type: "spring", stiffness: 280, damping: 18 }}
+                className="group relative flex flex-col items-center cursor-default"
+                style={{
+                  opacity: reduce ? 1 : f1.o,
+                  y: reduce ? 0 : f1.y,
+                  filter: reduce ? "none" : f1Filter,
+                }}
               >
-                <div className="absolute inset-0 rounded-full bg-accent/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative flex items-center gap-3 px-5 py-3 rounded-full border border-border/60 bg-card/60 backdrop-blur-md hover:border-accent/50 transition-colors duration-300">
-                  <span className="text-2xl md:text-3xl font-display font-bold text-foreground tabular-nums">
-                    <Counter to={m.value} prefix={m.prefix ?? ""} suffix={m.suffix ?? ""} />
-                  </span>
-                  <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                    {m.label}
-                  </span>
-                </div>
+                <div className="absolute inset-0 -m-4 bg-accent/15 blur-3xl rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
+                <span className="relative font-semibold text-accent leading-none tabular-nums tracking-tight text-[5rem] md:text-[8rem]">
+                  9
+                </span>
+                <span className="mt-3 text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-sans whitespace-nowrap" style={{ fontFamily: "inherit" }}>
+                  países hoy
+                </span>
               </motion.div>
-            ))}
+
+              {/* + */}
+              <motion.span
+                className="text-4xl md:text-6xl font-light text-muted-foreground/50 leading-none pb-10 md:pb-14 select-none"
+                style={{
+                  opacity: reduce ? 1 : f2.o,
+                  y: reduce ? 0 : f2.y,
+                  filter: reduce ? "none" : f2Filter,
+                }}
+              >
+                +
+              </motion.span>
+
+              {/* x */}
+              <motion.div
+                whileHover={reduce ? undefined : { scale: 1.08, y: -6, rotate: -3 }}
+                transition={{ type: "spring", stiffness: 280, damping: 18 }}
+                className="group relative flex flex-col items-center cursor-default"
+                style={{
+                  opacity: reduce ? 1 : f3.o,
+                  y: reduce ? 0 : f3.y,
+                  filter: reduce ? "none" : f3Filter,
+                }}
+              >
+                <motion.span
+                  className="block italic font-semibold text-foreground leading-none tracking-tight text-[5rem] md:text-[8rem]"
+                  animate={reduce ? undefined : { scale: [1, 1.04, 1] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  x
+                </motion.span>
+                <span className="mt-3 text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-sans whitespace-nowrap" style={{ fontFamily: "inherit" }}>
+                  países futuros
+                </span>
+              </motion.div>
+
+              {/* = */}
+              <motion.span
+                className="text-4xl md:text-6xl font-light text-muted-foreground/50 leading-none pb-10 md:pb-14 select-none"
+                style={{
+                  opacity: reduce ? 1 : f4.o,
+                  y: reduce ? 0 : f4.y,
+                  filter: reduce ? "none" : f4Filter,
+                }}
+              >
+                =
+              </motion.span>
+
+              {/* TODOS */}
+              <motion.div
+                whileHover={reduce ? undefined : { scale: 1.06, y: -6 }}
+                transition={{ type: "spring", stiffness: 280, damping: 18 }}
+                className="group relative flex flex-col items-center cursor-default"
+                style={{
+                  opacity: reduce ? 1 : f5.o,
+                  y: reduce ? 0 : f5.y,
+                  filter: reduce ? "none" : f5Filter,
+                }}
+              >
+                <div className="absolute inset-0 -m-4 bg-accent/20 blur-3xl rounded-full opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+                <span
+                  className="relative font-bold leading-none tracking-tight pb-2 text-[2.5rem] md:text-[5rem] bg-gradient-to-br from-accent to-accent/70 bg-clip-text text-transparent"
+                  style={{ fontFamily: "inherit" }}
+                >
+                  TODOS
+                </span>
+                <span className="mt-3 text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-sans whitespace-nowrap" style={{ fontFamily: "inherit" }}>
+                  ilimitado
+                </span>
+              </motion.div>
+            </div>
           </motion.div>
         </motion.div>
 
