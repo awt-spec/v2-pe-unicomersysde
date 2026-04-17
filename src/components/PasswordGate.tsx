@@ -15,11 +15,11 @@ import { Button } from "@/components/ui/button";
  */
 
 // PBKDF2-SHA256, 200,000 iterations
-const PBKDF2_SALT_HEX = "5359534445s2026s4143434553535f56324e";
+const PBKDF2_SALT_HEX = "a1b2c3d4e5f60718293a4b5c6d7e8f90";
 const PBKDF2_ITERATIONS = 200_000;
 const STORAGE_KEY = "sysde_gate_v2";
 // Precomputed PBKDF2 of the access password with the salt + iterations above.
-const EXPECTED_HASH_HEX = "fcf184b59361a08367d0cc3d0dfea5846303ac35643333bddec2331a0b62cf56";
+const EXPECTED_HASH_HEX = "92421f74f025f7d1afe1804ada047d51be1c791f3d8f39c6d59c58301d165a11";
 
 function hexToBytes(hex: string): Uint8Array {
   const out = new Uint8Array(hex.length / 2);
