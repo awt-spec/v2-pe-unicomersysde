@@ -106,3 +106,66 @@ export default function ImplementationBreakdown() {
     </div>
   );
 }
+
+// Toggle con CTA explícito "Ver detalle / Ocultar detalle" + animación suave
+function ClauseMultiEntityToggle() {
+  const { lang } = useT();
+  const [open, setOpen] = useState(true);
+  const ctaOpen = lang === "es" ? "Ocultar detalle" : "Hide detail";
+  const ctaClosed = lang === "es" ? "Ver detalle" : "View detail";
+
+  return (
+    <div className="rounded-xl border border-border bg-muted/20 overflow-hidden transition-colors hover:border-accent/40">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="w-full px-4 py-3 flex items-center justify-between gap-3 hover:bg-muted/40 transition-colors text-left"
+      >
+        <div className="min-w-0">
+          <div className="font-semibold text-sm text-foreground truncate">
+            {lang === "es"
+              ? "Cláusula 3 — Facturación multi-entidad del costo único de implementación"
+              : "Clause 3 — Multi-entity billing of the one-time implementation cost"}
+          </div>
+          <div className="text-[11px] text-muted-foreground mt-0.5 line-clamp-2">
+            {lang === "es"
+              ? "Reparte el monto único de USD $1,205,000 entre las entidades fiscales que Unicomer defina"
+              : "Split the one-time USD $1,205,000 amount across the tax entities Unicomer defines"}
+          </div>
+        </div>
+        <div className="shrink-0 flex items-center gap-2">
+          <span className={`hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full transition-colors ${
+            open ? "bg-accent/10 text-accent" : "bg-accent text-accent-foreground"
+          }`}>
+            {open ? ctaOpen : ctaClosed}
+          </span>
+          <motion.span
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="inline-flex"
+          >
+            <ChevronDown className={`h-4 w-4 ${open ? "text-accent" : "text-muted-foreground"}`} />
+          </motion.span>
+        </div>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="p-4 pt-2 border-t border-border/60">
+              <ClauseMultiEntity />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
