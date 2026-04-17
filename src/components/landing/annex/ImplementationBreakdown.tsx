@@ -1,14 +1,8 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Building2, MapPin, Server, FileText, Scale, Receipt, ChevronRight, Calculator } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Building2, MapPin, Server, Scale } from "lucide-react";
 import { useT } from "@/i18n/LanguageContext";
-import {
-  implementationBreakdownI18n,
-  commercialClausesI18n,
-} from "./implementationBreakdownData";
+import { implementationBreakdownI18n, commercialClausesI18n } from "./implementationBreakdownData";
+import InteractiveClauses from "./InteractiveClauses";
 
 const fmtUSD = (n: number) =>
   `USD $${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -17,7 +11,6 @@ export default function ImplementationBreakdown() {
   const { lang } = useT();
   const data = implementationBreakdownI18n[lang];
   const clauses = commercialClausesI18n[lang];
-  const [openClauses, setOpenClauses] = useState(false);
 
   return (
     <div className="space-y-12 mt-10 pt-10 border-t-2 border-dashed border-border">
