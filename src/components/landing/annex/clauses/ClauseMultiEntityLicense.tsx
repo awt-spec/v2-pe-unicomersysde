@@ -33,18 +33,30 @@ export default function ClauseMultiEntityLicense({ mode, fixedPeriod }: Props) {
 
   const [period, setPeriod] = useState<Period>(fixedPeriod ?? "annual");
 
-  // Base: licencia anual on-premise o licencia anual SaaS (Credit Core + Tarjetas + Factoring)
+  // Selección de licencias (solo SaaS): Credit Core y/o Tarjetas
+  const [includeCore, setIncludeCore] = useState(true);
+  const [includeCards, setIncludeCards] = useState(true);
+
+  // Base: licencia anual on-premise o suma de licencias SaaS seleccionadas (anual o mensual prorrateada)
   const baseAmount = useMemo(() => {
     if (mode === "onpremise") return onPremiseTotals.totalAnnual;
-    return period === "annual" ? SAAS_ANNUAL_LICENSE : SAAS_MONTHLY_LICENSE;
-  }, [mode, period]);
+    const annual = (includeCore ? LICENSE_CREDIT_CORE : 0) + (includeCards ? LICENSE_CARDS : 0);
+    return period === "annual" ? annual : annual / 12;
+  }, [mode, period, includeCore, includeCards]);
+
+  const selectedLabel = useMemo(() => {
+    if (includeCore && includeCards) return L(lng, "Credit Core + Tarjetas", "Credit Core + Cards");
+    if (includeCore) return L(lng, "Credit Core", "Credit Core");
+    if (includeCards) return L(lng, "Tarjetas de Crédito", "Credit Cards");
+    return L(lng, "ninguna licencia seleccionada", "no license selected");
+  }, [includeCore, includeCards, lng]);
 
   const periodLabel = useMemo(() => {
     if (mode === "onpremise") return L(lng, "licencia anual on-premise", "annual on-premise license");
     return period === "annual"
-      ? L(lng, "licencia anual SaaS (Credit Core + Tarjetas + Factoring)", "annual SaaS license (Credit Core + Cards + Factoring)")
-      : L(lng, "licencia anual SaaS prorrateada mensual", "annual SaaS license prorated monthly");
-  }, [mode, period, lng]);
+      ? L(lng, `licencia anual SaaS (${selectedLabel})`, `annual SaaS license (${selectedLabel})`)
+      : L(lng, `licencia SaaS (${selectedLabel}) prorrateada mensual`, `SaaS license (${selectedLabel}) prorated monthly`);
+  }, [mode, period, lng, selectedLabel]);
 
   const initial = (): Split[] => [
     { name: L(lng, "Entidad Honduras (HN)", "Honduras Entity (HN)"), pct: 33 },
