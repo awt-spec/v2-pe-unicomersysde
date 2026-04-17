@@ -105,29 +105,31 @@ const PricingHeroAnnouncement = () => {
     my.set(0);
   };
 
-  /* Formula tokens — staggered word reveal driven by scroll */
+  /* Formula tokens — staggered word reveal driven by scroll
+     Tokens 9, +, x, = aparecen entre 0.42 y 0.66 y permanecen visibles hasta 0.92.
+     TODOS aparece en 0.66, hace zoom/glow y se mantiene en pantalla hasta 0.96 (fase final extendida). */
   const f1 = {
-    o: useTransform(scrollYProgress, [0.42, 0.55, 0.7, 0.82], [0, 1, 1, 0]),
+    o: useTransform(scrollYProgress, [0.42, 0.55, 0.92, 0.97], [0, 1, 1, 0]),
     y: useTransform(scrollYProgress, [0.42, 0.58], [30, 0]),
     blur: useTransform(scrollYProgress, [0.42, 0.58], [12, 0]),
   };
   const f2 = {
-    o: useTransform(scrollYProgress, [0.46, 0.59, 0.7, 0.82], [0, 1, 1, 0]),
+    o: useTransform(scrollYProgress, [0.46, 0.59, 0.92, 0.97], [0, 1, 1, 0]),
     y: useTransform(scrollYProgress, [0.46, 0.62], [30, 0]),
     blur: useTransform(scrollYProgress, [0.46, 0.62], [12, 0]),
   };
   const f3 = {
-    o: useTransform(scrollYProgress, [0.5, 0.63, 0.7, 0.82], [0, 1, 1, 0]),
+    o: useTransform(scrollYProgress, [0.5, 0.63, 0.92, 0.97], [0, 1, 1, 0]),
     y: useTransform(scrollYProgress, [0.5, 0.66], [30, 0]),
     blur: useTransform(scrollYProgress, [0.5, 0.66], [12, 0]),
   };
   const f4 = {
-    o: useTransform(scrollYProgress, [0.54, 0.67, 0.7, 0.82], [0, 1, 1, 0]),
+    o: useTransform(scrollYProgress, [0.54, 0.67, 0.92, 0.97], [0, 1, 1, 0]),
     y: useTransform(scrollYProgress, [0.54, 0.7], [30, 0]),
     blur: useTransform(scrollYProgress, [0.54, 0.7], [12, 0]),
   };
   const f5 = {
-    o: useTransform(scrollYProgress, [0.58, 0.71, 0.74, 0.84], [0, 1, 1, 0]),
+    o: useTransform(scrollYProgress, [0.58, 0.71, 0.95, 0.99], [0, 1, 1, 0]),
     y: useTransform(scrollYProgress, [0.58, 0.74], [30, 0]),
     blur: useTransform(scrollYProgress, [0.58, 0.74], [12, 0]),
   };
