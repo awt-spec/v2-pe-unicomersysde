@@ -368,9 +368,9 @@ export default function AnnexViewer() {
                   {/* Modelo SaaS — 3 opciones de despliegue */}
                   <SaasOptionsCard />
 
-                  {/* Cláusulas comerciales de volumen y escala de grupo (interactivas) */}
-                  <div className="mt-10 pt-8 border-t-2 border-dashed border-border space-y-6">
-                    <div className="text-center">
+                  {/* Cláusulas comerciales de volumen y escala de grupo (interactivas, colapsables) */}
+                  <div className="mt-10 pt-8 border-t-2 border-dashed border-border space-y-3">
+                    <div className="text-center mb-4">
                       <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 mb-2">
                         <span className="text-[10px] font-semibold text-accent uppercase tracking-wider">
                           {t("annex.clausesEyebrow") || (lang === "es" ? "Cláusulas comerciales" : "Commercial clauses")}
@@ -385,8 +385,39 @@ export default function AnnexViewer() {
                           : "Interactive simulators based on real per-country rates from the SaaS table. No averages — each country keeps its contractual rate."}
                       </p>
                     </div>
-                    <ClauseRecalc />
-                    <ClauseGroupScale />
+
+                    <ClauseToggle
+                      title={lang === "es"
+                        ? "Cláusula 1 — Recálculo a volumen completo (sin tramos)"
+                        : "Clause 1 — Full-volume recalculation (no block stacking)"}
+                      subtitle={lang === "es"
+                        ? "Compara block-pricing vs. tarifa única SYSDE para cada país"
+                        : "Compare block-pricing vs. SYSDE single-tier for each country"}
+                    >
+                      <ClauseRecalc />
+                    </ClauseToggle>
+
+                    <ClauseToggle
+                      title={lang === "es"
+                        ? "Cláusula 2 — Escala consolidada del grupo Unicomer"
+                        : "Clause 2 — Unicomer group consolidated scale"}
+                      subtitle={lang === "es"
+                        ? "Descuentos consolidados al alcanzar 2.5M créditos activos del grupo"
+                        : "Consolidated discounts upon reaching 2.5M group active loans"}
+                    >
+                      <ClauseGroupScale />
+                    </ClauseToggle>
+
+                    <ClauseToggle
+                      title={lang === "es"
+                        ? "Cláusula 3 — Facturación multi-entidad de la licencia SaaS"
+                        : "Clause 3 — Multi-entity billing of the SaaS license"}
+                      subtitle={lang === "es"
+                        ? "Reparte la licencia SaaS (anual o mensual) entre las entidades fiscales del grupo"
+                        : "Split the SaaS license (annual or monthly) across the group's tax entities"}
+                    >
+                      <ClauseMultiEntityLicense mode="saas" />
+                    </ClauseToggle>
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
