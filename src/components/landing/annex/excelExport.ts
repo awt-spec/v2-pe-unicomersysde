@@ -19,6 +19,12 @@ import {
   implementationFooterI18n,
   otherCostsI18n,
 } from "./annexDataI18n";
+import {
+  implementationBreakdownI18n,
+  creditDefinitionI18n,
+  saasDeploymentOptionsI18n,
+  commercialClausesI18n,
+} from "./implementationBreakdownData";
 
 type Row = (string | number | null)[];
 
@@ -34,6 +40,9 @@ const labels = {
     saas: "SaaS - Licencias",
     implementation: "Servicios de Implementación",
     other: "Otros costos",
+    creditDef: "Definición Crédito Activo",
+    saasOptions: "Opciones SaaS",
+    clauses: "Cláusulas Comerciales",
     sheet3title: "INSTRUCCIONES PARA HOJA 3: LICENCIAMIENTO Y SOPORTE RECURRENTES (OPEX)",
     implTitle: "SERVICIOS DE IMPLEMENTACIÓN",
     instTitle: "INSTRUCCIONES:",
@@ -42,6 +51,15 @@ const labels = {
     grandTotals: "Totales",
     catHeader: "Categoría",
     ruleHeader: "Regla / Requisito",
+    breakdownTitle: "DESGLOSE DEL COSTO ÚNICO DE IMPLEMENTACIÓN",
+    subtotal: "Subtotal",
+    grandTotalLabel: "TOTAL",
+    code: "#",
+    state: "Estado",
+    desc: "Descripción",
+    billable: "Facturable",
+    yes: "Sí",
+    no: "No",
     file: "Anexo_2_SYSDE_Response.xlsx",
   },
   en: {
@@ -51,6 +69,9 @@ const labels = {
     saas: "SaaS - Licensing fees",
     implementation: "Implementation services",
     other: "Other costs",
+    creditDef: "Active Loan Definition",
+    saasOptions: "SaaS Options",
+    clauses: "Commercial Clauses",
     sheet3title: "INSTRUCTIONS FOR SHEET 3: RECURRING LICENSING & SUPPORT FEES (OPEX)",
     implTitle: "IMPLEMENTATION SERVICES",
     instTitle: "INSTRUCTIONS:",
@@ -59,6 +80,15 @@ const labels = {
     grandTotals: "Totals",
     catHeader: "Category",
     ruleHeader: "Rule / Requirement",
+    breakdownTitle: "ONE-TIME IMPLEMENTATION COST BREAKDOWN",
+    subtotal: "Subtotal",
+    grandTotalLabel: "TOTAL",
+    code: "#",
+    state: "State",
+    desc: "Description",
+    billable: "Billable",
+    yes: "Yes",
+    no: "No",
     file: "Annex_2_SYSDE_Response.xlsx",
   },
 } as const;
@@ -166,8 +196,28 @@ export function generateAnnexExcel(lang: Lang = "en") {
   im.push([L.totals, "", "", implementationTotals.professional, implementationTotals.travel, implementationTotals.total]);
   im.push([]);
   im.push([implementationFooter]);
+  im.push([]); im.push([]);
+
+  // Desglose detallado
+  const breakdown = implementationBreakdownI18n[lang];
+  im.push([L.breakdownTitle]);
+  im.push([breakdown.intro]);
+  im.push([]);
+  breakdown.blocks.forEach((block) => {
+    im.push([block.header]);
+    im.push([]);
+    block.items.forEach((item) => {
+      im.push([item.title, "", "", "", "", item.amount]);
+      item.bullets.forEach((b) => im.push(["  " + b]));
+      im.push([]);
+    });
+    im.push([block.subtotal.label, "", "", "", "", block.subtotal.amount]);
+    im.push([]);
+  });
+  im.push([breakdown.grandTotal.label, "", "", "", "", breakdown.grandTotal.amount]);
+
   const ws5 = XLSX.utils.aoa_to_sheet(im);
-  setColWidths(ws5, [16, 22, 18, 28, 24, 22]);
+  setColWidths(ws5, [40, 22, 18, 22, 22, 22]);
   XLSX.utils.book_append_sheet(wb, ws5, L.implementation);
 
   // 6. Other costs
@@ -175,6 +225,48 @@ export function generateAnnexExcel(lang: Lang = "en") {
   const ws6 = XLSX.utils.aoa_to_sheet(oc);
   setColWidths(ws6, [80]);
   XLSX.utils.book_append_sheet(wb, ws6, L.other);
+
+  // 7. Active Loan Definition
+  const credit = creditDefinitionI18n[lang];
+  const cd: Row[] = [[credit.title], [credit.intro], [], [credit.isActive.title]];
+  credit.isActive.items.forEach((it) => cd.push(["  ✓ " + it]));
+  cd.push([]);
+  cd.push([credit.isNotActive.title]);
+  credit.isNotActive.items.forEach((it) => cd.push(["  ✗ " + it]));
+  cd.push([]);
+  cd.push([credit.lifecycle.title]);
+  cd.push([L.code, L.state, L.desc, L.billable]);
+  credit.lifecycle.states.forEach((s) =>
+    cd.push([s.code, s.name, s.desc, s.billable ? L.yes : L.no])
+  );
+  const ws7 = XLSX.utils.aoa_to_sheet(cd);
+  setColWidths(ws7, [8, 32, 70, 12]);
+  XLSX.utils.book_append_sheet(wb, ws7, L.creditDef);
+
+  // 8. SaaS Options
+  const saasOpt = saasDeploymentOptionsI18n[lang];
+  const so: Row[] = [[saasOpt.title], [saasOpt.intro], []];
+  so.push(["", "", ""]);
+  so.push(["Tag", "Title", "Instances", "Description"]);
+  saasOpt.options.forEach((o) => so.push([o.tag, o.title, o.instances, o.desc]));
+  so.push([]);
+  so.push([saasOpt.footer]);
+  const ws8 = XLSX.utils.aoa_to_sheet(so);
+  setColWidths(ws8, [12, 30, 16, 70]);
+  XLSX.utils.book_append_sheet(wb, ws8, L.saasOptions);
+
+  // 9. Commercial Clauses
+  const cl = commercialClausesI18n[lang];
+  const cls: Row[] = [[cl.title], [cl.intro], []];
+  cl.clauses.forEach((c) => {
+    cls.push([`${c.num}. ${c.title}`]);
+    cls.push([c.body]);
+    if (c.highlight) cls.push(["  → " + c.highlight]);
+    cls.push([]);
+  });
+  const ws9 = XLSX.utils.aoa_to_sheet(cls);
+  setColWidths(ws9, [110]);
+  XLSX.utils.book_append_sheet(wb, ws9, L.clauses);
 
   XLSX.writeFile(wb, L.file);
 }

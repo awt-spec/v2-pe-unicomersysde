@@ -93,6 +93,19 @@ export const dictionary: Record<string, DictEntry> = {
   "annex.section.implementation": { es: "Servicios de implementación", en: "Implementation Services" },
   "annex.section.other": { es: "Otros costos", en: "Other Costs" },
 
+  "annex.impl.breakdown.title": { es: "Desglose del costo único de implementación", en: "One-time implementation cost breakdown" },
+  "annex.impl.tableTitle": { es: "Tabla resumen por país", en: "Country summary table" },
+  "annex.impl.creditDef": { es: "Definición de crédito activo", en: "Active loan definition" },
+  "annex.impl.saasOptions": { es: "Opciones SaaS", en: "SaaS options" },
+  "annex.impl.clauses": { es: "Cláusulas comerciales", en: "Commercial clauses" },
+  "annex.impl.subtotal": { es: "Subtotal", en: "Subtotal" },
+  "annex.impl.lifecycle.code": { es: "#", en: "#" },
+  "annex.impl.lifecycle.state": { es: "Estado", en: "State" },
+  "annex.impl.lifecycle.desc": { es: "Descripción", en: "Description" },
+  "annex.impl.lifecycle.billable": { es: "Facturable", en: "Billable" },
+  "annex.impl.lifecycle.yes": { es: "Sí", en: "Yes" },
+  "annex.impl.lifecycle.no": { es: "No", en: "No" },
+
   // Annex instructions title
   "annex.instructions.title": { es: "INSTRUCCIONES", en: "INSTRUCTIONS" },
   "annex.baseline.title": { es: "ESCENARIOS DE LÍNEA BASE", en: "BASELINE SCENARIOS" },

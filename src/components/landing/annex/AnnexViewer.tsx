@@ -26,6 +26,7 @@ import {
   otherCostsI18n,
 } from "./annexDataI18n";
 import { generateAnnexExcel } from "./excelExport";
+import ImplementationBreakdown from "./ImplementationBreakdown";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const fmt = (v: string | number, isCurrency = false, decimals = 0) => {
@@ -354,6 +355,9 @@ export default function AnnexViewer() {
                     </tbody>
                   </TableShell>
                   <p className="text-xs text-muted-foreground italic mt-4">{implementationFooter}</p>
+
+                  {/* Desglose detallado + cláusulas comerciales */}
+                  <ImplementationBreakdown />
                 </TabsContent>
 
                 <TabsContent value="other" forceMount={tab === "other" ? true : undefined} hidden={tab !== "other"}>
