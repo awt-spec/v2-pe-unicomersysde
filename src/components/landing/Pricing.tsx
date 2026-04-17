@@ -58,14 +58,6 @@ const comparison = [
   { them: "Soporte con topes de horas", us: "Soporte ilimitado" },
 ];
 
-const paymentCalendar = [
-  { year: "Año 1", core: "$350,000", tarjetas: "$250,000", impl: "$1,321,416", total: "$1,921,416", totalNum: 1921416, hasImpl: true },
-  { year: "Año 2", core: "$350,000", tarjetas: "$250,000", impl: "—", total: "$600,000", totalNum: 600000, hasImpl: false },
-  { year: "Año 3", core: "$350,000", tarjetas: "$250,000", impl: "—", total: "$600,000", totalNum: 600000, hasImpl: false },
-  { year: "Año 4", core: "$350,000", tarjetas: "$250,000", impl: "—", total: "$600,000", totalNum: 600000, hasImpl: false },
-  { year: "Año 5", core: "$350,000", tarjetas: "$250,000", impl: "—", total: "$600,000", totalNum: 600000, hasImpl: false },
-];
-
 const executiveCards = [
   { value: "$0", label: "por usuario adicional", desc: "Escalar no cuesta más", icon: Users, suffix: "" },
   { value: "~$67K", label: "por país / año", desc: "$600K ÷ 9 países", icon: Globe, suffix: "" },
@@ -104,24 +96,87 @@ const Pricing = () => {
   const totalAnnual = model === "onpremise" ? "$774,180" : "$1,278,455";
   const totalLoans = "2,150,500";
 
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const timelineInView = useInView(timelineRef, { once: true, margin: "-100px" });
-  const [activeNode, setActiveNode] = useState<number | null>(null);
-
   return (
     <section id="pricing" className="py-24 bg-background">
       <div className="container mx-auto px-4">
+        {/* ═══════ ANUNCIO: PROPUESTA ECONÓMICA ═══════ */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="relative max-w-5xl mx-auto mb-16 overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-accent/10 via-card to-card"
         >
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-            Inversión <span className="text-accent">Fija</span>
-          </h2>
-          <p className="text-muted-foreground text-lg">Una sola plataforma — todos los países</p>
+          {/* Sweep light effect */}
+          <motion.div
+            initial={{ x: "-100%" }}
+            whileInView={{ x: "200%" }}
+            viewport={{ once: true }}
+            transition={{ duration: 2, ease: "easeInOut", delay: 0.3 }}
+            className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-accent/20 to-transparent skew-x-12 pointer-events-none"
+          />
+
+          {/* Grid pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.04] pointer-events-none"
+            style={{
+              backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
+              backgroundSize: "24px 24px",
+            }}
+          />
+
+          <div className="relative px-6 py-12 md:px-12 md:py-16 text-center">
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              whileInView={{ scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 200, damping: 18, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-white text-[11px] font-bold uppercase tracking-[0.25em] mb-6 shadow-lg shadow-accent/30"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              Capítulo Final
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mb-4"
+            >
+              Has llegado a la
+            </motion.p>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7, duration: 0.7 }}
+              className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.05] tracking-tight mb-6"
+            >
+              Propuesta <span className="text-accent">Económica</span>
+            </motion.h2>
+
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1, duration: 0.8 }}
+              className="h-px w-24 mx-auto bg-gradient-to-r from-transparent via-accent to-transparent mb-6"
+            />
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1.2, duration: 0.6 }}
+              className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              Una <span className="text-foreground font-semibold">inversión fija</span> — una sola plataforma para todos los países donde Unicomer opere.
+            </motion.p>
+          </div>
         </motion.div>
+
 
         <div className="max-w-6xl mx-auto">
 
@@ -241,129 +296,6 @@ const Pricing = () => {
 
           {/* ═══════ ANEXO 2 — VISOR COMPLETO ═══════ */}
           <AnnexViewer />
-
-          {/* ═══════ VISUAL PAYMENT TIMELINE (después del Anexo 2) ═══════ */}
-          <motion.div
-            ref={timelineRef}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-card rounded-2xl border border-border p-6 md:p-8 mb-8 mt-20"
-          >
-            <h3 className="font-display text-lg font-bold text-foreground mb-1">Cronograma de Pagos</h3>
-            <p className="text-xs text-muted-foreground mb-8">Proyección de inversión total a 5 años</p>
-
-            {/* Desktop timeline */}
-            <div className="hidden md:block relative">
-              <div className="flex items-start justify-between relative">
-                <div className="absolute top-6 left-[10%] right-[10%] h-[3px] bg-border rounded-full" />
-                <motion.div
-                  className="absolute top-6 left-[10%] h-[3px] rounded-full bg-accent"
-                  initial={{ width: 0 }}
-                  animate={timelineInView ? { width: "80%" } : { width: 0 }}
-                  transition={{ duration: 1.8, ease: "easeOut", delay: 0.3 }}
-                />
-
-                {paymentCalendar.map((item, i) => (
-                  <div
-                    key={item.year}
-                    className="relative flex flex-col items-center z-10 cursor-pointer group"
-                    style={{ width: "20%" }}
-                    onMouseEnter={() => setActiveNode(i)}
-                    onMouseLeave={() => setActiveNode(null)}
-                  >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={timelineInView ? { scale: 1 } : { scale: 0 }}
-                      transition={{ delay: 0.3 + i * 0.2, type: "spring", stiffness: 400, damping: 20 }}
-                      className={cn(
-                        "w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300",
-                        item.hasImpl
-                          ? "bg-accent text-white shadow-lg shadow-accent/30 ring-4 ring-accent/20"
-                          : "bg-card border-2 border-accent text-accent group-hover:bg-accent group-hover:text-white"
-                      )}
-                    >
-                      {i + 1}
-                    </motion.div>
-
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={timelineInView ? { opacity: 1 } : { opacity: 0 }}
-                      transition={{ delay: 0.5 + i * 0.2 }}
-                      className="text-sm font-bold text-foreground mt-3"
-                    >
-                      {item.year}
-                    </motion.p>
-
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={timelineInView ? { opacity: 1 } : { opacity: 0 }}
-                      transition={{ delay: 0.6 + i * 0.2 }}
-                      className={cn(
-                        "text-sm font-bold tabular-nums mt-1",
-                        item.hasImpl ? "text-accent" : "text-foreground"
-                      )}
-                    >
-                      {item.total}
-                    </motion.p>
-
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={timelineInView ? { opacity: 1 } : { opacity: 0 }}
-                      transition={{ delay: 0.7 + i * 0.2 }}
-                      className="text-[10px] text-muted-foreground mt-1 text-center leading-tight"
-                    >
-                      {item.hasImpl ? "Licencias + Implementación" : "Solo licencias"}
-                    </motion.p>
-
-                    {activeNode === i && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="absolute top-full mt-14 bg-foreground text-background rounded-xl p-4 shadow-2xl w-52 z-50"
-                      >
-                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-foreground rotate-45 rounded-sm" />
-                        <p className="text-xs font-bold mb-2">{item.year} — Desglose</p>
-                        <div className="space-y-1.5 text-[11px]">
-                          <div className="flex justify-between"><span className="opacity-70">Credit Core</span><span className="font-medium tabular-nums">{item.core}</span></div>
-                          <div className="flex justify-between"><span className="opacity-70">Tarjetas</span><span className="font-medium tabular-nums">{item.tarjetas}</span></div>
-                          {item.hasImpl && <div className="flex justify-between"><span className="opacity-70">Implementación</span><span className="font-medium tabular-nums">{item.impl}</span></div>}
-                          <div className="flex justify-between border-t border-background/20 pt-1.5 font-bold"><span>Total</span><span className="tabular-nums">{item.total}</span></div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Mobile timeline (vertical) */}
-            <div className="md:hidden space-y-4">
-              {paymentCalendar.map((item, i) => (
-                <motion.div
-                  key={item.year}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-4"
-                >
-                  <div className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold shrink-0",
-                    item.hasImpl ? "bg-accent text-white" : "bg-card border-2 border-accent text-accent"
-                  )}>
-                    {i + 1}
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-bold text-foreground">{item.year}</p>
-                    <p className="text-[10px] text-muted-foreground">{item.hasImpl ? "Licencias + Implementación" : "Solo licencias"}</p>
-                  </div>
-                  <p className={cn("text-sm font-bold tabular-nums", item.hasImpl ? "text-accent" : "text-foreground")}>{item.total}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
 
           {/* Included + comparison */}
           <div className="grid md:grid-cols-2 gap-8 mb-12 mt-20 md:mt-28">
