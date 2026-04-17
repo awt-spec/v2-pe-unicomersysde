@@ -99,84 +99,77 @@ const Pricing = () => {
   return (
     <section id="pricing" className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        {/* ═══════ ANUNCIO: PROPUESTA ECONÓMICA ═══════ */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="relative max-w-5xl mx-auto mb-16 overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-accent/10 via-card to-card"
-        >
-          {/* Sweep light effect */}
+        {/* ═══════ ANUNCIO: PROPUESTA ECONÓMICA — Apple-style ═══════ */}
+        <div className="relative max-w-6xl mx-auto py-32 md:py-44 mb-12 text-center overflow-hidden">
+          {/* Subtle radial wash */}
           <motion.div
-            initial={{ x: "-100%" }}
-            whileInView={{ x: "200%" }}
-            viewport={{ once: true }}
-            transition={{ duration: 2, ease: "easeInOut", delay: 0.3 }}
-            className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-accent/20 to-transparent skew-x-12 pointer-events-none"
-          />
-
-          {/* Grid pattern */}
-          <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
+            initial={{ opacity: 0, scale: 0.6 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-150px" }}
+            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 pointer-events-none"
             style={{
-              backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-              backgroundSize: "24px 24px",
+              background:
+                "radial-gradient(ellipse 70% 50% at 50% 50%, hsl(var(--accent) / 0.08), transparent 70%)",
             }}
           />
 
-          <div className="relative px-6 py-12 md:px-12 md:py-16 text-center">
-            <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              whileInView={{ scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 200, damping: 18, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-white text-[11px] font-bold uppercase tracking-[0.25em] mb-6 shadow-lg shadow-accent/30"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              Capítulo Final
-            </motion.div>
+          {/* Eyebrow — fades in first */}
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-150px" }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="relative text-[11px] md:text-xs uppercase tracking-[0.5em] text-muted-foreground/70 font-medium mb-8"
+          >
+            Capítulo Final
+          </motion.p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground mb-4"
-            >
-              Has llegado a la
-            </motion.p>
+          {/* Headline — blur-to-sharp word reveal */}
+          <h2 className="relative font-display font-semibold text-foreground tracking-[-0.04em] leading-[0.95] text-[14vw] md:text-[8.5rem] lg:text-[10rem]">
+            {["Propuesta", "Económica"].map((word, i) => (
+              <motion.span
+                key={word}
+                initial={{ opacity: 0, filter: "blur(20px)", y: 30 }}
+                whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                viewport={{ once: true, margin: "-150px" }}
+                transition={{
+                  duration: 1.2,
+                  delay: 0.5 + i * 0.25,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className={cn(
+                  "inline-block mr-[0.25em] last:mr-0",
+                  i === 1 && "bg-gradient-to-br from-accent to-accent/70 bg-clip-text text-transparent"
+                )}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </h2>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.7, duration: 0.7 }}
-              className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.05] tracking-tight mb-6"
-            >
-              Propuesta <span className="text-accent">Económica</span>
-            </motion.h2>
+          {/* Sub-line — gentle fade up after headline lands */}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-150px" }}
+            transition={{ duration: 1, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mt-10 md:mt-14 text-lg md:text-2xl text-muted-foreground font-light tracking-tight max-w-2xl mx-auto leading-snug"
+          >
+            Una inversión. Una plataforma.
+            <br className="hidden md:block" />
+            <span className="text-foreground/80"> Todos los países.</span>
+          </motion.p>
 
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 1, duration: 0.8 }}
-              className="h-px w-24 mx-auto bg-gradient-to-r from-transparent via-accent to-transparent mb-6"
-            />
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 1.2, duration: 0.6 }}
-              className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto"
-            >
-              Una <span className="text-foreground font-semibold">inversión fija</span> — una sola plataforma para todos los países donde Unicomer opere.
-            </motion.p>
-          </div>
-        </motion.div>
-
+          {/* Hairline — final breath */}
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            viewport={{ once: true, margin: "-150px" }}
+            transition={{ duration: 1.4, delay: 1.9, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mx-auto mt-16 h-px w-16 bg-foreground/15 origin-center"
+          />
+        </div>
 
         <div className="max-w-6xl mx-auto">
 
