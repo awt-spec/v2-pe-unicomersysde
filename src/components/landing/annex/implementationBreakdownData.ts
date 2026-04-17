@@ -72,10 +72,10 @@ export const implementationBreakdownI18n: Record<Lang, {
         subtotal: { label: "SUBTOTAL SOFTWARE BASE (INDEPENDIENTE PAÍSES)", amount: 810000 },
       },
       {
-        header: "B. PRIMER PAÍS (COSTA RICA · MAYOR COMPLEJIDAD)",
+        header: "B. PRIMER PAÍS (GUATEMALA · MAYOR COMPLEJIDAD)",
         items: [
           {
-            title: "Implementación Costa Rica",
+            title: "Implementación Guatemala",
             bullets: [
               "Análisis y levantamiento local",
               "Configuración regulatoria específica",
@@ -86,17 +86,17 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 230000,
           },
           {
-            title: "Integraciones Locales Costa Rica",
+            title: "Integraciones Locales Guatemala",
             bullets: [
               "3 integraciones específicas × $28,000",
-              "SINPE (transferencias)",
-              "Sistema tributario local (DGI)",
-              "Burós crédito CR (Equifax + Infonet)",
+              "BANTRAB / SIB (transferencias y reportería bancaria)",
+              "SAT (Superintendencia de Administración Tributaria)",
+              "Burós crédito GT (TransUnion + Crediref)",
             ],
             amount: 84000,
           },
           {
-            title: "Capacitación Local Costa Rica",
+            title: "Capacitación Local Guatemala",
             bullets: [
               "Train-the-trainer local",
               "8 sesiones",
@@ -106,12 +106,12 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 30000,
           },
           {
-            title: "Consultoría Regulatoria Costa Rica",
+            title: "Consultoría Regulatoria Guatemala",
             bullets: [
-              "Cumplimiento SUGEF",
-              "Ley Usura",
-              "LGPD Costa Rica",
-              "Reportería regulatoria",
+              "Cumplimiento SIB (Superintendencia de Bancos)",
+              "Ley contra el Lavado de Dinero (Ley 67-2001)",
+              "Ley de Protección de Datos Personales",
+              "Reportería regulatoria SIB",
             ],
             amount: 25000,
           },
@@ -175,10 +175,10 @@ export const implementationBreakdownI18n: Record<Lang, {
         subtotal: { label: "SUBTOTAL BASE SOFTWARE (COUNTRY-INDEPENDENT)", amount: 810000 },
       },
       {
-        header: "B. FIRST COUNTRY (COSTA RICA · HIGHEST COMPLEXITY)",
+        header: "B. FIRST COUNTRY (GUATEMALA · HIGHEST COMPLEXITY)",
         items: [
           {
-            title: "Costa Rica Implementation",
+            title: "Guatemala Implementation",
             bullets: [
               "Local analysis & requirements",
               "Country-specific regulatory configuration",
@@ -189,17 +189,17 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 230000,
           },
           {
-            title: "Costa Rica Local Integrations",
+            title: "Guatemala Local Integrations",
             bullets: [
               "3 specific integrations × $28,000",
-              "SINPE (transfers)",
-              "Local tax system (DGI)",
-              "CR Credit Bureaus (Equifax + Infonet)",
+              "BANTRAB / SIB (banking transfers & reporting)",
+              "SAT (Tax Administration Superintendence)",
+              "GT Credit Bureaus (TransUnion + Crediref)",
             ],
             amount: 84000,
           },
           {
-            title: "Costa Rica Local Training",
+            title: "Guatemala Local Training",
             bullets: [
               "Local train-the-trainer",
               "8 sessions",
@@ -209,12 +209,12 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 30000,
           },
           {
-            title: "Costa Rica Regulatory Consulting",
+            title: "Guatemala Regulatory Consulting",
             bullets: [
-              "SUGEF compliance",
-              "Usury Law",
-              "Costa Rica LGPD",
-              "Regulatory reporting",
+              "SIB compliance (Banking Superintendence)",
+              "Anti-Money Laundering Law (Law 67-2001)",
+              "Personal Data Protection Law",
+              "SIB regulatory reporting",
             ],
             amount: 25000,
           },
