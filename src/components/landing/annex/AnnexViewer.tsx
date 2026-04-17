@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, FileSpreadsheet, Info, Layers, HardDrive, Cloud, Briefcase, Package } from "lucide-react";
+import { Download, FileSpreadsheet, Info, Layers, HardDrive, Cloud, Briefcase, Package, ChevronDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useT } from "@/i18n/LanguageContext";
 import {
   instructionsDataI18n,
@@ -31,7 +32,29 @@ import CreditDefinitionCard from "./CreditDefinitionCard";
 import SaasOptionsCard from "./SaasOptionsCard";
 import ClauseRecalc from "./clauses/ClauseRecalc";
 import ClauseGroupScale from "./clauses/ClauseGroupScale";
+import ClauseMultiEntityLicense from "./clauses/ClauseMultiEntityLicense";
 import { useIsMobile } from "@/hooks/use-mobile";
+
+// Collapsible wrapper for clauses (expand / collapse toggle)
+const ClauseToggle = ({
+  title,
+  subtitle,
+  defaultOpen = false,
+  children,
+}: { title: string; subtitle?: string; defaultOpen?: boolean; children: React.ReactNode }) => (
+  <Collapsible defaultOpen={defaultOpen} className="rounded-xl border border-border bg-muted/20 overflow-hidden">
+    <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 hover:bg-muted/40 transition-colors group">
+      <div className="text-left">
+        <div className="font-semibold text-sm text-foreground">{title}</div>
+        {subtitle && <div className="text-[11px] text-muted-foreground mt-0.5">{subtitle}</div>}
+      </div>
+      <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0 transition-transform group-data-[state=open]:rotate-180" />
+    </CollapsibleTrigger>
+    <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
+      <div className="p-4 pt-2">{children}</div>
+    </CollapsibleContent>
+  </Collapsible>
+);
 
 const fmt = (v: string | number, isCurrency = false, decimals = 0) => {
   if (typeof v === "string") return v;
