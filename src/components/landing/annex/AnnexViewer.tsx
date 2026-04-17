@@ -429,16 +429,6 @@ export default function AnnexViewer() {
                       <ClauseRecalc />
                     </ClauseToggle>
 
-                    <ClauseToggle
-                      title={lang === "es"
-                        ? "Cláusula 2 — Escala consolidada del grupo Unicomer"
-                        : "Clause 2 — Unicomer group consolidated scale"}
-                      subtitle={lang === "es"
-                        ? "Descuentos consolidados al alcanzar 2.5M créditos activos del grupo"
-                        : "Consolidated discounts upon reaching 2.5M group active loans"}
-                    >
-                      <ClauseGroupScale />
-                    </ClauseToggle>
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
@@ -448,8 +438,8 @@ export default function AnnexViewer() {
                   <div className="mt-6">
                     <ClauseToggle
                       title={lang === "es"
-                        ? "Cláusula 3 — Facturación multi-entidad de la licencia anual"
-                        : "Clause 3 — Multi-entity billing of the annual license"}
+                        ? "Cláusula 2 — Facturación multi-entidad de la licencia anual"
+                        : "Clause 2 — Multi-entity billing of the annual license"}
                       subtitle={lang === "es"
                         ? "Selecciona Credit Core y/o Tarjetas y reparte la licencia entre las entidades fiscales del grupo"
                         : "Select Credit Core and/or Cards and split the license across the group's tax entities"}
