@@ -2,13 +2,14 @@ import { useMemo, useState } from "react";
 import { Building2, Receipt, RefreshCcw } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useT } from "@/i18n/LanguageContext";
 import { onPremiseTotals } from "../annexDataI18n";
 
-// Licencia anual SaaS = suma de las 3 licencias anuales (Credit Core + Tarjetas + Factoring)
-const SAAS_ANNUAL_LICENSE = 350000 + 250000 + 100000; // USD 700,000
-const SAAS_MONTHLY_LICENSE = SAAS_ANNUAL_LICENSE / 12;
+// Licencias anuales SaaS elegibles para esta cláusula
+const LICENSE_CREDIT_CORE = 350000;
+const LICENSE_CARDS = 250000;
 
 const fmtUSD = (n: number, dec = 0) =>
   `USD $${n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
@@ -32,18 +33,30 @@ export default function ClauseMultiEntityLicense({ mode, fixedPeriod }: Props) {
 
   const [period, setPeriod] = useState<Period>(fixedPeriod ?? "annual");
 
-  // Base: licencia anual on-premise o licencia anual SaaS (Credit Core + Tarjetas + Factoring)
+  // Selección de licencias (solo SaaS): Credit Core y/o Tarjetas
+  const [includeCore, setIncludeCore] = useState(true);
+  const [includeCards, setIncludeCards] = useState(true);
+
+  // Base: licencia anual on-premise o suma de licencias SaaS seleccionadas (anual o mensual prorrateada)
   const baseAmount = useMemo(() => {
     if (mode === "onpremise") return onPremiseTotals.totalAnnual;
-    return period === "annual" ? SAAS_ANNUAL_LICENSE : SAAS_MONTHLY_LICENSE;
-  }, [mode, period]);
+    const annual = (includeCore ? LICENSE_CREDIT_CORE : 0) + (includeCards ? LICENSE_CARDS : 0);
+    return period === "annual" ? annual : annual / 12;
+  }, [mode, period, includeCore, includeCards]);
+
+  const selectedLabel = useMemo(() => {
+    if (includeCore && includeCards) return L(lng, "Credit Core + Tarjetas", "Credit Core + Cards");
+    if (includeCore) return L(lng, "Credit Core", "Credit Core");
+    if (includeCards) return L(lng, "Tarjetas de Crédito", "Credit Cards");
+    return L(lng, "ninguna licencia seleccionada", "no license selected");
+  }, [includeCore, includeCards, lng]);
 
   const periodLabel = useMemo(() => {
     if (mode === "onpremise") return L(lng, "licencia anual on-premise", "annual on-premise license");
     return period === "annual"
-      ? L(lng, "licencia anual SaaS (Credit Core + Tarjetas + Factoring)", "annual SaaS license (Credit Core + Cards + Factoring)")
-      : L(lng, "licencia anual SaaS prorrateada mensual", "annual SaaS license prorated monthly");
-  }, [mode, period, lng]);
+      ? L(lng, `licencia anual SaaS (${selectedLabel})`, `annual SaaS license (${selectedLabel})`)
+      : L(lng, `licencia SaaS (${selectedLabel}) prorrateada mensual`, `SaaS license (${selectedLabel}) prorated monthly`);
+  }, [mode, period, lng, selectedLabel]);
 
   const initial = (): Split[] => [
     { name: L(lng, "Entidad Honduras (HN)", "Honduras Entity (HN)"), pct: 33 },
@@ -96,6 +109,36 @@ export default function ClauseMultiEntityLicense({ mode, fixedPeriod }: Props) {
       </div>
 
       <div className="p-5 space-y-4">
+        {mode === "saas" && (
+          <div className="rounded-lg border-2 border-dashed border-accent/30 bg-accent/5 p-4">
+            <div className="text-[10px] uppercase tracking-wider font-bold text-accent mb-3">
+              {L(lng, "1 · Selecciona las licencias a facturar", "1 · Select the licenses to invoice")}
+            </div>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <label className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                includeCore ? "border-accent bg-accent/10" : "border-border bg-card hover:border-accent/40"
+              }`}>
+                <Checkbox checked={includeCore} onCheckedChange={(v) => setIncludeCore(!!v)} className="mt-0.5" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-bold text-foreground">{L(lng, "Credit Core System", "Credit Core System")}</div>
+                  <div className="text-xs text-muted-foreground">{L(lng, "Licencia anual", "Annual license")}</div>
+                  <div className="text-sm font-mono font-bold text-accent mt-1">{fmtUSD(LICENSE_CREDIT_CORE)}</div>
+                </div>
+              </label>
+              <label className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                includeCards ? "border-accent bg-accent/10" : "border-border bg-card hover:border-accent/40"
+              }`}>
+                <Checkbox checked={includeCards} onCheckedChange={(v) => setIncludeCards(!!v)} className="mt-0.5" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-bold text-foreground">{L(lng, "Tarjetas de Crédito", "Credit Cards")}</div>
+                  <div className="text-xs text-muted-foreground">{L(lng, "Licencia anual", "Annual license")}</div>
+                  <div className="text-sm font-mono font-bold text-accent mt-1">{fmtUSD(LICENSE_CARDS)}</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        )}
+
         <p className="text-sm text-muted-foreground leading-relaxed">
           {L(lng,
             `La ${periodLabel} de ${fmtUSD(baseAmount, decimals)} puede repartirse entre las entidades fiscales que Unicomer defina (por país, por unidad de negocio, holding regional, etc.), sin recargo administrativo. Configura abajo el split y SYSDE emitirá factura por cada entidad legal en cada ciclo de facturación.`,
