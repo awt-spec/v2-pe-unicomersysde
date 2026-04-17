@@ -40,7 +40,7 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 400000,
           },
           {
-            title: "PMO Corporativo (18 meses)",
+            title: "PMO Corporativo",
             bullets: [
               "Gerente de proyecto senior",
               "Coordinación multi-país",
@@ -143,7 +143,7 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 400000,
           },
           {
-            title: "Corporate PMO (18 months)",
+            title: "Corporate PMO",
             bullets: [
               "Senior project manager",
               "Multi-country coordination",
