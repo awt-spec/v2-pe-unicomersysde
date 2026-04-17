@@ -2,13 +2,14 @@ import { useMemo, useState } from "react";
 import { Building2, Receipt, RefreshCcw } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useT } from "@/i18n/LanguageContext";
 import { onPremiseTotals } from "../annexDataI18n";
 
-// Licencia anual SaaS = suma de las 3 licencias anuales (Credit Core + Tarjetas + Factoring)
-const SAAS_ANNUAL_LICENSE = 350000 + 250000 + 100000; // USD 700,000
-const SAAS_MONTHLY_LICENSE = SAAS_ANNUAL_LICENSE / 12;
+// Licencias anuales SaaS elegibles para esta cláusula
+const LICENSE_CREDIT_CORE = 350000;
+const LICENSE_CARDS = 250000;
 
 const fmtUSD = (n: number, dec = 0) =>
   `USD $${n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
