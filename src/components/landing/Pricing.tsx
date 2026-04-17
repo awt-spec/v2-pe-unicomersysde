@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Check, X as XIcon, Server, CreditCard, Cloud, HardDrive, Users, Globe, DollarSign, Layers } from "lucide-react";
 import SysdeHint from "./SysdeHint";
 import AnnexViewer from "./annex/AnnexViewer";
+import PricingHeroAnnouncement from "./PricingHeroAnnouncement";
 import { useT } from "@/i18n/LanguageContext";
 
 const licenses = [
@@ -97,79 +98,11 @@ const Pricing = () => {
   const totalLoans = "2,150,500";
 
   return (
-    <section id="pricing" className="py-24 bg-background">
-      <div className="container mx-auto px-4">
-        {/* ═══════ ANUNCIO: PROPUESTA ECONÓMICA — Apple-style ═══════ */}
-        <div className="relative max-w-6xl mx-auto py-32 md:py-44 mb-12 text-center overflow-hidden">
-          {/* Subtle radial wash */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.6 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-150px" }}
-            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse 70% 50% at 50% 50%, hsl(var(--accent) / 0.08), transparent 70%)",
-            }}
-          />
+    <section id="pricing" className="bg-background">
+      {/* ═══════ ANUNCIO: PROPUESTA ECONÓMICA — Apple-style cinematic ═══════ */}
+      <PricingHeroAnnouncement />
 
-          {/* Eyebrow — fades in first */}
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-150px" }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative text-[11px] md:text-xs uppercase tracking-[0.5em] text-muted-foreground/70 font-medium mb-8"
-          >
-            Capítulo Final
-          </motion.p>
-
-          {/* Headline — blur-to-sharp word reveal */}
-          <h2 className="relative font-display font-semibold text-foreground tracking-[-0.04em] leading-[0.95] text-[14vw] md:text-[8.5rem] lg:text-[10rem]">
-            {["Propuesta", "Económica"].map((word, i) => (
-              <motion.span
-                key={word}
-                initial={{ opacity: 0, filter: "blur(20px)", y: 30 }}
-                whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                viewport={{ once: true, margin: "-150px" }}
-                transition={{
-                  duration: 1.2,
-                  delay: 0.5 + i * 0.25,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className={cn(
-                  "inline-block mr-[0.25em] last:mr-0",
-                  i === 1 && "bg-gradient-to-br from-accent to-accent/70 bg-clip-text text-transparent"
-                )}
-              >
-                {word}
-              </motion.span>
-            ))}
-          </h2>
-
-          {/* Sub-line — gentle fade up after headline lands */}
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-150px" }}
-            transition={{ duration: 1, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mt-10 md:mt-14 text-lg md:text-2xl text-muted-foreground font-light tracking-tight max-w-2xl mx-auto leading-snug"
-          >
-            Una inversión. Una plataforma.
-            <br className="hidden md:block" />
-            <span className="text-foreground/80"> Todos los países.</span>
-          </motion.p>
-
-          {/* Hairline — final breath */}
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            whileInView={{ scaleX: 1, opacity: 1 }}
-            viewport={{ once: true, margin: "-150px" }}
-            transition={{ duration: 1.4, delay: 1.9, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mx-auto mt-16 h-px w-16 bg-foreground/15 origin-center"
-          />
-        </div>
+      <div className="container mx-auto px-4 py-24">
 
         <div className="max-w-6xl mx-auto">
 
