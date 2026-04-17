@@ -47,21 +47,21 @@ const PricingHeroAnnouncement = () => {
     offset: ["start end", "end start"],
   });
 
-  const washOpacity = useTransform(scrollYProgress, [0, 0.25, 0.6, 1], [0, 1, 1, 0.2]);
+  const washOpacity = useTransform(scrollYProgress, [0, 0.25, 0.92, 1], [0, 1, 1, 0.2]);
   const washScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.7, 1.05, 1.2]);
 
-  const w1Opacity = useTransform(scrollYProgress, [0.08, 0.28, 0.7, 0.85], [0, 1, 1, 0]);
+  const w1Opacity = useTransform(scrollYProgress, [0.08, 0.28, 0.92, 0.98], [0, 1, 1, 0]);
   const w1Blur = useTransform(scrollYProgress, [0.08, 0.3], [20, 0]);
-  const w1Y = useTransform(scrollYProgress, [0.08, 0.3, 0.7, 0.9], [40, 0, 0, -30]);
+  const w1Y = useTransform(scrollYProgress, [0.08, 0.3, 0.92, 0.99], [40, 0, 0, -30]);
 
-  const w2Opacity = useTransform(scrollYProgress, [0.16, 0.36, 0.7, 0.85], [0, 1, 1, 0]);
+  const w2Opacity = useTransform(scrollYProgress, [0.16, 0.36, 0.92, 0.98], [0, 1, 1, 0]);
   const w2Blur = useTransform(scrollYProgress, [0.16, 0.38], [20, 0]);
-  const w2Y = useTransform(scrollYProgress, [0.16, 0.38, 0.7, 0.9], [40, 0, 0, -30]);
+  const w2Y = useTransform(scrollYProgress, [0.16, 0.38, 0.92, 0.99], [40, 0, 0, -30]);
 
-  const subOpacity = useTransform(scrollYProgress, [0.3, 0.46, 0.7, 0.82], [0, 1, 1, 0]);
+  const subOpacity = useTransform(scrollYProgress, [0.3, 0.46, 0.92, 0.97], [0, 1, 1, 0]);
   const subY = useTransform(scrollYProgress, [0.3, 0.48], [20, 0]);
 
-  const pillsOpacity = useTransform(scrollYProgress, [0.42, 0.58, 0.7, 0.82], [0, 1, 1, 0]);
+  const pillsOpacity = useTransform(scrollYProgress, [0.42, 0.58, 0.94, 0.99], [0, 1, 1, 0]);
   const pillsY = useTransform(scrollYProgress, [0.42, 0.6], [30, 0]);
 
   const stageScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1, 1.02]);
