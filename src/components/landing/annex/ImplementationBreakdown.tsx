@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Building2, MapPin, CheckCircle2, XCircle, GitBranch, Server, Layers, Globe, FileText, Scale, Receipt, ChevronRight } from "lucide-react";
+import { Building2, MapPin, Server, Layers, Globe, FileText, Scale, Receipt, ChevronRight, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useT } from "@/i18n/LanguageContext";
 import {
   implementationBreakdownI18n,
-  creditDefinitionI18n,
   saasDeploymentOptionsI18n,
   commercialClausesI18n,
 } from "./implementationBreakdownData";
