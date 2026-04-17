@@ -142,8 +142,8 @@ const PricingHeroAnnouncement = () => {
   return (
     <div
       ref={ref}
-      className="relative w-full"
-      style={{ minHeight: reduce ? "auto" : "200vh" }}
+      className="relative w-full pt-[40vh] md:pt-[55vh]"
+      style={{ minHeight: reduce ? "auto" : "240vh" }}
     >
       {/* Sticky pinned stage */}
       <div
