@@ -27,6 +27,7 @@ import {
 } from "./annexDataI18n";
 import { generateAnnexExcel } from "./excelExport";
 import ImplementationBreakdown from "./ImplementationBreakdown";
+import CreditDefinitionCard from "./CreditDefinitionCard";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const fmt = (v: string | number, isCurrency = false, decimals = 0) => {
