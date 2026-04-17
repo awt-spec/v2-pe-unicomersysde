@@ -326,6 +326,9 @@ export default function AnnexViewer() {
                   {/* Definición formal de Crédito Activo (tarjeta expansible) */}
                   <CreditDefinitionCard />
 
+                  {/* Modelo SaaS — 3 opciones de despliegue */}
+                  <SaasOptionsCard />
+
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
                     {licenseBlocks.map((b, i) => <LicenseBlock key={i} {...b} />)}
                   </div>
