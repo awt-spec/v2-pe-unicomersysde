@@ -409,12 +409,12 @@ export default function AnnexViewer() {
                   <div className="mt-10 pt-8 border-t-2 border-dashed border-border space-y-3">
                     <div className="text-center mb-4">
                       <h4 className="text-xl font-bold text-foreground mb-1">
-                        {lang === "es" ? "Cláusulas de volumen y escala de grupo" : "Volume and group-scale clauses"}
+                        {lang === "es" ? "Cláusulas comerciales interactivas" : "Interactive commercial clauses"}
                       </h4>
                       <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
                         {lang === "es"
-                          ? "Simuladores interactivos basados en las tarifas reales por país de la tabla SaaS. Sin promedios — cada país conserva su tarifa contractual."
-                          : "Interactive simulators based on real per-country rates from the SaaS table. No averages — each country keeps its contractual rate."}
+                          ? "Simuladores basados en las tarifas reales por país de la tabla SaaS. Cada país conserva su tarifa contractual."
+                          : "Simulators based on real per-country rates from the SaaS table. Each country keeps its contractual rate."}
                       </p>
                     </div>
 
