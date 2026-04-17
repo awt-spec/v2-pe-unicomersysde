@@ -58,14 +58,6 @@ const comparison = [
   { them: "Soporte con topes de horas", us: "Soporte ilimitado" },
 ];
 
-const paymentCalendar = [
-  { year: "Año 1", core: "$350,000", tarjetas: "$250,000", impl: "$1,321,416", total: "$1,921,416", totalNum: 1921416, hasImpl: true },
-  { year: "Año 2", core: "$350,000", tarjetas: "$250,000", impl: "—", total: "$600,000", totalNum: 600000, hasImpl: false },
-  { year: "Año 3", core: "$350,000", tarjetas: "$250,000", impl: "—", total: "$600,000", totalNum: 600000, hasImpl: false },
-  { year: "Año 4", core: "$350,000", tarjetas: "$250,000", impl: "—", total: "$600,000", totalNum: 600000, hasImpl: false },
-  { year: "Año 5", core: "$350,000", tarjetas: "$250,000", impl: "—", total: "$600,000", totalNum: 600000, hasImpl: false },
-];
-
 const executiveCards = [
   { value: "$0", label: "por usuario adicional", desc: "Escalar no cuesta más", icon: Users, suffix: "" },
   { value: "~$67K", label: "por país / año", desc: "$600K ÷ 9 países", icon: Globe, suffix: "" },
