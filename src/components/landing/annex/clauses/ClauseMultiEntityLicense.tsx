@@ -32,17 +32,17 @@ export default function ClauseMultiEntityLicense({ mode, fixedPeriod }: Props) {
 
   const [period, setPeriod] = useState<Period>(fixedPeriod ?? "annual");
 
-  // Base: licencia anual on-premise o SaaS (anual / mensual)
+  // Base: licencia anual on-premise o licencia anual SaaS (Credit Core + Tarjetas + Factoring)
   const baseAmount = useMemo(() => {
     if (mode === "onpremise") return onPremiseTotals.totalAnnual;
-    return period === "annual" ? saasTotals.annual : saasTotals.monthly;
+    return period === "annual" ? SAAS_ANNUAL_LICENSE : SAAS_MONTHLY_LICENSE;
   }, [mode, period]);
 
   const periodLabel = useMemo(() => {
     if (mode === "onpremise") return L(lng, "licencia anual on-premise", "annual on-premise license");
     return period === "annual"
-      ? L(lng, "licencia SaaS anual", "annual SaaS license")
-      : L(lng, "licencia SaaS mensual", "monthly SaaS license");
+      ? L(lng, "licencia anual SaaS (Credit Core + Tarjetas + Factoring)", "annual SaaS license (Credit Core + Cards + Factoring)")
+      : L(lng, "licencia anual SaaS prorrateada mensual", "annual SaaS license prorated monthly");
   }, [mode, period, lng]);
 
   const initial = (): Split[] => [
