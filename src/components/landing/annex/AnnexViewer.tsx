@@ -408,11 +408,6 @@ export default function AnnexViewer() {
                   {/* Cláusulas comerciales de volumen y escala de grupo (interactivas, colapsables) */}
                   <div className="mt-10 pt-8 border-t-2 border-dashed border-border space-y-3">
                     <div className="text-center mb-4">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 mb-2">
-                        <span className="text-[10px] font-semibold text-accent uppercase tracking-wider">
-                          {t("annex.clausesEyebrow") || (lang === "es" ? "Cláusulas comerciales" : "Commercial clauses")}
-                        </span>
-                      </div>
                       <h4 className="text-xl font-bold text-foreground mb-1">
                         {lang === "es" ? "Cláusulas de volumen y escala de grupo" : "Volume and group-scale clauses"}
                       </h4>
