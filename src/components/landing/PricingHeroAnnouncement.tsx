@@ -231,7 +231,7 @@ const PricingHeroAnnouncement = () => {
         >
           {/* Headline — pushed forward in 3D */}
           <h2
-            className="font-display font-semibold text-foreground tracking-[-0.04em] leading-[0.95] text-[14vw] md:text-[8.5rem] lg:text-[10rem]"
+            className="font-display font-semibold text-foreground tracking-[-0.04em] leading-[0.95] text-[11vw] md:text-[6.5rem] lg:text-[8rem]"
             style={{ transform: "translateZ(40px)" }}
           >
             <motion.span
@@ -258,7 +258,7 @@ const PricingHeroAnnouncement = () => {
 
           {/* Subline */}
           <motion.p
-            className="mt-10 md:mt-12 text-lg md:text-2xl text-muted-foreground font-light tracking-tight max-w-2xl mx-auto leading-snug"
+            className="mt-6 md:mt-8 text-base md:text-xl text-muted-foreground font-light tracking-tight max-w-2xl mx-auto leading-snug"
             style={{
               opacity: reduce ? 1 : subOpacity,
               y: reduce ? 0 : subY,
@@ -266,13 +266,12 @@ const PricingHeroAnnouncement = () => {
             }}
           >
             Una inversión. Una plataforma.
-            <br className="hidden md:block" />
             <span className="text-foreground/80"> Todos los países.</span>
           </motion.p>
 
           {/* Formula: 9 + x = TODOS — Apple-style, interactive (hovers + scroll-driven blur reveal) */}
           <motion.div
-            className="mt-20 md:mt-28"
+            className="mt-8 md:mt-12"
             style={{
               opacity: reduce ? 1 : pillsOpacity,
               y: reduce ? 0 : pillsY,
@@ -280,17 +279,17 @@ const PricingHeroAnnouncement = () => {
             }}
           >
             {/* Visible divider between sections */}
-            <div className="flex items-center justify-center gap-4 mb-10 md:mb-14">
+            <div className="flex items-center justify-center gap-4 mb-5 md:mb-7">
               <span className="h-px w-16 md:w-24 bg-gradient-to-r from-transparent to-border" />
               <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_12px_hsl(var(--accent))]" />
               <span className="h-px w-16 md:w-24 bg-gradient-to-l from-transparent to-border" />
             </div>
 
             {/* More prominent eyebrow */}
-            <p className="font-display text-xl md:text-3xl font-semibold text-foreground tracking-tight mb-3">
+            <p className="font-display text-lg md:text-2xl font-semibold text-foreground tracking-tight mb-2">
               Despliegue multi-país <span className="text-accent">sin límites</span>
             </p>
-            <p className="text-xs md:text-sm uppercase tracking-[0.4em] text-muted-foreground/70 font-medium mb-10 md:mb-14">
+            <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground/70 font-medium mb-6 md:mb-10">
               La fórmula
             </p>
 
