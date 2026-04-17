@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, FileSpreadsheet, Info, Layers, HardDrive, Cloud, Briefcase, Package } from "lucide-react";
+import { Download, FileSpreadsheet, Info, Layers, HardDrive, Cloud, Briefcase, Package, ChevronDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useT } from "@/i18n/LanguageContext";
 import {
   instructionsDataI18n,
@@ -31,7 +32,29 @@ import CreditDefinitionCard from "./CreditDefinitionCard";
 import SaasOptionsCard from "./SaasOptionsCard";
 import ClauseRecalc from "./clauses/ClauseRecalc";
 import ClauseGroupScale from "./clauses/ClauseGroupScale";
+import ClauseMultiEntityLicense from "./clauses/ClauseMultiEntityLicense";
 import { useIsMobile } from "@/hooks/use-mobile";
+
+// Collapsible wrapper for clauses (expand / collapse toggle)
+const ClauseToggle = ({
+  title,
+  subtitle,
+  defaultOpen = false,
+  children,
+}: { title: string; subtitle?: string; defaultOpen?: boolean; children: React.ReactNode }) => (
+  <Collapsible defaultOpen={defaultOpen} className="rounded-xl border border-border bg-muted/20 overflow-hidden">
+    <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 hover:bg-muted/40 transition-colors group">
+      <div className="text-left">
+        <div className="font-semibold text-sm text-foreground">{title}</div>
+        {subtitle && <div className="text-[11px] text-muted-foreground mt-0.5">{subtitle}</div>}
+      </div>
+      <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0 transition-transform group-data-[state=open]:rotate-180" />
+    </CollapsibleTrigger>
+    <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
+      <div className="p-4 pt-2">{children}</div>
+    </CollapsibleContent>
+  </Collapsible>
+);
 
 const fmt = (v: string | number, isCurrency = false, decimals = 0) => {
   if (typeof v === "string") return v;
@@ -272,6 +295,20 @@ export default function AnnexViewer() {
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
                     {licenseBlocks.map((b, i) => <LicenseBlock key={i} {...b} />)}
                   </div>
+
+                  {/* Cláusula comercial — Facturación multi-entidad de la licencia anual on-premise */}
+                  <div className="mt-8 pt-6 border-t-2 border-dashed border-border">
+                    <ClauseToggle
+                      title={lang === "es"
+                        ? "Cláusula comercial — Facturación multi-entidad (licencia anual)"
+                        : "Commercial clause — Multi-entity billing (annual license)"}
+                      subtitle={lang === "es"
+                        ? "Reparte la licencia anual on-premise entre las entidades fiscales del grupo Unicomer"
+                        : "Split the annual on-premise license across Unicomer group's tax entities"}
+                    >
+                      <ClauseMultiEntityLicense mode="onpremise" />
+                    </ClauseToggle>
+                  </div>
                 </TabsContent>
 
                 <TabsContent value="saas" forceMount={tab === "saas" ? true : undefined} hidden={tab !== "saas"}>
@@ -331,9 +368,9 @@ export default function AnnexViewer() {
                   {/* Modelo SaaS — 3 opciones de despliegue */}
                   <SaasOptionsCard />
 
-                  {/* Cláusulas comerciales de volumen y escala de grupo (interactivas) */}
-                  <div className="mt-10 pt-8 border-t-2 border-dashed border-border space-y-6">
-                    <div className="text-center">
+                  {/* Cláusulas comerciales de volumen y escala de grupo (interactivas, colapsables) */}
+                  <div className="mt-10 pt-8 border-t-2 border-dashed border-border space-y-3">
+                    <div className="text-center mb-4">
                       <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 mb-2">
                         <span className="text-[10px] font-semibold text-accent uppercase tracking-wider">
                           {t("annex.clausesEyebrow") || (lang === "es" ? "Cláusulas comerciales" : "Commercial clauses")}
@@ -348,8 +385,39 @@ export default function AnnexViewer() {
                           : "Interactive simulators based on real per-country rates from the SaaS table. No averages — each country keeps its contractual rate."}
                       </p>
                     </div>
-                    <ClauseRecalc />
-                    <ClauseGroupScale />
+
+                    <ClauseToggle
+                      title={lang === "es"
+                        ? "Cláusula 1 — Recálculo a volumen completo (sin tramos)"
+                        : "Clause 1 — Full-volume recalculation (no block stacking)"}
+                      subtitle={lang === "es"
+                        ? "Compara block-pricing vs. tarifa única SYSDE para cada país"
+                        : "Compare block-pricing vs. SYSDE single-tier for each country"}
+                    >
+                      <ClauseRecalc />
+                    </ClauseToggle>
+
+                    <ClauseToggle
+                      title={lang === "es"
+                        ? "Cláusula 2 — Escala consolidada del grupo Unicomer"
+                        : "Clause 2 — Unicomer group consolidated scale"}
+                      subtitle={lang === "es"
+                        ? "Descuentos consolidados al alcanzar 2.5M créditos activos del grupo"
+                        : "Consolidated discounts upon reaching 2.5M group active loans"}
+                    >
+                      <ClauseGroupScale />
+                    </ClauseToggle>
+
+                    <ClauseToggle
+                      title={lang === "es"
+                        ? "Cláusula 3 — Facturación multi-entidad de la licencia SaaS"
+                        : "Clause 3 — Multi-entity billing of the SaaS license"}
+                      subtitle={lang === "es"
+                        ? "Reparte la licencia SaaS (anual o mensual) entre las entidades fiscales del grupo"
+                        : "Split the SaaS license (annual or monthly) across the group's tax entities"}
+                    >
+                      <ClauseMultiEntityLicense mode="saas" />
+                    </ClauseToggle>
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
