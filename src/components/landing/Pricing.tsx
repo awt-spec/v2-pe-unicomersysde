@@ -104,10 +104,6 @@ const Pricing = () => {
   const totalAnnual = model === "onpremise" ? "$774,180" : "$1,278,455";
   const totalLoans = "2,150,500";
 
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const timelineInView = useInView(timelineRef, { once: true, margin: "-100px" });
-  const [activeNode, setActiveNode] = useState<number | null>(null);
-
   return (
     <section id="pricing" className="py-24 bg-background">
       <div className="container mx-auto px-4">
