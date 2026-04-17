@@ -231,7 +231,7 @@ const PricingHeroAnnouncement = () => {
         >
           {/* Headline — pushed forward in 3D */}
           <h2
-            className="font-display font-semibold text-foreground tracking-[-0.04em] leading-[0.95] text-[14vw] md:text-[8.5rem] lg:text-[10rem]"
+            className="font-display font-semibold text-foreground tracking-[-0.04em] leading-[0.95] text-[11vw] md:text-[6.5rem] lg:text-[8rem]"
             style={{ transform: "translateZ(40px)" }}
           >
             <motion.span
@@ -258,7 +258,7 @@ const PricingHeroAnnouncement = () => {
 
           {/* Subline */}
           <motion.p
-            className="mt-10 md:mt-12 text-lg md:text-2xl text-muted-foreground font-light tracking-tight max-w-2xl mx-auto leading-snug"
+            className="mt-6 md:mt-8 text-base md:text-xl text-muted-foreground font-light tracking-tight max-w-2xl mx-auto leading-snug"
             style={{
               opacity: reduce ? 1 : subOpacity,
               y: reduce ? 0 : subY,
@@ -266,13 +266,12 @@ const PricingHeroAnnouncement = () => {
             }}
           >
             Una inversión. Una plataforma.
-            <br className="hidden md:block" />
             <span className="text-foreground/80"> Todos los países.</span>
           </motion.p>
 
           {/* Formula: 9 + x = TODOS — Apple-style, interactive (hovers + scroll-driven blur reveal) */}
           <motion.div
-            className="mt-20 md:mt-28"
+            className="mt-8 md:mt-12"
             style={{
               opacity: reduce ? 1 : pillsOpacity,
               y: reduce ? 0 : pillsY,
@@ -280,17 +279,17 @@ const PricingHeroAnnouncement = () => {
             }}
           >
             {/* Visible divider between sections */}
-            <div className="flex items-center justify-center gap-4 mb-10 md:mb-14">
+            <div className="flex items-center justify-center gap-4 mb-5 md:mb-7">
               <span className="h-px w-16 md:w-24 bg-gradient-to-r from-transparent to-border" />
               <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_12px_hsl(var(--accent))]" />
               <span className="h-px w-16 md:w-24 bg-gradient-to-l from-transparent to-border" />
             </div>
 
             {/* More prominent eyebrow */}
-            <p className="font-display text-xl md:text-3xl font-semibold text-foreground tracking-tight mb-3">
+            <p className="font-display text-lg md:text-2xl font-semibold text-foreground tracking-tight mb-2">
               Despliegue multi-país <span className="text-accent">sin límites</span>
             </p>
-            <p className="text-xs md:text-sm uppercase tracking-[0.4em] text-muted-foreground/70 font-medium mb-10 md:mb-14">
+            <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground/70 font-medium mb-6 md:mb-10">
               La fórmula
             </p>
 
@@ -310,7 +309,7 @@ const PricingHeroAnnouncement = () => {
                 }}
               >
                 <div className="absolute inset-0 -m-4 bg-accent/15 blur-3xl rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
-                <span className="relative font-semibold text-accent leading-none tabular-nums tracking-tight text-[5rem] md:text-[8rem]">
+                <span className="relative font-semibold text-accent leading-none tabular-nums tracking-tight text-[3.5rem] md:text-[6rem]">
                   9
                 </span>
                 <span className="mt-3 text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-sans whitespace-nowrap" style={{ fontFamily: "inherit" }}>
@@ -320,7 +319,7 @@ const PricingHeroAnnouncement = () => {
 
               {/* + */}
               <motion.span
-                className="text-4xl md:text-6xl font-light text-muted-foreground/50 leading-none pb-10 md:pb-14 select-none"
+                className="text-3xl md:text-5xl font-light text-muted-foreground/50 leading-none pb-8 md:pb-12 select-none"
                 style={{
                   opacity: reduce ? 1 : f2.o,
                   y: reduce ? 0 : f2.y,
@@ -342,7 +341,7 @@ const PricingHeroAnnouncement = () => {
                 }}
               >
                 <motion.span
-                  className="block italic font-semibold text-foreground leading-none tracking-tight text-[5rem] md:text-[8rem]"
+                  className="block italic font-semibold text-foreground leading-none tracking-tight text-[3.5rem] md:text-[6rem]"
                   animate={reduce ? undefined : { scale: [1, 1.04, 1] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 >
@@ -355,7 +354,7 @@ const PricingHeroAnnouncement = () => {
 
               {/* = */}
               <motion.span
-                className="text-4xl md:text-6xl font-light text-muted-foreground/50 leading-none pb-10 md:pb-14 select-none"
+                className="text-3xl md:text-5xl font-light text-muted-foreground/50 leading-none pb-8 md:pb-12 select-none"
                 style={{
                   opacity: reduce ? 1 : f4.o,
                   y: reduce ? 0 : f4.y,
@@ -378,7 +377,7 @@ const PricingHeroAnnouncement = () => {
               >
                 <div className="absolute inset-0 -m-4 bg-accent/20 blur-3xl rounded-full opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
                 <span
-                  className="relative font-bold leading-none tracking-tight pb-2 text-[2.5rem] md:text-[5rem] bg-gradient-to-br from-accent to-accent/70 bg-clip-text text-transparent"
+                  className="relative font-bold leading-none tracking-tight pb-2 text-[2rem] md:text-[3.75rem] bg-gradient-to-br from-accent to-accent/70 bg-clip-text text-transparent"
                   style={{ fontFamily: "inherit" }}
                 >
                   TODOS
