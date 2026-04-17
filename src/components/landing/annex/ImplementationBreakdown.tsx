@@ -177,10 +177,10 @@ function BreakdownToggle({
   );
 }
 
-// Sección Forma de pago: 50% firma + 50% en cuotas mensuales (día 1 de cada mes)
+// Sección Forma de pago: 50% firma + 50% en 12 cuotas mensuales (día 1 de cada mes)
 function PaymentTermsSection({ grandTotal }: { grandTotal: number }) {
   const { lang } = useT();
-  const [months, setMonths] = useState(18);
+  const months = 12;
   const upfront = grandTotal * 0.5;
   const remainder = grandTotal - upfront;
   const monthly = remainder / months;
@@ -193,28 +193,30 @@ function PaymentTermsSection({ grandTotal }: { grandTotal: number }) {
       signing: "50% a la firma del contrato",
       signingDesc: "Pago inicial al momento de la firma. Habilita el arranque de PMO, kickoff y movilización de equipos.",
       monthly: "50% en cuotas mensuales",
-      monthlyDesc: "Cuotas iguales debitadas el primer día de cada mes desde el mes posterior a la firma.",
+      monthlyDesc: "12 cuotas iguales debitadas el primer día de cada mes desde el mes posterior a la firma.",
       total: "Total único de implementación",
-      monthsLabel: "Plazo de cuotas (meses)",
+      monthsLabel: "Plazo de cuotas",
+      monthsValue: "12 meses",
       perMonth: "Cuota mensual",
       schedule: "Calendario",
       day1: "Día 1 de cada mes",
-      tip: "El plazo es ajustable durante la negociación. SYSDE no aplica intereses sobre el saldo diferido.",
+      tip: "Plan estándar SYSDE: 50% firma + 12 cuotas mensuales sin intereses sobre el saldo diferido.",
     },
     en: {
       title: "Payment terms",
       subtitle:
-        "The one-time implementation cost is billed 50% upon contract signature and 50% in equal monthly installments, each on the first day of every month.",
+        "The one-time implementation cost is billed 50% upon contract signature and 50% in 12 equal monthly installments, each on the first day of every month.",
       signing: "50% upon contract signature",
       signingDesc: "Initial payment at signing. Enables PMO ramp-up, kickoff and team mobilization.",
-      monthly: "50% in monthly installments",
-      monthlyDesc: "Equal installments debited on the first day of every month, starting the month after signature.",
+      monthly: "50% in 12 monthly installments",
+      monthlyDesc: "12 equal installments debited on the first day of every month, starting the month after signature.",
       total: "One-time implementation total",
-      monthsLabel: "Installment term (months)",
+      monthsLabel: "Installment term",
+      monthsValue: "12 months",
       perMonth: "Monthly installment",
       schedule: "Schedule",
       day1: "Day 1 of every month",
-      tip: "Term is adjustable during negotiation. SYSDE does not charge interest on the deferred balance.",
+      tip: "SYSDE standard plan: 50% at signing + 12 monthly installments with no interest on the deferred balance.",
     },
   }[lang];
 
@@ -263,20 +265,9 @@ function PaymentTermsSection({ grandTotal }: { grandTotal: number }) {
           <p className="text-xs text-muted-foreground mb-4 leading-relaxed">{t.monthlyDesc}</p>
 
           <div className="space-y-3">
-            <div>
-              <label className="flex items-center justify-between text-xs text-muted-foreground mb-1">
-                <span>{t.monthsLabel}</span>
-                <span className="font-mono font-semibold text-foreground">{months}</span>
-              </label>
-              <input
-                type="range"
-                min={6}
-                max={36}
-                step={1}
-                value={months}
-                onChange={(e) => setMonths(Number(e.target.value))}
-                className="w-full accent-accent cursor-pointer"
-              />
+            <div className="flex items-center justify-between text-xs bg-muted/40 rounded-lg px-3 py-2">
+              <span className="text-muted-foreground">{t.monthsLabel}</span>
+              <span className="font-mono font-bold text-foreground">{t.monthsValue}</span>
             </div>
             <div className="flex items-baseline justify-between border-t border-border pt-3">
               <span className="text-xs text-muted-foreground">{t.perMonth}</span>
