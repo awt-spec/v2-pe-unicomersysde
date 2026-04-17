@@ -85,7 +85,7 @@ export default function ImplementationBreakdown() {
         </div>
       </section>
 
-      {/* ========= 2. Cláusula comercial — Facturación multi-entidad ========= */}
+      {/* ========= 2. Cláusula comercial — Facturación multi-entidad (colapsable) ========= */}
       <section>
         <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mb-3">
@@ -96,12 +96,33 @@ export default function ImplementationBreakdown() {
           </h3>
           <p className="text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             {lang === "es"
-              ? "Configura cómo se factura el costo único de implementación entre las entidades fiscales del grupo Unicomer. Las cláusulas de volumen y escala de grupo están en el tab SaaS Cloud del Anexo."
-              : "Configure how the one-time implementation cost is billed across Unicomer group's tax entities. The volume and group-scale clauses are in the SaaS Cloud tab of the Annex."}
+              ? "Configura cómo se factura el costo único de implementación entre las entidades fiscales del grupo Unicomer. Las cláusulas de volumen, escala de grupo y la facturación multi-entidad de la licencia recurrente están en los tabs On-Premise y SaaS Cloud del Anexo."
+              : "Configure how the one-time implementation cost is billed across Unicomer group's tax entities. Volume / group-scale clauses and multi-entity billing of the recurring license live in the On-Premise and SaaS Cloud tabs of the Annex."}
           </p>
         </div>
 
-        <ClauseMultiEntity />
+        <Collapsible defaultOpen className="rounded-xl border border-border bg-muted/20 overflow-hidden">
+          <CollapsibleTrigger className="w-full px-4 py-3 flex items-center justify-between gap-3 hover:bg-muted/40 transition-colors group">
+            <div className="text-left">
+              <div className="font-semibold text-sm text-foreground">
+                {lang === "es"
+                  ? "Cláusula 3 — Facturación multi-entidad del costo único de implementación"
+                  : "Clause 3 — Multi-entity billing of the one-time implementation cost"}
+              </div>
+              <div className="text-[11px] text-muted-foreground mt-0.5">
+                {lang === "es"
+                  ? "Reparte el monto único de USD $1,205,000 entre las entidades fiscales que Unicomer defina"
+                  : "Split the one-time USD $1,205,000 amount across the tax entities Unicomer defines"}
+              </div>
+            </div>
+            <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0 transition-transform group-data-[state=open]:rotate-180" />
+          </CollapsibleTrigger>
+          <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
+            <div className="p-4 pt-2">
+              <ClauseMultiEntity />
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
       </section>
     </div>
   );
