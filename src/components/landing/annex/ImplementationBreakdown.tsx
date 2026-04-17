@@ -265,20 +265,9 @@ function PaymentTermsSection({ grandTotal }: { grandTotal: number }) {
           <p className="text-xs text-muted-foreground mb-4 leading-relaxed">{t.monthlyDesc}</p>
 
           <div className="space-y-3">
-            <div>
-              <label className="flex items-center justify-between text-xs text-muted-foreground mb-1">
-                <span>{t.monthsLabel}</span>
-                <span className="font-mono font-semibold text-foreground">{months}</span>
-              </label>
-              <input
-                type="range"
-                min={6}
-                max={36}
-                step={1}
-                value={months}
-                onChange={(e) => setMonths(Number(e.target.value))}
-                className="w-full accent-accent cursor-pointer"
-              />
+            <div className="flex items-center justify-between text-xs bg-muted/40 rounded-lg px-3 py-2">
+              <span className="text-muted-foreground">{t.monthsLabel}</span>
+              <span className="font-mono font-bold text-foreground">{t.monthsValue}</span>
             </div>
             <div className="flex items-baseline justify-between border-t border-border pt-3">
               <span className="text-xs text-muted-foreground">{t.perMonth}</span>
