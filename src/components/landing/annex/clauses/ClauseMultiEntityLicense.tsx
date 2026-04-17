@@ -35,7 +35,7 @@ export default function ClauseMultiEntityLicense({ mode, fixedPeriod }: Props) {
 
   // Selección de licencias (solo SaaS): Credit Core y/o Tarjetas
   const [includeCore, setIncludeCore] = useState(true);
-  const [includeCards, setIncludeCards] = useState(true);
+  const [includeCards, setIncludeCards] = useState(false);
 
   // Base: licencia anual on-premise o suma de licencias SaaS seleccionadas (anual o mensual prorrateada)
   const baseAmount = useMemo(() => {
@@ -116,23 +116,43 @@ export default function ClauseMultiEntityLicense({ mode, fixedPeriod }: Props) {
             </div>
             <div className="grid sm:grid-cols-2 gap-3">
               <label className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
-                includeCore ? "border-accent bg-accent/10" : "border-border bg-card hover:border-accent/40"
+                includeCore
+                  ? "border-success bg-success/10"
+                  : "border-destructive/50 bg-destructive/5 hover:border-destructive"
               }`}>
-                <Checkbox checked={includeCore} onCheckedChange={(v) => setIncludeCore(!!v)} className="mt-0.5" />
+                <Checkbox
+                  checked={includeCore}
+                  onCheckedChange={(v) => setIncludeCore(!!v)}
+                  className={`mt-0.5 ${includeCore ? "border-success data-[state=checked]:bg-success data-[state=checked]:border-success" : "border-destructive/60"}`}
+                />
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-bold text-foreground">{L(lng, "Credit Core System", "Credit Core System")}</div>
+                  <div className={`text-sm font-bold ${includeCore ? "text-success" : "text-destructive"}`}>
+                    {L(lng, "Credit Core System", "Credit Core System")}
+                  </div>
                   <div className="text-xs text-muted-foreground">{L(lng, "Licencia anual", "Annual license")}</div>
-                  <div className="text-sm font-mono font-bold text-accent mt-1">{fmtUSD(LICENSE_CREDIT_CORE)}</div>
+                  <div className={`text-sm font-mono font-bold mt-1 ${includeCore ? "text-success" : "text-destructive"}`}>
+                    {fmtUSD(LICENSE_CREDIT_CORE)}
+                  </div>
                 </div>
               </label>
               <label className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
-                includeCards ? "border-accent bg-accent/10" : "border-border bg-card hover:border-accent/40"
+                includeCards
+                  ? "border-success bg-success/10"
+                  : "border-destructive/50 bg-destructive/5 hover:border-destructive"
               }`}>
-                <Checkbox checked={includeCards} onCheckedChange={(v) => setIncludeCards(!!v)} className="mt-0.5" />
+                <Checkbox
+                  checked={includeCards}
+                  onCheckedChange={(v) => setIncludeCards(!!v)}
+                  className={`mt-0.5 ${includeCards ? "border-success data-[state=checked]:bg-success data-[state=checked]:border-success" : "border-destructive/60"}`}
+                />
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-bold text-foreground">{L(lng, "Tarjetas de Crédito", "Credit Cards")}</div>
+                  <div className={`text-sm font-bold ${includeCards ? "text-success" : "text-destructive"}`}>
+                    {L(lng, "Tarjetas de Crédito", "Credit Cards")}
+                  </div>
                   <div className="text-xs text-muted-foreground">{L(lng, "Licencia anual", "Annual license")}</div>
-                  <div className="text-sm font-mono font-bold text-accent mt-1">{fmtUSD(LICENSE_CARDS)}</div>
+                  <div className={`text-sm font-mono font-bold mt-1 ${includeCards ? "text-success" : "text-destructive"}`}>
+                    {fmtUSD(LICENSE_CARDS)}
+                  </div>
                 </div>
               </label>
             </div>
