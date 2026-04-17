@@ -177,10 +177,10 @@ function BreakdownToggle({
   );
 }
 
-// Sección Forma de pago: 50% firma + 50% en cuotas mensuales (día 1 de cada mes)
+// Sección Forma de pago: 50% firma + 50% en 12 cuotas mensuales (día 1 de cada mes)
 function PaymentTermsSection({ grandTotal }: { grandTotal: number }) {
   const { lang } = useT();
-  const [months, setMonths] = useState(18);
+  const months = 12;
   const upfront = grandTotal * 0.5;
   const remainder = grandTotal - upfront;
   const monthly = remainder / months;
