@@ -14,15 +14,12 @@ import { Button } from "@/components/ui/button";
  * NOTE: True secret protection requires a server check; this is a deterrent.
  */
 
-// PBKDF2-SHA256, 200,000 iterations, salt below, password = "Sysde$2026-Unic#9K"
+// PBKDF2-SHA256, 200,000 iterations
 const PBKDF2_SALT_HEX = "5359534445s2026s4143434553535f56324e";
 const PBKDF2_ITERATIONS = 200_000;
-const PBKDF2_HASH_HEX =
-  "PLACEHOLDER"; // filled at module init via verification step? -> we precompute below
 const STORAGE_KEY = "sysde_gate_v2";
-
-// Precomputed PBKDF2 of "Sysde$2026-Unic#9K" with the salt + iterations above.
-const EXPECTED_HASH_HEX = "__SYSDE_HASH__";
+// Precomputed PBKDF2 of the access password with the salt + iterations above.
+const EXPECTED_HASH_HEX = "fcf184b59361a08367d0cc3d0dfea5846303ac35643333bddec2331a0b62cf56";
 
 function hexToBytes(hex: string): Uint8Array {
   const out = new Uint8Array(hex.length / 2);
@@ -43,10 +40,11 @@ async function pbkdf2(password: string): Promise<string> {
     false,
     ["deriveBits"]
   );
+  const saltBytes = hexToBytes(PBKDF2_SALT_HEX);
   const bits = await crypto.subtle.deriveBits(
     {
       name: "PBKDF2",
-      salt: hexToBytes(PBKDF2_SALT_HEX),
+      salt: saltBytes.buffer.slice(saltBytes.byteOffset, saltBytes.byteOffset + saltBytes.byteLength) as ArrayBuffer,
       iterations: PBKDF2_ITERATIONS,
       hash: "SHA-256",
     },
