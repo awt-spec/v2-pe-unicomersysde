@@ -456,8 +456,8 @@ export default function AnnexViewer() {
                         ? "Cláusula 3 — Facturación multi-entidad de la licencia anual"
                         : "Clause 3 — Multi-entity billing of the annual license"}
                       subtitle={lang === "es"
-                        ? "Reparte las licencias anuales (Credit Core + Tarjetas + Factoring) entre las entidades fiscales del grupo"
-                        : "Split the annual licenses (Credit Core + Cards + Factoring) across the group's tax entities"}
+                        ? "Selecciona Credit Core y/o Tarjetas y reparte la licencia entre las entidades fiscales del grupo"
+                        : "Select Credit Core and/or Cards and split the license across the group's tax entities"}
                     >
                       <ClauseMultiEntityLicense mode="saas" />
                     </ClauseToggle>
