@@ -444,21 +444,23 @@ export default function AnnexViewer() {
                     >
                       <ClauseGroupScale />
                     </ClauseToggle>
-
-                    <ClauseToggle
-                      title={lang === "es"
-                        ? "Cláusula 3 — Facturación multi-entidad de la licencia SaaS"
-                        : "Clause 3 — Multi-entity billing of the SaaS license"}
-                      subtitle={lang === "es"
-                        ? "Reparte la licencia SaaS (anual o mensual) entre las entidades fiscales del grupo"
-                        : "Split the SaaS license (annual or monthly) across the group's tax entities"}
-                    >
-                      <ClauseMultiEntityLicense mode="saas" />
-                    </ClauseToggle>
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
                     {licenseBlocks.map((b, i) => <LicenseBlock key={i} {...b} />)}
+                  </div>
+
+                  <div className="mt-6">
+                    <ClauseToggle
+                      title={lang === "es"
+                        ? "Cláusula 3 — Facturación multi-entidad de la licencia anual"
+                        : "Clause 3 — Multi-entity billing of the annual license"}
+                      subtitle={lang === "es"
+                        ? "Reparte las licencias anuales (Credit Core + Tarjetas + Factoring) entre las entidades fiscales del grupo"
+                        : "Split the annual licenses (Credit Core + Cards + Factoring) across the group's tax entities"}
+                    >
+                      <ClauseMultiEntityLicense mode="saas" />
+                    </ClauseToggle>
                   </div>
                 </TabsContent>
 
