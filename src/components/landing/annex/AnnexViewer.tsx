@@ -148,7 +148,7 @@ const TotalRow = ({ children }: { children: React.ReactNode }) => (
 
 export default function AnnexViewer() {
   const { lang, t } = useT();
-  const [tab, setTab] = useState("instructions");
+  const [tab, setTab] = useState("saas");
   const isMobile = useIsMobile();
 
   const TABS = [
