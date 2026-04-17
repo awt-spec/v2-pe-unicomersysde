@@ -19,6 +19,12 @@ import {
   implementationFooterI18n,
   otherCostsI18n,
 } from "./annexDataI18n";
+import {
+  implementationBreakdownI18n,
+  creditDefinitionI18n,
+  saasDeploymentOptionsI18n,
+  commercialClausesI18n,
+} from "./implementationBreakdownData";
 
 type Row = (string | number | null)[];
 
