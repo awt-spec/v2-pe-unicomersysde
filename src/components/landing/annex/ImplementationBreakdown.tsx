@@ -15,9 +15,8 @@ const fmtUSD = (n: number) =>
   `USD $${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 export default function ImplementationBreakdown() {
-  const { lang, t } = useT();
+  const { lang } = useT();
   const data = implementationBreakdownI18n[lang];
-  const credit = creditDefinitionI18n[lang];
   const saas = saasDeploymentOptionsI18n[lang];
   const clauses = commercialClausesI18n[lang];
   const [openClauses, setOpenClauses] = useState(false);
