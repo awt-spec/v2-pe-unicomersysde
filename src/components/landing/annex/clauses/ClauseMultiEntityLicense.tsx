@@ -65,7 +65,7 @@ export default function ClauseMultiEntityLicense({ mode, fixedPeriod }: Props) {
   const removeEntity = (i: number) => setSplits((s) => s.filter((_, j) => j !== i));
   const reset = () => setSplits(initial());
 
-  const decimals = mode === "saas" ? 2 : 0;
+  const decimals = mode === "saas" && period === "monthly" ? 2 : 0;
 
   return (
     <div className="rounded-xl border-2 border-accent/30 bg-card overflow-hidden">
