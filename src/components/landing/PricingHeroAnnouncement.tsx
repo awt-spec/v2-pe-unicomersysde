@@ -272,15 +272,26 @@ const PricingHeroAnnouncement = () => {
 
           {/* Formula: 9 + x = TODOS — Apple-style, interactive (hovers + scroll-driven blur reveal) */}
           <motion.div
-            className="mt-14 md:mt-20"
+            className="mt-20 md:mt-28"
             style={{
               opacity: reduce ? 1 : pillsOpacity,
               y: reduce ? 0 : pillsY,
               transform: reduce ? undefined : "translateZ(30px)",
             }}
           >
-            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-muted-foreground/60 font-medium mb-8">
-              Despliegue multi-país sin límites
+            {/* Visible divider between sections */}
+            <div className="flex items-center justify-center gap-4 mb-10 md:mb-14">
+              <span className="h-px w-16 md:w-24 bg-gradient-to-r from-transparent to-border" />
+              <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_12px_hsl(var(--accent))]" />
+              <span className="h-px w-16 md:w-24 bg-gradient-to-l from-transparent to-border" />
+            </div>
+
+            {/* More prominent eyebrow */}
+            <p className="font-display text-xl md:text-3xl font-semibold text-foreground tracking-tight mb-3">
+              Despliegue multi-país <span className="text-accent">sin límites</span>
+            </p>
+            <p className="text-xs md:text-sm uppercase tracking-[0.4em] text-muted-foreground/70 font-medium mb-10 md:mb-14">
+              La fórmula
             </p>
 
             <div
