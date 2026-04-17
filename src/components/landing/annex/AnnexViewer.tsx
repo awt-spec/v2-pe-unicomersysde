@@ -27,6 +27,7 @@ import {
 } from "./annexDataI18n";
 import { generateAnnexExcel } from "./excelExport";
 import ImplementationBreakdown from "./ImplementationBreakdown";
+import CreditDefinitionCard from "./CreditDefinitionCard";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const fmt = (v: string | number, isCurrency = false, decimals = 0) => {
@@ -320,6 +321,9 @@ export default function AnnexViewer() {
                       </tbody>
                     </TableShell>
                   </div>
+
+                  {/* Definición formal de Crédito Activo (tarjeta expansible) */}
+                  <CreditDefinitionCard />
 
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
                     {licenseBlocks.map((b, i) => <LicenseBlock key={i} {...b} />)}
