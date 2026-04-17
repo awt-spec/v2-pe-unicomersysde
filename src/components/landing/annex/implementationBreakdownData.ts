@@ -322,8 +322,8 @@ export const saasDeploymentOptionsI18n: Record<Lang, {
   footer: string;
 }> = {
   es: {
-    title: "Modelo SaaS — 3 opciones de despliegue sin costo diferencial",
-    intro: "El precio del modelo SaaS es idéntico en las tres topologías. Unicomer elige libremente la que mejor se ajuste a su gobierno de TI, sin penalización económica.",
+    title: "Modelo SaaS — 3 opciones de despliegue",
+    intro: "El precio del modelo SaaS es idéntico en las tres topologías. Unicomer elige libremente la que mejor se ajuste a su gobierno de TI.",
     options: [
       { tag: "Opción 1", title: "Una instancia por país", desc: "Aislamiento máximo, soberanía de datos por jurisdicción, ventanas de mantenimiento independientes.", instances: "9 instancias" },
       { tag: "Opción 2", title: "Por regiones", desc: "Tres regiones consolidadas: HULA (Honduras–Salvador), Sudamérica/Centroamérica y Caribe. Equilibrio entre aislamiento y eficiencia operativa.", instances: "3 instancias" },
@@ -332,8 +332,8 @@ export const saasDeploymentOptionsI18n: Record<Lang, {
     footer: "El cambio entre topologías durante la vigencia del contrato no genera cargo adicional de licenciamiento.",
   },
   en: {
-    title: "SaaS Model — 3 deployment options at no differential cost",
-    intro: "The SaaS price is identical across all three topologies. Unicomer freely chooses the option that best fits its IT governance, with no economic penalty.",
+    title: "SaaS Model — 3 deployment options",
+    intro: "The SaaS price is identical across all three topologies. Unicomer freely chooses the option that best fits its IT governance.",
     options: [
       { tag: "Option 1", title: "One instance per country", desc: "Maximum isolation, data sovereignty per jurisdiction, independent maintenance windows.", instances: "9 instances" },
       { tag: "Option 2", title: "By region", desc: "Three consolidated regions: HULA (Honduras–Salvador), South/Central America and Caribbean. Balance between isolation and operational efficiency.", instances: "3 instances" },
