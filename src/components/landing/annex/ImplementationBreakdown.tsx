@@ -85,97 +85,17 @@ export default function ImplementationBreakdown() {
         </div>
       </section>
 
-
-      {/* ========= 3. Cláusulas comerciales (popup con ejemplos) ========= */}
+      {/* ========= 2. Cláusulas comerciales — INTERACTIVAS ========= */}
       <section>
-        <div className="rounded-xl border-2 border-accent/30 bg-gradient-to-br from-accent/5 via-background to-accent/5 p-6 md:p-8 text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mb-4">
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mb-3">
             <Scale className="h-6 w-6 text-accent" />
           </div>
-          <h3 className="text-xl font-bold text-foreground mb-2">{clauses.title}</h3>
-          <p className="text-sm text-muted-foreground mb-5 max-w-xl mx-auto leading-relaxed">{clauses.intro}</p>
-
-          <Dialog open={openClauses} onOpenChange={setOpenClauses}>
-            <DialogTrigger asChild>
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground gap-2">
-                <FileText className="h-4 w-4" />
-                {lang === "es" ? "Ver cláusulas detalladas" : "View detailed clauses"}
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-3xl max-h-[85vh] p-0 overflow-hidden">
-              <DialogHeader className="px-6 pt-6 pb-4 border-b border-border bg-gradient-to-r from-accent/10 to-transparent">
-                <DialogTitle className="text-xl flex items-center gap-2">
-                  <Scale className="h-5 w-5 text-accent" />
-                  {clauses.title}
-                </DialogTitle>
-                <DialogDescription className="text-sm leading-relaxed pt-1">
-                  {clauses.intro}
-                </DialogDescription>
-              </DialogHeader>
-
-              <ScrollArea className="max-h-[65vh] px-6 py-5">
-                <div className="space-y-5">
-                  {clauses.clauses.map((c, i) => (
-                    <div
-                      key={i}
-                      className="rounded-lg border border-border bg-card p-5 hover:shadow-md transition-shadow"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="shrink-0 w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-bold text-base">
-                          {c.num}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-bold text-foreground text-base mb-2 flex items-center gap-2">
-                            {i === 2 ? <Receipt className="h-4 w-4 text-accent" /> : null}
-                            {c.title}
-                          </h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed mb-3">{c.body}</p>
-                          {c.highlight && (
-                            <div className="inline-block px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 mb-4">
-                              <span className="text-xs font-semibold text-accent">{c.highlight}</span>
-                            </div>
-                          )}
-
-                          {/* Ejemplo numérico */}
-                          <div className="mt-3 rounded-lg border-2 border-dashed border-accent/30 bg-accent/5 p-4">
-                            <div className="flex items-center gap-2 mb-2">
-                              <Calculator className="h-4 w-4 text-accent" />
-                              <span className="text-xs font-bold uppercase tracking-wider text-accent">
-                                {lang === "es" ? "Ejemplo aplicado al pricing" : "Pricing example"}
-                              </span>
-                            </div>
-                            <p className="text-xs text-foreground italic leading-relaxed mb-3">
-                              {c.example.scenario}
-                            </p>
-                            <div className="space-y-1.5 mb-3">
-                              {c.example.steps.map((step, si) => (
-                                <div
-                                  key={si}
-                                  className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-3 gap-y-0.5 text-xs"
-                                >
-                                  <span className="text-muted-foreground">{step.label}</span>
-                                  <span className="font-mono font-semibold text-foreground tabular-nums sm:text-right">
-                                    {step.value}
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
-                            <div className="pt-3 border-t border-accent/20">
-                              <p className="text-xs font-semibold text-accent leading-relaxed">
-                                ✓ {c.example.conclusion}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </ScrollArea>
-            </DialogContent>
-          </Dialog>
+          <h3 className="text-2xl font-bold text-foreground mb-2">{clauses.title}</h3>
+          <p className="text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">{clauses.intro}</p>
         </div>
+
+        <InteractiveClauses />
       </section>
     </div>
   );
