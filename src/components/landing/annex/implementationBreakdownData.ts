@@ -72,10 +72,10 @@ export const implementationBreakdownI18n: Record<Lang, {
         subtotal: { label: "SUBTOTAL SOFTWARE BASE (INDEPENDIENTE PAÍSES)", amount: 810000 },
       },
       {
-        header: "B. PRIMER PAÍS (GUATEMALA · MAYOR COMPLEJIDAD)",
+        header: "B. PRIMER PAÍS (HONDURAS · MAYOR COMPLEJIDAD)",
         items: [
           {
-            title: "Implementación Guatemala",
+            title: "Implementación Honduras",
             bullets: [
               "Análisis y levantamiento local",
               "Configuración regulatoria específica",
@@ -86,17 +86,17 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 230000,
           },
           {
-            title: "Integraciones Locales Guatemala",
+            title: "Integraciones Locales Honduras",
             bullets: [
               "3 integraciones específicas × $28,000",
-              "BANTRAB / SIB (transferencias y reportería bancaria)",
-              "SAT (Superintendencia de Administración Tributaria)",
-              "Burós crédito GT (TransUnion + Crediref)",
+              "ACH Honduras / BCH (transferencias y reportería bancaria)",
+              "SAR (Servicio de Administración de Rentas)",
+              "Burós crédito HN (TransUnion + Equifax HN)",
             ],
             amount: 84000,
           },
           {
-            title: "Capacitación Local Guatemala",
+            title: "Capacitación Local Honduras",
             bullets: [
               "Train-the-trainer local",
               "8 sesiones",
@@ -106,12 +106,12 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 30000,
           },
           {
-            title: "Consultoría Regulatoria Guatemala",
+            title: "Consultoría Regulatoria Honduras",
             bullets: [
-              "Cumplimiento SIB (Superintendencia de Bancos)",
-              "Ley contra el Lavado de Dinero (Ley 67-2001)",
+              "Cumplimiento CNBS (Comisión Nacional de Bancos y Seguros)",
+              "Ley contra el Lavado de Activos (Decreto 144-2014)",
               "Ley de Protección de Datos Personales",
-              "Reportería regulatoria SIB",
+              "Reportería regulatoria CNBS",
             ],
             amount: 25000,
           },
@@ -175,10 +175,10 @@ export const implementationBreakdownI18n: Record<Lang, {
         subtotal: { label: "SUBTOTAL BASE SOFTWARE (COUNTRY-INDEPENDENT)", amount: 810000 },
       },
       {
-        header: "B. FIRST COUNTRY (GUATEMALA · HIGHEST COMPLEXITY)",
+        header: "B. FIRST COUNTRY (HONDURAS · HIGHEST COMPLEXITY)",
         items: [
           {
-            title: "Guatemala Implementation",
+            title: "Honduras Implementation",
             bullets: [
               "Local analysis & requirements",
               "Country-specific regulatory configuration",
@@ -189,17 +189,17 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 230000,
           },
           {
-            title: "Guatemala Local Integrations",
+            title: "Honduras Local Integrations",
             bullets: [
               "3 specific integrations × $28,000",
-              "BANTRAB / SIB (banking transfers & reporting)",
-              "SAT (Tax Administration Superintendence)",
-              "GT Credit Bureaus (TransUnion + Crediref)",
+              "ACH Honduras / BCH (banking transfers & reporting)",
+              "SAR (Revenue Administration Service)",
+              "HN Credit Bureaus (TransUnion + Equifax HN)",
             ],
             amount: 84000,
           },
           {
-            title: "Guatemala Local Training",
+            title: "Honduras Local Training",
             bullets: [
               "Local train-the-trainer",
               "8 sessions",
@@ -209,12 +209,12 @@ export const implementationBreakdownI18n: Record<Lang, {
             amount: 30000,
           },
           {
-            title: "Guatemala Regulatory Consulting",
+            title: "Honduras Regulatory Consulting",
             bullets: [
-              "SIB compliance (Banking Superintendence)",
-              "Anti-Money Laundering Law (Law 67-2001)",
+              "CNBS compliance (National Banking Commission)",
+              "Anti-Money Laundering Law (Decree 144-2014)",
               "Personal Data Protection Law",
-              "SIB regulatory reporting",
+              "CNBS regulatory reporting",
             ],
             amount: 25000,
           },

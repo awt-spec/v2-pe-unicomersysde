@@ -29,6 +29,8 @@ import { generateAnnexExcel } from "./excelExport";
 import ImplementationBreakdown from "./ImplementationBreakdown";
 import CreditDefinitionCard from "./CreditDefinitionCard";
 import SaasOptionsCard from "./SaasOptionsCard";
+import ClauseRecalc from "./clauses/ClauseRecalc";
+import ClauseGroupScale from "./clauses/ClauseGroupScale";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const fmt = (v: string | number, isCurrency = false, decimals = 0) => {
@@ -328,6 +330,27 @@ export default function AnnexViewer() {
 
                   {/* Modelo SaaS — 3 opciones de despliegue */}
                   <SaasOptionsCard />
+
+                  {/* Cláusulas comerciales de volumen y escala de grupo (interactivas) */}
+                  <div className="mt-10 pt-8 border-t-2 border-dashed border-border space-y-6">
+                    <div className="text-center">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 mb-2">
+                        <span className="text-[10px] font-semibold text-accent uppercase tracking-wider">
+                          {t("annex.clausesEyebrow") || (lang === "es" ? "Cláusulas comerciales" : "Commercial clauses")}
+                        </span>
+                      </div>
+                      <h4 className="text-xl font-bold text-foreground mb-1">
+                        {lang === "es" ? "Cláusulas de volumen y escala de grupo" : "Volume and group-scale clauses"}
+                      </h4>
+                      <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
+                        {lang === "es"
+                          ? "Simuladores interactivos basados en las tarifas reales por país de la tabla SaaS. Sin promedios — cada país conserva su tarifa contractual."
+                          : "Interactive simulators based on real per-country rates from the SaaS table. No averages — each country keeps its contractual rate."}
+                      </p>
+                    </div>
+                    <ClauseRecalc />
+                    <ClauseGroupScale />
+                  </div>
 
                   <div className="grid md:grid-cols-3 gap-4 mt-6">
                     {licenseBlocks.map((b, i) => <LicenseBlock key={i} {...b} />)}

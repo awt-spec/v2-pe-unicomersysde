@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Building2, MapPin, Server, Scale } from "lucide-react";
 import { useT } from "@/i18n/LanguageContext";
-import { implementationBreakdownI18n, commercialClausesI18n } from "./implementationBreakdownData";
-import InteractiveClauses from "./InteractiveClauses";
+import { implementationBreakdownI18n } from "./implementationBreakdownData";
+import ClauseMultiEntity from "./clauses/ClauseMultiEntity";
 
 const fmtUSD = (n: number) =>
   `USD $${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -10,7 +10,6 @@ const fmtUSD = (n: number) =>
 export default function ImplementationBreakdown() {
   const { lang } = useT();
   const data = implementationBreakdownI18n[lang];
-  const clauses = commercialClausesI18n[lang];
 
   return (
     <div className="space-y-12 mt-10 pt-10 border-t-2 border-dashed border-border">
@@ -85,17 +84,23 @@ export default function ImplementationBreakdown() {
         </div>
       </section>
 
-      {/* ========= 2. Cláusulas comerciales — INTERACTIVAS ========= */}
+      {/* ========= 2. Cláusula comercial — Facturación multi-entidad ========= */}
       <section>
         <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mb-3">
             <Scale className="h-6 w-6 text-accent" />
           </div>
-          <h3 className="text-2xl font-bold text-foreground mb-2">{clauses.title}</h3>
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">{clauses.intro}</p>
+          <h3 className="text-2xl font-bold text-foreground mb-2">
+            {lang === "es" ? "Cláusula comercial — Facturación multi-entidad" : "Commercial clause — Multi-entity billing"}
+          </h3>
+          <p className="text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            {lang === "es"
+              ? "Configura cómo se factura el costo único de implementación entre las entidades fiscales del grupo Unicomer. Las cláusulas de volumen y escala de grupo están en el tab SaaS Cloud del Anexo."
+              : "Configure how the one-time implementation cost is billed across Unicomer group's tax entities. The volume and group-scale clauses are in the SaaS Cloud tab of the Annex."}
+          </p>
         </div>
 
-        <InteractiveClauses />
+        <ClauseMultiEntity />
       </section>
     </div>
   );
