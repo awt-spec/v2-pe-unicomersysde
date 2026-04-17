@@ -1,113 +1,211 @@
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring, animate } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Apple-style cinematic announcement banner with scroll-driven transitions.
- * - Pinned scroll feel via long min-height + sticky inner content
- * - Parallax on background wash
- * - Staggered blur-to-sharp word reveal driven by scroll progress
- * - Subtle scale/opacity fade-out on exit
+ * Apple-style cinematic announcement with INTERACTIVE elements:
+ *  - Mouse-tracked parallax (3D tilt + orbs follow cursor)
+ *  - Floating reactive orbs that respond to pointer
+ *  - Scroll-driven blur-to-sharp word reveal
+ *  - Animated counters that count when in view
+ *  - Hover-reactive metric pills
  */
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/* Animated counter — counts when triggered */
+const Counter = ({ to, prefix = "", suffix = "", duration = 1.6 }: { to: number; prefix?: string; suffix?: string; duration?: number }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const value = useMotionValue(0);
+  const [display, setDisplay] = useState("0");
+
+  useEffect(() => {
+    const unsub = value.on("change", (v) => {
+      setDisplay(Math.round(v).toLocaleString("en-US"));
+    });
+    return unsub;
+  }, [value]);
+
+  return (
+    <motion.span
+      ref={ref}
+      onViewportEnter={() => animate(value, to, { duration, ease: EASE })}
+      viewport={{ once: true, margin: "-80px" }}
+    >
+      {prefix}{display}{suffix}
+    </motion.span>
+  );
+};
+
 const PricingHeroAnnouncement = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
 
-  // Track when the banner enters → exits the viewport
+  /* ───────── SCROLL-DRIVEN ───────── */
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  // Background wash — slowly drifts and intensifies on entry, fades on exit
   const washOpacity = useTransform(scrollYProgress, [0, 0.25, 0.6, 1], [0, 1, 1, 0.2]);
   const washScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.7, 1.05, 1.2]);
-  const washY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
 
-  // Eyebrow — fades in early, drifts up & out
-  const eyebrowOpacity = useTransform(scrollYProgress, [0.05, 0.18, 0.55, 0.75], [0, 1, 1, 0]);
-  const eyebrowY = useTransform(scrollYProgress, [0.05, 0.25], [16, 0]);
+  const w1Opacity = useTransform(scrollYProgress, [0.08, 0.28, 0.7, 0.85], [0, 1, 1, 0]);
+  const w1Blur = useTransform(scrollYProgress, [0.08, 0.3], [20, 0]);
+  const w1Y = useTransform(scrollYProgress, [0.08, 0.3, 0.7, 0.9], [40, 0, 0, -30]);
 
-  // Headline word 1 — "Propuesta"
-  const w1Opacity = useTransform(scrollYProgress, [0.12, 0.3, 0.7, 0.85], [0, 1, 1, 0]);
-  const w1Blur = useTransform(scrollYProgress, [0.12, 0.32], [20, 0]);
-  const w1Y = useTransform(scrollYProgress, [0.12, 0.32, 0.7, 0.9], [40, 0, 0, -30]);
+  const w2Opacity = useTransform(scrollYProgress, [0.16, 0.36, 0.7, 0.85], [0, 1, 1, 0]);
+  const w2Blur = useTransform(scrollYProgress, [0.16, 0.38], [20, 0]);
+  const w2Y = useTransform(scrollYProgress, [0.16, 0.38, 0.7, 0.9], [40, 0, 0, -30]);
 
-  // Headline word 2 — "Económica"
-  const w2Opacity = useTransform(scrollYProgress, [0.2, 0.4, 0.7, 0.85], [0, 1, 1, 0]);
-  const w2Blur = useTransform(scrollYProgress, [0.2, 0.42], [20, 0]);
-  const w2Y = useTransform(scrollYProgress, [0.2, 0.42, 0.7, 0.9], [40, 0, 0, -30]);
+  const subOpacity = useTransform(scrollYProgress, [0.3, 0.46, 0.7, 0.82], [0, 1, 1, 0]);
+  const subY = useTransform(scrollYProgress, [0.3, 0.48], [20, 0]);
 
-  // Subline — last to appear, lingers, then fades
-  const subOpacity = useTransform(scrollYProgress, [0.32, 0.48, 0.7, 0.82], [0, 1, 1, 0]);
-  const subY = useTransform(scrollYProgress, [0.32, 0.5], [20, 0]);
+  const pillsOpacity = useTransform(scrollYProgress, [0.42, 0.58, 0.7, 0.82], [0, 1, 1, 0]);
+  const pillsY = useTransform(scrollYProgress, [0.42, 0.6], [30, 0]);
 
-  // Hairline scaleX
-  const lineScale = useTransform(scrollYProgress, [0.42, 0.6], [0, 1]);
-  const lineOpacity = useTransform(scrollYProgress, [0.42, 0.55, 0.75, 0.85], [0, 1, 1, 0]);
-
-  // Whole stage — gentle scale "breath" so content feels alive
   const stageScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1, 1.02]);
 
-  // Filter strings (combine blur into CSS filter)
   const w1Filter = useTransform(w1Blur, (v) => `blur(${v}px)`);
   const w2Filter = useTransform(w2Blur, (v) => `blur(${v}px)`);
+
+  /* ───────── MOUSE-DRIVEN ───────── */
+  const mx = useMotionValue(0); // -1 → 1
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 80, damping: 20, mass: 0.5 });
+  const sy = useSpring(my, { stiffness: 80, damping: 20, mass: 0.5 });
+
+  const tiltX = useTransform(sy, [-1, 1], [4, -4]); // rotateX
+  const tiltY = useTransform(sx, [-1, 1], [-4, 4]); // rotateY
+
+  // Orb parallax derived from cursor
+  const orb1X = useTransform(sx, [-1, 1], [-60, 60]);
+  const orb1Y = useTransform(sy, [-1, 1], [-40, 40]);
+  const orb2X = useTransform(sx, [-1, 1], [80, -80]);
+  const orb2Y = useTransform(sy, [-1, 1], [50, -50]);
+  const orb3X = useTransform(sx, [-1, 1], [-30, 30]);
+  const orb3Y = useTransform(sy, [-1, 1], [60, -60]);
+
+  // Wash follows cursor subtly
+  const washX = useTransform(sx, [-1, 1], ["-3%", "3%"]);
+  const washY = useTransform(sy, [-1, 1], ["-3%", "3%"]);
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduce) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    mx.set(nx);
+    my.set(ny);
+  };
+
+  const handleLeave = () => {
+    if (reduce) return;
+    mx.set(0);
+    my.set(0);
+  };
+
+  const metrics = [
+    { value: 9, suffix: "", label: "países hoy" },
+    { value: 1, suffix: "", label: "plataforma" },
+    { value: 0, prefix: "$", suffix: "", label: "por usuario extra" },
+  ];
 
   return (
     <div
       ref={ref}
       className="relative w-full"
-      style={{ minHeight: reduce ? "auto" : "180vh" }}
+      style={{ minHeight: reduce ? "auto" : "200vh" }}
     >
-      {/* Sticky stage — content stays pinned while user scrolls past */}
+      {/* Sticky pinned stage */}
       <div
         className={cn(
           "sticky top-0 left-0 w-full h-screen flex items-center justify-center overflow-hidden",
           reduce && "static h-auto py-32"
         )}
+        onMouseMove={handleMove}
+        onMouseLeave={handleLeave}
       >
-        {/* Background radial wash with parallax */}
+        {/* Radial wash that drifts with cursor */}
         <motion.div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
             opacity: reduce ? 1 : washOpacity,
             scale: reduce ? 1 : washScale,
+            x: reduce ? 0 : washX,
             y: reduce ? 0 : washY,
             background:
-              "radial-gradient(ellipse 70% 50% at 50% 50%, hsl(var(--accent) / 0.12), transparent 70%)",
+              "radial-gradient(ellipse 70% 50% at 50% 50%, hsl(var(--accent) / 0.14), transparent 70%)",
           }}
         />
 
-        {/* Soft top/bottom fade so banner blends into surrounding sections */}
-        <div
-          aria-hidden
-          className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-background to-transparent"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-32 pointer-events-none bg-gradient-to-t from-background to-transparent"
-        />
+        {/* Floating interactive orbs */}
+        {!reduce && (
+          <>
+            <motion.div
+              aria-hidden
+              className="absolute w-[420px] h-[420px] rounded-full pointer-events-none"
+              style={{
+                top: "12%",
+                left: "8%",
+                background: "radial-gradient(circle, hsl(var(--accent) / 0.18), transparent 70%)",
+                filter: "blur(40px)",
+                x: orb1X,
+                y: orb1Y,
+                opacity: washOpacity,
+              }}
+            />
+            <motion.div
+              aria-hidden
+              className="absolute w-[360px] h-[360px] rounded-full pointer-events-none"
+              style={{
+                bottom: "10%",
+                right: "10%",
+                background: "radial-gradient(circle, hsl(var(--accent) / 0.12), transparent 70%)",
+                filter: "blur(50px)",
+                x: orb2X,
+                y: orb2Y,
+                opacity: washOpacity,
+              }}
+            />
+            <motion.div
+              aria-hidden
+              className="absolute w-[280px] h-[280px] rounded-full pointer-events-none"
+              style={{
+                top: "40%",
+                right: "20%",
+                background: "radial-gradient(circle, hsl(var(--foreground) / 0.05), transparent 70%)",
+                filter: "blur(30px)",
+                x: orb3X,
+                y: orb3Y,
+                opacity: washOpacity,
+              }}
+            />
+          </>
+        )}
 
+        {/* Top/bottom blends */}
+        <div aria-hidden className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-background to-transparent z-10" />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-32 pointer-events-none bg-gradient-to-t from-background to-transparent z-10" />
+
+        {/* Content stage with 3D tilt */}
         <motion.div
-          className="relative max-w-6xl mx-auto px-6 text-center"
-          style={{ scale: reduce ? 1 : stageScale }}
+          ref={stageRef}
+          className="relative max-w-6xl mx-auto px-6 text-center z-20"
+          style={{
+            scale: reduce ? 1 : stageScale,
+            rotateX: reduce ? 0 : tiltX,
+            rotateY: reduce ? 0 : tiltY,
+            transformPerspective: 1200,
+            transformStyle: "preserve-3d",
+          }}
         >
-          {/* Eyebrow */}
-          <motion.p
-            className="text-[11px] md:text-xs uppercase tracking-[0.5em] text-muted-foreground/70 font-medium mb-8"
-            style={{
-              opacity: reduce ? 1 : eyebrowOpacity,
-              y: reduce ? 0 : eyebrowY,
-            }}
+          {/* Headline — pushed forward in 3D */}
+          <h2
+            className="font-display font-semibold text-foreground tracking-[-0.04em] leading-[0.95] text-[14vw] md:text-[8.5rem] lg:text-[10rem]"
+            style={{ transform: "translateZ(40px)" }}
           >
-            Capítulo Final
-          </motion.p>
-
-          {/* Headline */}
-          <h2 className="font-display font-semibold text-foreground tracking-[-0.04em] leading-[0.95] text-[14vw] md:text-[8.5rem] lg:text-[10rem]">
             <motion.span
               className="inline-block mr-[0.25em]"
               style={{
@@ -132,10 +230,11 @@ const PricingHeroAnnouncement = () => {
 
           {/* Subline */}
           <motion.p
-            className="mt-10 md:mt-14 text-lg md:text-2xl text-muted-foreground font-light tracking-tight max-w-2xl mx-auto leading-snug"
+            className="mt-10 md:mt-12 text-lg md:text-2xl text-muted-foreground font-light tracking-tight max-w-2xl mx-auto leading-snug"
             style={{
               opacity: reduce ? 1 : subOpacity,
               y: reduce ? 0 : subY,
+              transform: reduce ? undefined : "translateZ(20px)",
             }}
           >
             Una inversión. Una plataforma.
@@ -143,32 +242,53 @@ const PricingHeroAnnouncement = () => {
             <span className="text-foreground/80"> Todos los países.</span>
           </motion.p>
 
-          {/* Hairline */}
+          {/* Interactive metric pills */}
           <motion.div
-            className="mx-auto mt-16 h-px w-16 bg-foreground/20 origin-center"
+            className="mt-12 md:mt-16 flex flex-wrap items-center justify-center gap-3 md:gap-4"
             style={{
-              scaleX: reduce ? 1 : lineScale,
-              opacity: reduce ? 1 : lineOpacity,
+              opacity: reduce ? 1 : pillsOpacity,
+              y: reduce ? 0 : pillsY,
+              transform: reduce ? undefined : "translateZ(30px)",
             }}
-          />
-
-          {/* Scroll affordance — gently bobs while banner is in early state */}
-          {!reduce && (
-            <motion.div
-              className="absolute left-1/2 -translate-x-1/2 bottom-[-4rem] flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.4em] text-muted-foreground/60"
-              style={{
-                opacity: useTransform(scrollYProgress, [0, 0.15, 0.3], [0, 1, 0]),
-              }}
-            >
-              <span>Scroll</span>
-              <motion.span
-                className="block h-6 w-px bg-muted-foreground/40"
-                animate={{ scaleY: [0.3, 1, 0.3], originY: 0 }}
-                transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </motion.div>
-          )}
+          >
+            {metrics.map((m, i) => (
+              <motion.div
+                key={m.label}
+                whileHover={reduce ? undefined : { scale: 1.06, y: -4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="group relative cursor-default"
+              >
+                <div className="absolute inset-0 rounded-full bg-accent/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative flex items-center gap-3 px-5 py-3 rounded-full border border-border/60 bg-card/60 backdrop-blur-md hover:border-accent/50 transition-colors duration-300">
+                  <span className="text-2xl md:text-3xl font-display font-bold text-foreground tabular-nums">
+                    <Counter to={m.value} prefix={m.prefix ?? ""} suffix={m.suffix ?? ""} />
+                  </span>
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                    {m.label}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </motion.div>
+
+        {/* Scroll cue */}
+        {!reduce && (
+          <motion.div
+            className="absolute left-1/2 -translate-x-1/2 bottom-8 flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.4em] text-muted-foreground/60 z-20"
+            style={{
+              opacity: useTransform(scrollYProgress, [0, 0.12, 0.25], [0, 1, 0]),
+            }}
+          >
+            <span>Scroll</span>
+            <motion.span
+              className="block h-6 w-px bg-muted-foreground/40"
+              animate={{ scaleY: [0.3, 1, 0.3] }}
+              style={{ transformOrigin: "top" }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.div>
+        )}
       </div>
     </div>
   );
